@@ -7,8 +7,9 @@ public class AddTwoNumbers extends BaseClass {
     ListNode target;
 
     @Override
-    public void test() {
+    public Object test() {
         ListNode output = addTwoNumbers(input, target);
+        return output;
     }
 
 

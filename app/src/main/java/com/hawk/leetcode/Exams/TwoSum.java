@@ -9,19 +9,29 @@ import java.util.Map;
 import static com.hawk.leetcode.Global.TAG;
 
 public class TwoSum extends BaseClass {
-    int   target = 9;
-    int[] input = {2,15,7,19};
+    public static int   target = 9;
+    public static int[] input = {2,15,7,19};
 
     public TwoSum() {
 
     }
 
     @Override
-    public void test() {
+    public Object test() {
+
         int[] output = twoSum(input, target);
         Log.i(TAG,"output index = "+ output[0]+" , " +output[1] );
-
+        return output;
     }
+
+    @Override
+    public Object test(Object... objs) {
+        System.out.println("input = "+ objs[0]+" , target = " + objs[1] );
+        int[] output = twoSum((int[]) objs[0], (int)objs[1]);
+        System.out.println("output index = [ "+ output[0]+" , " +output[1] +" ]");
+        return output;
+    }
+
 
 
     public int[] twoSum(int[] nums, int target) {

@@ -1,9 +1,7 @@
 package com.hawk.leetcode;
 
-import android.util.Log;
-
-import static com.hawk.leetcode.Global.TAG;
 
 public abstract class BaseClass {
-    abstract public void test();
+    public Object test() { return null;}
+    public Object test(Object... objs) { return null;}
 }
