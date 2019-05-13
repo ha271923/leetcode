@@ -1,4 +1,4 @@
-package com.hawk.leetcode.Exams;
+package com.hawk.leetcode;
 
 import android.util.Log;
 

@@ -18,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import static com.hawk.leetcode.DataItem.findMatchingClass;
 import static com.hawk.leetcode.Global.TAG;
 
 /**
@@ -101,8 +100,25 @@ public class MainActivity extends ExpandableListActivity {
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
         Toast.makeText(this, "child => group=" + groupPosition + ", child=" + childPosition, Toast.LENGTH_SHORT).show();
         Log.i(TAG, "onChildClick()    groupPos="+groupPosition+"    childPos="+childPosition);
-        findMatchingClass(groupPosition, childPosition);
+        findMatchClass(groupPosition, childPosition);
         return super.onChildClick(parent, v, groupPosition, childPosition, id);
+    }
+
+    public static boolean findMatchClass(int groupPos, int childPos) {
+        String clazz = DataItem.children[groupPos][childPos];
+        Class cls= null;
+        try {
+            // Dynamic Programming
+            cls = Class.forName("com.hawk.leetcode.Exams." + clazz);
+            Log.e(TAG, "Class found = " + cls.getName());
+            Log.e(TAG, "Package = " + cls.getPackage());
+            Object obj = cls.newInstance();
+            ((BaseClass)obj).test();
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
+            Log.e(TAG, e.toString());
+            e.printStackTrace();
+        }
+        return true;
     }
 
     /**

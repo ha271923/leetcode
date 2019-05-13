@@ -1,8 +1,6 @@
 package com.hawk.leetcode.Exams;
 
-import android.util.Log;
-
-import static com.hawk.leetcode.Global.TAG;
+import com.hawk.leetcode.BaseClass;
 
 public class AddTwoNumbers extends BaseClass {
     ListNode input;
