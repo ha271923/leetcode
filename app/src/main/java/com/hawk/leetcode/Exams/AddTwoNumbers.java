@@ -1,19 +1,51 @@
 package com.hawk.leetcode.Exams;
 
+import android.util.Log;
+
 import com.hawk.leetcode.BaseClass;
 
-public class AddTwoNumbers extends BaseClass {
-    ListNode input;
-    ListNode target;
+import static com.hawk.leetcode.Global.TAG;
 
-    @Override
-    public Object test() {
-        ListNode output = addTwoNumbers(input, target);
-        return output;
+public class AddTwoNumbers extends BaseClass {
+    public static ListNode input1;
+    public static ListNode input2;
+    ListNode output;
+
+
+    public AddTwoNumbers(){
+        ListNode a1 = new ListNode(1);
+        ListNode a2 = new ListNode(2);
+        ListNode a3 = new ListNode(3);
+        a1.next = a2; a2.next = a3; a3.next = null;
+        input1 = a1;
+
+        ListNode b1 = new ListNode(4);
+        ListNode b2 = new ListNode(5);
+        ListNode b3 = new ListNode(6);
+        b1.next = b2; b2.next = b3; b3.next = null;
+        input2 = b1;
     }
 
 
-    class ListNode{
+    @Override
+    public Object test() {
+        output = addTwoNumbers(input1, input2);
+        return output;
+    }
+
+    @Override
+    public Object result() {
+        int total = 0;
+        ListNode node = output;
+         for (int i = 0; node != null; i++) {
+             // Log.i(TAG,i+ " node.val = "+ node.val);
+             System.out.println(i+ " node.val = "+ node.val);
+             node = node.next;
+        }
+        return output;
+    }
+
+    public class ListNode{
         int val;
         ListNode next;
         ListNode(int val){

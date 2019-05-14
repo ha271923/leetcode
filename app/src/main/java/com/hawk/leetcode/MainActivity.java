@@ -114,6 +114,7 @@ public class MainActivity extends ExpandableListActivity {
             Log.e(TAG, "Package = " + cls.getPackage());
             Object obj = cls.newInstance();
             ((BaseClass)obj).test();
+            ((BaseClass)obj).result();
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
             Log.e(TAG, e.toString());
             e.printStackTrace();

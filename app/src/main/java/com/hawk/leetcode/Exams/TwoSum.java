@@ -11,6 +11,7 @@ import static com.hawk.leetcode.Global.TAG;
 public class TwoSum extends BaseClass {
     public static int   target = 9;
     public static int[] input = {2,15,7,19};
+    int[] output;
 
     public TwoSum() {
 
@@ -18,11 +19,17 @@ public class TwoSum extends BaseClass {
 
     @Override
     public Object test() {
-
-        int[] output = twoSum(input, target);
+        output = twoSum(input, target);
         Log.i(TAG,"output index = "+ output[0]+" , " +output[1] );
         return output;
     }
+
+    @Override
+    public Object result() {
+        Log.i(TAG,"output index = "+ output[0]+" , " +output[1] );
+        return output;
+    }
+
 
     @Override
     public Object test(Object... objs) {
