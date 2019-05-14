@@ -16,6 +16,60 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {
+        main {
+            java {
+
+                // these files with lambda can only build by JAVA1.8+
+                exclude 'com/freetymekiyan/algorithms/level/hard/MergeKSortedList.java'
+                exclude 'com/freetymekiyan/algorithms/level/hard/PerfectRectangle.java'
+                exclude 'com/freetymekiyan/algorithms/level/hard/TheSkylineProblem.java'
+                exclude 'com/freetymekiyan/algorithms/level/hard/DesignSearchAutocompleteSystem.java'
+                exclude 'com/freetymekiyan/algorithms/level/medium/NonOverlappingIntervals.java'
+                exclude 'com/freetymekiyan/algorithms/level/medium/PermutationInString.java'
+                exclude 'com/freetymekiyan/algorithms/level/medium/MeetingRooms2.java'
+                exclude 'com/freetymekiyan/algorithms/level/medium/AccountsMerge.java'
+                exclude 'com/freetymekiyan/algorithms/level/medium/FindKPairsWithSmallestSums.java'
+                exclude 'com/freetymekiyan/algorithms/level/medium/NetworkDelayTime.java'
+                exclude 'com/freetymekiyan/algorithms/level/medium/FindRightInterval.java'
+                exclude 'com/freetymekiyan/algorithms/level/medium/SerializeAndDeserializeBst.java'
+                exclude 'com/freetymekiyan/algorithms/level/medium/SubArraySumEqualsK.java'
+                exclude 'com/freetymekiyan/algorithms/level/medium/MergeIntervals.java'
+                exclude 'com/freetymekiyan/algorithms/level/easy/IntersectionofTwoArrays2.java'
+                exclude 'com/freetymekiyan/algorithms/level/easy/MeetingRooms.java'
+                exclude 'com/freetymekiyan/algorithms/level/easy/IntersectionofTwoArrays.java'
+                exclude 'com/freetymekiyan/algorithms/other/MedianOfNSortedArrays.java'
+                exclude 'com/freetymekiyan/algorithms/other/UserSessions.java'
+                exclude 'com/freetymekiyan/algorithms/other/RateLimiter.java'
+                exclude 'com/freetymekiyan/algorithms/other/MergeIntervalsToCoverTarget.java'
+
+                // fail at dependency
+                exclude 'com/freetymekiyan/algorithms/level/hard/WordLadder2.java'
+                exclude 'com/freetymekiyan/algorithms/level/hard/AlienDictionary.java'
+                exclude 'com/freetymekiyan/algorithms/level/medium/Combinations.java'
+                exclude 'com/freetymekiyan/algorithms/level/medium/Subsets.java'
+                exclude 'com/freetymekiyan/algorithms/level/medium/BinaryTreeZigzagLevelOrderTraversal.java'
+                exclude 'com/freetymekiyan/algorithms/level/medium/ShortestWordDistance2.java'
+                exclude 'com/freetymekiyan/algorithms/level/medium/FactorCombinations.java'
+                exclude 'com/freetymekiyan/algorithms/level/medium/CombinationSum3.java'
+                exclude 'com/freetymekiyan/algorithms/level/medium/NumberOfCornerRectangles.java'
+                exclude 'com/freetymekiyan/algorithms/level/medium/MinimumHeightTrees.java'
+                exclude 'com/freetymekiyan/algorithms/level/medium/CourseSchedule.java'
+                exclude 'com/freetymekiyan/algorithms/level/medium/GroupAnagrams.java'
+                exclude 'com/freetymekiyan/algorithms/level/medium/Subsets2.java'
+                exclude 'com/freetymekiyan/algorithms/level/medium/CourseSchedule2.java'
+                exclude 'com/freetymekiyan/algorithms/level/medium/BinaryTreeVerticalOrderTraversal.java'
+                exclude 'com/freetymekiyan/algorithms/level/medium/FindLeavesOfBinaryTree.java'
+                exclude 'com/freetymekiyan/algorithms/level/medium/StrobogrammaticNumber2.java'
+                exclude 'com/freetymekiyan/algorithms/level/easy/AverageOfLevelsInBinaryTree.java'
+                exclude 'com/freetymekiyan/algorithms/level/easy/BinaryTreeLevelOrderTraversal.java'
+                exclude 'com/freetymekiyan/algorithms/other/GraphPaths.java'
+
+
+            }
+        }
+    }
 }
 
 dependencies {
