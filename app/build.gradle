@@ -72,6 +72,29 @@ android {
                 // exclude 'com/freetymekiyan/algorithms/level/easy/BinaryTreeLevelOrderTraversal.java'
                 // exclude 'com/freetymekiyan/algorithms/other/GraphPaths.java'
 
+                // Run Test
+
+                // find List.of instead API
+                exclude '/home/hawk_wei/APP/leetcode/app/src/test/java/com/freetymekiyan/algorithms/level/hard/TextJustificationTest.java'
+                exclude '/home/hawk_wei/APP/leetcode/app/src/test/java/com/freetymekiyan/algorithms/level/hard/DecodeWays2Test.java'
+                exclude '/home/hawk_wei/APP/leetcode/app/src/test/java/com/freetymekiyan/algorithms/level/hard/WordLadder2Test.java'
+                exclude '/home/hawk_wei/APP/leetcode/app/src/test/java/com/freetymekiyan/algorithms/level/hard/WordLadder2Test.java'
+                exclude '/home/hawk_wei/APP/leetcode/app/src/test/java/com/freetymekiyan/algorithms/level/hard/PalindromePairsTest.java'
+                exclude '/home/hawk_wei/APP/leetcode/app/src/test/java/com/freetymekiyan/algorithms/level/hard/DesignSearchAutocompleteSystemTest.java'
+                exclude '/home/hawk_wei/APP/leetcode/app/src/test/java/com/freetymekiyan/algorithms/level/medium/BinaryTreeInOrderTraversalTest.java'
+                exclude '/home/hawk_wei/APP/leetcode/app/src/test/java/com/freetymekiyan/algorithms/level/medium/ClosestLeafInABinaryTreeTest.java'
+                exclude '/home/hawk_wei/APP/leetcode/app/src/test/java/com/freetymekiyan/algorithms/level/medium/StrobogrammaticNumber2Test.java'
+                exclude '/home/hawk_wei/APP/leetcode/app/src/test/java/com/freetymekiyan/algorithms/level/medium/MaximumSwapTest.java'
+                exclude '/home/hawk_wei/APP/leetcode/app/src/test/java/com/freetymekiyan/algorithms/level/medium/PalindromicSubstringsTest.java'
+                exclude '/home/hawk_wei/APP/leetcode/app/src/test/java/com/freetymekiyan/algorithms/level/medium/ExclusiveTimeOfFunctionsTest.java'
+                exclude '/home/hawk_wei/APP/leetcode/app/src/test/java/com/freetymekiyan/algorithms/level/medium/AccountsMergeTest.java'
+                exclude '/home/hawk_wei/APP/leetcode/app/src/test/java/com/freetymekiyan/algorithms/level/easy/FizzBuzzTest.java'
+                exclude '/home/hawk_wei/APP/leetcode/app/src/test/java/com/freetymekiyan/algorithms/level/easy/AverageOfLevelsInBinaryTreeTest.java'
+                exclude '/home/hawk_wei/APP/leetcode/app/src/test/java/com/freetymekiyan/algorithms/level/easy/LongestContinuousIncreasingSubsequenceTest.java'
+                exclude '/home/hawk_wei/APP/leetcode/app/src/test/java/com/freetymekiyan/algorithms/other/TotalNumberOfSecondsTest.java'
+                exclude '/home/hawk_wei/APP/leetcode/app/src/test/java/com/freetymekiyan/algorithms/other/GraphPathsTest.java'
+                exclude '/home/hawk_wei/APP/leetcode/app/src/test/java/com/freetymekiyan/algorithms/other/LCAOfDeepestLeavesTest.java'
+                exclude '/home/hawk_wei/APP/leetcode/app/src/test/java/com/freetymekiyan/algorithms/other/ThreeSumReuseOnceTest.java'
 
             }
         }
@@ -85,8 +108,10 @@ dependencies {
     // Android test ++++++++++++++++++ https://developer.android.com/training/testing/start/index.html
     // Required for local unit tests (JUnit 4 framework), A JUnit 4-compatible test runner for JAVA.
     testCompile 'junit:junit:4.12'
+    // testNG for freetymekiyan
+    testCompile 'org.testng:testng:6.10' //
     // Required for instrumented tests
-    // androidTestCompile 'com.android.support.test:runner:1.0.2'
+    testCompile 'com.android.support.test:runner:1.0.2'
     // Optional -- Mockito framework
     // testCompile 'org.mockito:mockito-core:1.10.19' // https://github.com/mockito/mockito/tree/release/2.x/src/main/java/org/mockito
     // Optional -- Hamcrest library
