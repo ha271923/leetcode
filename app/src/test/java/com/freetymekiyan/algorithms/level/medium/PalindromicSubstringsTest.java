@@ -3,13 +3,14 @@ package com.freetymekiyan.algorithms.level.medium;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class PalindromicSubstringsTest {
 
-    private static final List<String> INPUTS = Collections.unmodifiableList(List.of("abc", "aaa"));
-    private static final List<Integer> OUTPUTS = Collections.unmodifiableList(List.of(3, 6));
+    private static final List<String> INPUTS = Collections.unmodifiableList(Arrays.asList("abc", "aaa"));
+    private static final List<Integer> OUTPUTS = Collections.unmodifiableList(Arrays.asList(3, 6));
 
     @Test
     public void testCountSubstringsExamples() {

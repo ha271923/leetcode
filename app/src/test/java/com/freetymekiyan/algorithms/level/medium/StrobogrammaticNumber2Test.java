@@ -5,6 +5,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -14,9 +15,9 @@ public class StrobogrammaticNumber2Test {
     @DataProvider(name = "examples")
     public Object[][] getExamples() {
         return new Object[][]{
-                new Object[]{1, List.of("0", "1", "8")},
-                new Object[]{2, List.of("11", "88", "69", "96")},
-                new Object[]{3, List.of("101", "111", "181", "808", "818", "888", "609", "619", "689", "906", "916", "986")}
+                new Object[]{1, Arrays.asList("0", "1", "8")},
+                new Object[]{2, Arrays.asList("11", "88", "69", "96")},
+                new Object[]{3, Arrays.asList("101", "111", "181", "808", "818", "888", "609", "619", "689", "906", "916", "986")}
         };
     }
 

@@ -3,14 +3,15 @@ package com.freetymekiyan.algorithms.level.easy;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class LongestContinuousIncreasingSubsequenceTest {
 
-    private static final List<Integer> INPUT1 = Collections.unmodifiableList(List.of(1, 3, 5, 4, 7));
+    private static final List<Integer> INPUT1 = Collections.unmodifiableList(Arrays.asList(1, 3, 5, 4, 7));
     private static final int OUTPUT1 = 3;
-    private static final List<Integer> INPUT2 = Collections.unmodifiableList(List.of(2, 2, 2, 2, 2));
+    private static final List<Integer> INPUT2 = Collections.unmodifiableList(Arrays.asList(2, 2, 2, 2, 2));
     private static final int OUTPUT2 = 1;
 
     @Test

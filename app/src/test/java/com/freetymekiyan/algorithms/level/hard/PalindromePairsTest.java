@@ -5,6 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class PalindromePairsTest {
@@ -12,8 +13,8 @@ public class PalindromePairsTest {
     @DataProvider(name = "examples")
     public Object[][] getExamples() {
         return new Object[][]{
-                new Object[]{new String[]{"bat", "tab", "cat"}, List.of(List.of(0, 1), List.of(1, 0))},
-                new Object[]{new String[]{"abcd", "dcba", "lls", "s", "sssll"}, List.of(List.of(0, 1), List.of(1, 0), List.of(3, 2), List.of(2, 4))},
+                new Object[]{new String[]{"bat", "tab", "cat"}, Arrays.asList(Arrays.asList(0, 1), Arrays.asList(1, 0))},
+                new Object[]{new String[]{"abcd", "dcba", "lls", "s", "sssll"}, Arrays.asList(Arrays.asList(0, 1), Arrays.asList(1, 0), Arrays.asList(3, 2), Arrays.asList(2, 4))},
         };
     }
 

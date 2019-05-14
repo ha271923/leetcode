@@ -4,20 +4,21 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class TextJustificationTest {
 
     @DataProvider(name = "examples")
     public Object[][] getExamples() {
-        List<String> expected = List.of(
+        List<String> expected = Arrays.asList(
                 "This    is    an",
                 "example  of text",
                 "justification.  "
         );
         return new Object[][]{
                 new Object[]{new String[]{"This", "is", "an", "example", "of", "text", "justification."}, 16, expected},
-                new Object[]{new String[]{""}, 2, List.of("  ")}
+                new Object[]{new String[]{""}, 2, Arrays.asList("  ")}
         };
     }
 

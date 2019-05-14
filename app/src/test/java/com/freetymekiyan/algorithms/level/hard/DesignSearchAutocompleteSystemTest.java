@@ -3,6 +3,7 @@ package com.freetymekiyan.algorithms.level.hard;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -14,10 +15,10 @@ public class DesignSearchAutocompleteSystemTest {
         int[] times = {5, 3, 2, 2};
         DesignSearchAutocompleteSystem.AutocompleteSystem system = new DesignSearchAutocompleteSystem.AutocompleteSystem(sentences, times);
         List<String> result = system.input('i');
-        List<String> expected = List.of("i love you", "island", "i love leetcode");
+        List<String> expected = Arrays.asList("i love you", "island", "i love leetcode");
         Assert.assertArrayEquals(expected.toArray(new String[]{}), result.toArray(new String[]{}));
         result = system.input(' ');
-        expected = List.of("i love you", "i love leetcode");
+        expected = Arrays.asList("i love you", "i love leetcode");
         Assert.assertArrayEquals(expected.toArray(new String[]{}), result.toArray(new String[]{}));
         result = system.input('a');
         expected = Collections.emptyList();

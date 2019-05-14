@@ -13,10 +13,10 @@ public class WordLadder2Test {
     public Object[][] getExamples() {
         return new Object[][]{
                 new Object[]{"hit", "cog", Arrays.asList("hot", "dot", "dog", "lot", "log", "cog"),
-                        List.of(List.of("hit", "hot", "dot", "dog", "cog"), List.of("hit", "hot", "lot", "log", "cog"))},
-                new Object[]{"a", "c", Arrays.asList("a", "b", "c"), List.of(List.of("a", "c"))},
+                        Arrays.asList(Arrays.asList("hit", "hot", "dot", "dog", "cog"), Arrays.asList("hit", "hot", "lot", "log", "cog"))},
+                new Object[]{"a", "c", Arrays.asList("a", "b", "c"), Arrays.asList(Arrays.asList("a", "c"))},
                 new Object[]{"red", "tax", Arrays.asList("ted", "tex", "red", "tax", "tad", "den", "rex", "pee"),
-                        List.of(List.of("red", "ted", "tad", "tax"), List.of("red", "ted", "tex", "tax"), List.of("red", "rex", "tex", "tax"))}
+                        Arrays.asList(Arrays.asList("red", "ted", "tad", "tax"), Arrays.asList("red", "ted", "tex", "tax"), Arrays.asList("red", "rex", "tex", "tax"))}
         };
     }
 

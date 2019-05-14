@@ -5,6 +5,7 @@ import com.freetymekiyan.algorithms.utils.Utils.TreeNode;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -24,6 +25,6 @@ public class GraphPathsTest {
         node3.right = node5;
         node4.left = node3;
         GraphPaths g = new GraphPaths();
-        Assert.assertTrue(Utils.compareListsIgnoreOrder(g.graphPaths(node1), List.of("1->2->4->3->5", "1->3->5")));
+        Assert.assertTrue(Utils.compareListsIgnoreOrder(g.graphPaths(node1), Arrays.asList("1->2->4->3->5", "1->3->5")));
     }
 }

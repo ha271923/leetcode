@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class TotalNumberOfSecondsTest {
@@ -11,10 +12,10 @@ public class TotalNumberOfSecondsTest {
     @DataProvider(name = "examples")
     public Object[][] getExamples() {
         return new Object[][]{
-                new Object[]{List.of(new int[]{0, 1}, new int[]{1, 2}), 2},
-                new Object[]{List.of(new int[]{0, 5}, new int[]{4, 6}), 6},
-                new Object[]{List.of(new int[]{4, 6}, new int[]{1, 3}), 4},
-                new Object[]{List.of(new int[]{4, 6}, new int[]{1, 8}), 7}
+                new Object[]{Arrays.asList(new int[]{0, 1}, new int[]{1, 2}), 2},
+                new Object[]{Arrays.asList(new int[]{0, 5}, new int[]{4, 6}), 6},
+                new Object[]{Arrays.asList(new int[]{4, 6}, new int[]{1, 3}), 4},
+                new Object[]{Arrays.asList(new int[]{4, 6}, new int[]{1, 8}), 7}
         };
     }
 

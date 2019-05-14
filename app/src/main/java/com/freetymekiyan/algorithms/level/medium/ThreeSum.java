@@ -63,7 +63,7 @@ class ThreeSum {
                 } else if (nums[i] + nums[j] + nums[k] > 0) {
                     k--;
                 } else { // Sum is 0.
-                    res.add(Arrays.asList(nums[i], nums[j], nums[k])); // In Java 9, res.add(List.of(nums[i], nums[j], nums[k]));
+                    res.add(Arrays.asList(nums[i], nums[j], nums[k])); // In Java 9, res.add(Arrays.asList(nums[i], nums[j], nums[k]));
                     j++; // Note to update pointers!
                     k--;
                 }

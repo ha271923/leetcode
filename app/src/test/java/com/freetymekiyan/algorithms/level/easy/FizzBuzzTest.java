@@ -3,6 +3,7 @@ package com.freetymekiyan.algorithms.level.easy;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class FizzBuzzTest {
@@ -10,7 +11,7 @@ public class FizzBuzzTest {
     @Test
     public void testFizzBuzz() {
         int n = 15;
-        List<String> expected = List.of(
+        List<String> expected = Arrays.asList(
                 "1",
                 "2",
                 "Fizz",
