@@ -22,7 +22,7 @@ import java.util.Map;
 public class StrobogrammaticNumber2 {
 
     // private static final Map<Integer, Integer> PAIRS = Map.of(0, 0, 1, 1, 8, 8, 6, 9, 9, 6); // HAWK: to prevent build failed, remark it.
-    private static final Map<Integer, Integer> PAIRS = null; // HAWK: FAKE, for build pass only.
+    private static final Map<Integer, Integer> PAIRS = null; // // HAWK: FAKE, Map.of() by Android not support JDK9 yet
     /**
      * Recursive.
      * 0, 1, 8 are absolutely strobogrammatic. 6, 9 form a pair.
