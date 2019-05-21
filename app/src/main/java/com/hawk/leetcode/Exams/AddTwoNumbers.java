@@ -53,7 +53,7 @@ public class AddTwoNumbers extends BaseClass {
             this.next=null;
         }
     }
-
+/*
     public ListNode addTwoNumbers(ListNode p, ListNode q) {
         ListNode dummyHead = new ListNode(0);
         ListNode curr = dummyHead;
@@ -73,9 +73,62 @@ public class AddTwoNumbers extends BaseClass {
         }
         return dummyHead.next;
     }
+*/
 
+    private int detphNode(ListNode node) {
+        int depth = 0;
+        ListNode temp;
+        // 1. check depth of node
+        temp = node;
+        while(temp!= null) {
+            ++depth;
+            temp = temp.next;
+        }
+        return depth;
+    }
 
+    // Solution1: add every node with carry
+    public ListNode addTwoNumbers(ListNode p, ListNode q) {
+        int pDepth = detphNode(p);
+        int qDepth = detphNode(q);
 
+        // 2. Algorithm can only consider param1 > param2 input.
+        if(qDepth > qDepth)
+            addTwoNumbers(q, p);
+
+        int shift = pDepth - qDepth;
+        int carry = 0;
+
+        ListNode out = new ListNode(0);
+        while(p != null || q != null) {
+            ListNode temp = new ListNode(0);
+            // depth not equal
+            if( p != null && q == null) {
+                out.val = p.val + carry;
+                out.next = temp;
+                out = out.next;
+                p.next = p;
+                continue;
+            }
+            // depth equal
+            int sum  = p.val + q.val + carry;
+            carry = 0;
+            if(sum > 9) {
+                out.val = sum % 10;
+                carry = 1; // for next round
+            } else {
+                out.val = sum;
+            }
+
+            p = p.next;
+            q = q.next;
+            out.next = temp;
+            out = out.next;
+        }
+        return out;
+    }
+
+    // Solution2: translate to integer, and then new a result node.
 
 }
 
