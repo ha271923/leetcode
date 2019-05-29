@@ -30,6 +30,7 @@ public class MedianofTwoSortedArrays {
      O(log(min(m,n)))
 
      参考博客：http://blog.csdn.net/chen_xinjia/article/details/69258706
+     https://www.jianshu.com/p/21f570caca89
 
      index: 0	1	2	3	4	5
                L1   R1
