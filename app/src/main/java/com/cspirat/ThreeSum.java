@@ -73,7 +73,7 @@ public class ThreeSum {
                     while (low < high && nums[high] == nums[high - 1]) // 遇到重複數字，避免結果是重複數組，不斷跳過重複的數，找下一個右半部不重複數
                         high--;
                     low++;// 沒有重複數，所以換下一個數來做
-                    high--;//  Q:??? 為什麼不將之一low++或high--就好, 而將兩者都++&--,
+                    high--;//  Q:??? 為什麼不將之一low++或high--就好, 而將兩者都++&--, A: 因為前次L1+H1=Sum, 所以在濾掉重複值之下L2+H1或L1+H2是不可能=同一 個Sum,只有L2與H2同時變化, 才有可能出現下次的Sum
                 } else if (nums[low] + nums[high] < sum) {
                     low++; // 需要找更大的數
                 } else high--; // 需要找更小的數
