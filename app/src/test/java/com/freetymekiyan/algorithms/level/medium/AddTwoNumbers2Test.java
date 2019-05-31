@@ -2,17 +2,32 @@ package com.freetymekiyan.algorithms.level.medium;
 
 import com.freetymekiyan.algorithms.utils.Utils;
 import com.freetymekiyan.algorithms.utils.Utils.ListNode;
+import com.hawk.leetcode.Exams.AddTwoNumbers;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class AddTwoNumbers2Test {
+    public ListNode input1;
+    public ListNode input2;
 
     @Test
     public void testAddTwoNumbersWithCarry() {
-        ListNode l1 = Utils.buildLinkedList(new int[]{7, 2, 4, 3});
-        ListNode l2 = Utils.buildLinkedList(new int[]{5, 6, 4});
+
+        ListNode a1 = new ListNode(1);
+        ListNode a2 = new ListNode(2);
+        ListNode a3 = new ListNode(3);
+        a1.next = a2; a2.next = a3; a3.next = null;
+        input1 = a1;
+
+        ListNode b1 = new ListNode(4);
+        ListNode b2 = new ListNode(5);
+        ListNode b3 = new ListNode(6);
+        b1.next = b2; b2.next = b3; b3.next = null;
+        input2 = b1;
+
         AddTwoNumbers2 a = new AddTwoNumbers2();
-        ListNode result = a.addTwoNumbers(l1, l2);
+        ListNode result = a.addTwoNumbers(input1, input2);
         int[] expectedValues = new int[]{7, 8, 0, 7};
         Assert.assertNotNull(result);
         compare(expectedValues, result);

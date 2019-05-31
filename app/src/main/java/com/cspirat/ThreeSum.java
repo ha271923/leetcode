@@ -68,10 +68,12 @@ public class ThreeSum {
             while (low < high) { //　 idx={low-->往左逼近 往右逼近<--high} , 各自管理各自的數組範圍
                 if (nums[low] + nums[high] == sum) { // 找到了
                     res.add(Arrays.asList(nums[i], nums[low], nums[high])); // 將結果存入
-                    while (low < high && nums[low] == nums[low + 1]) low++; // 遇到重複數字，避免結果是重複數組，不斷跳過重複的數，找下一個不重複數
-                    while (low < high && nums[high] == nums[high - 1]) high--; // 遇到重複數字，避免結果是重複數組，不斷跳過重複的數，找下一個不重複數
+                    while (low < high && nums[low] == nums[low + 1]) // 遇到重複數字，避免結果是重複數組，不斷跳過重複的數，找下一個左半部不重複數
+                        low++;
+                    while (low < high && nums[high] == nums[high - 1]) // 遇到重複數字，避免結果是重複數組，不斷跳過重複的數，找下一個右半部不重複數
+                        high--;
                     low++;// 沒有重複數，所以換下一個數來做
-                    high--;// 為什麼不將之一low++或high--就好, 而將兩者都++&--, Q:???
+                    high--;//  Q:??? 為什麼不將之一low++或high--就好, 而將兩者都++&--,
                 } else if (nums[low] + nums[high] < sum) {
                     low++; // 需要找更大的數
                 } else high--; // 需要找更小的數

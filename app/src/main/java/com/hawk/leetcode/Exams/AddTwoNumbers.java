@@ -2,13 +2,15 @@ package com.hawk.leetcode.Exams;
 
 import android.util.Log;
 
+import com.freetymekiyan.algorithms.utils.Utils;
 import com.hawk.leetcode.BaseClass;
+import com.cspirat.ListNode;
 
 import static com.hawk.leetcode.Global.TAG;
 
 public class AddTwoNumbers extends BaseClass {
-    public static ListNode input1;
-    public static ListNode input2;
+    public ListNode input1;
+    public ListNode input2;
     ListNode output;
 
 
@@ -45,14 +47,7 @@ public class AddTwoNumbers extends BaseClass {
         return output;
     }
 
-    public class ListNode{
-        int val;
-        ListNode next;
-        ListNode(int val){
-            this.val=val;
-            this.next=null;
-        }
-    }
+
 /*
     public ListNode addTwoNumbers(ListNode p, ListNode q) {
         ListNode dummyHead = new ListNode(0);
