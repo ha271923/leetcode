@@ -59,6 +59,7 @@ public class ThreeSum {
     // Tips1: A+B+C=0  -->  A+B=-C
     // Tips2: 用TwoSum會有重複答案
     // Tips3: 數組劃分成左右兩半, 左半由low指標管理, 右半由high指標管理, 所以(low < high）左右逼近必須成立
+    // Reference: https://zhuanlan.zhihu.com/p/53066205
     public List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
         Arrays.sort(nums); // 重新排序過的數, 方便搜尋,  O(n log(n)),  sorted nums[]=[-1, 0, 1, 2, -1, -4] =>  [-4, -1, -1, 0, 1, 2]

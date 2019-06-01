@@ -30,6 +30,11 @@ public class ZigZagConversion {
      * @param numRows
      * @return
      */
+    /*
+     0   4   8    12  = (0*0/4)+(4*1/4)+(4*2/4)+(4*3/4)
+     1 3 5 7 9 11 13  = (1+2*0)+(1+2*1)+(1+2*2)+(1+2*3)+(1+2*4)
+     2   6   10       = (2*(2*0+1))+(2*(2*1+1))+(2*(2*2+1))
+    */
     public String convert(String s, int numRows) {
         if (numRows <= 1) return s;
         StringBuilder[] sb = new StringBuilder[numRows];
@@ -37,8 +42,8 @@ public class ZigZagConversion {
             sb[i] = new StringBuilder("");
         }
         for (int i = 0; i < s.length(); i++) {
-            int index = i % (2 * numRows - 2);
-            index = index < numRows ? index : 2 * numRows - 2 - index;
+            int index = i % (2 * numRows - 2); // Q:???
+            index = index < numRows ? index : 2 * numRows - 2 - index; // Q:???
             sb[index].append(s.charAt(i));
         }
         for (int i = 1; i < sb.length; i++) {
