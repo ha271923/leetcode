@@ -3,6 +3,7 @@ package com.hawk.leetcode;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.hawk.leetcode.Basic.DFS;
 import com.hawk.leetcode.Exams.AddTwoNumbers;
 import com.hawk.leetcode.Exams.FindFirstAndLastPositionOfElementInSortedArray;
 import com.hawk.leetcode.Exams.TwoSum;
@@ -11,7 +12,7 @@ import com.hawk.leetcode.CONSTANTS;
 
 public class AllUT extends BaseUT {
 
-    int ut_item = CONSTANTS.ID_Search_for_a_Range; // change the UT case at here
+    int ut_item = CONSTANTS.ID_BASIC_DFS; // change the UT case at here
 
     @DataProvider(name = "MedianOfTwoSortedArrays") // data for: void testExamples(int[] nums1, int[] nums2, double expected) API
     public Object[][] getExamples() {
@@ -32,6 +33,10 @@ public class AllUT extends BaseUT {
         BaseClass testObj = null;
         Object out;
         switch(ut_item){
+            case CONSTANTS.ID_BASIC_DFS:
+                testObj = new DFS();
+            break;
+
             case CONSTANTS.ID_Two_Sum:
                 testObj = new TwoSum();
             break;

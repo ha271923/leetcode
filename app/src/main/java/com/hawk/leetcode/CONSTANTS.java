@@ -398,6 +398,7 @@ public class CONSTANTS {
     public static final int ID_Two_City_Scheduling = 1029;
     public static final int ID_Matrix_Cells_in_Distance_Order = 1030;
 
-
+    public static final int ID_BASIC_ALGORITHM = 1000000;
+    public static final int ID_BASIC_DFS = ID_BASIC_ALGORITHM + 1;
 
 }
