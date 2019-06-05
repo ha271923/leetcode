@@ -399,6 +399,11 @@ public class CONSTANTS {
     public static final int ID_Matrix_Cells_in_Distance_Order = 1030;
 
     public static final int ID_BASIC_ALGORITHM = 1000000;
+    public static final int ID_BASIC_ALL = ID_BASIC_ALGORITHM + 0;
     public static final int ID_BASIC_DFS = ID_BASIC_ALGORITHM + 1;
+    public static final int ID_BASIC_DFS_MATRIX = ID_BASIC_ALGORITHM + 2;
+    public static final int ID_BASIC_DFS_SIMPLE = ID_BASIC_ALGORITHM + 3;
+    public static final int ID_BASIC_BFS = ID_BASIC_ALGORITHM + 4;
+    public static final int ID_BASIC_BFS_MATRIX = ID_BASIC_ALGORITHM + 5;
 
 }

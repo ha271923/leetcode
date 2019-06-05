@@ -3,16 +3,18 @@ package com.hawk.leetcode;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.hawk.leetcode.Basic.BFS;
+import com.hawk.leetcode.Basic.BFS_matrix;
 import com.hawk.leetcode.Basic.DFS;
+import com.hawk.leetcode.Basic.DFS_matrix;
+import com.hawk.leetcode.Basic.DFS_simple;
 import com.hawk.leetcode.Exams.AddTwoNumbers;
 import com.hawk.leetcode.Exams.FindFirstAndLastPositionOfElementInSortedArray;
 import com.hawk.leetcode.Exams.TwoSum;
-import com.hawk.leetcode.CONSTANTS;
-
 
 public class AllUT extends BaseUT {
 
-    int ut_item = CONSTANTS.ID_BASIC_DFS; // change the UT case at here
+    int ut_item = CONSTANTS.ID_BASIC_BFS; // change the UT case at here
 
     @DataProvider(name = "MedianOfTwoSortedArrays") // data for: void testExamples(int[] nums1, int[] nums2, double expected) API
     public Object[][] getExamples() {
@@ -35,15 +37,30 @@ public class AllUT extends BaseUT {
         switch(ut_item){
             case CONSTANTS.ID_BASIC_DFS:
                 testObj = new DFS();
-            break;
+                break;
+
+            case CONSTANTS.ID_BASIC_DFS_MATRIX:
+                testObj = new DFS_matrix();
+                break;
+            case CONSTANTS.ID_BASIC_DFS_SIMPLE:
+                testObj = new DFS_simple();
+                break;
+
+            case CONSTANTS.ID_BASIC_BFS:
+                testObj = new BFS();
+                break;
+
+            case CONSTANTS.ID_BASIC_BFS_MATRIX:
+                testObj = new BFS_matrix();
+                break;
 
             case CONSTANTS.ID_Two_Sum:
                 testObj = new TwoSum();
-            break;
+                break;
 
             case CONSTANTS.ID_Add_Two_Numbers:
                 testObj = new AddTwoNumbers();
-            break;
+                break;
 
             case CONSTANTS.ID_Search_for_a_Range:
                 testObj = new FindFirstAndLastPositionOfElementInSortedArray();
