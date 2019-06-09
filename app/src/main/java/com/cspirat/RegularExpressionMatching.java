@@ -26,8 +26,8 @@ public class RegularExpressionMatching {
      isMatch("aaa","aa") → false
      isMatch("aa", "a*") → true
      isMatch("aa", ".*") → true
-     isMatch("ab", ".*") → true
-     isMatch("aab", "c*a*b") → true
+     isMatch("ab", ".*") → true  注意!! 兩字不同
+     isMatch("aab", "c*a*b") → true  注意!! 消去前面字
      isMatch("mississippi", "mis*is*p*.") → false
 
      "aa", ".*"
@@ -61,32 +61,33 @@ public class RegularExpressionMatching {
      * @return
      */
     // Tips1: RegEx裡的*跟DOS裡的* , 意義不同
-    // Tips2: 匹配真值表 [s.len+1]*[p.len+1]
+    // Tips2: 匹配真值表 dp[s.len+1]*[p.len+1], X與Y多一行列是因為 a* = null, a, aa, aaa... 有null的可能性
     public boolean isMatch(String s, String p) {
         if (s == null || p == null) return false;
         boolean[][] dp = new boolean[s.length() + 1][p.length() + 1];
         // 1. True if pattern null to null
-        dp[0][0] = true; // https://youtu.be/l3hda49XcDE?t=303
+        dp[0][0] = true; // 靠這個true傳遞下去dp[y][x]  https://youtu.be/l3hda49XcDE?t=303
 
         // 2. Deals with patterns  like a* a*b* a*b*c*
         for (int i = 0; i < p.length(); i++) {
-            if (p.charAt(i) == '*' && dp[0][i - 1]) {
+            char c = p.charAt(i);
+            if (c == '*' && dp[0][i - 1]) { // 掃到* 並且前次相符
                 dp[0][i + 1] = true;
             }
         }
         // 3. Deals with other patterns
-        for (int i = 0; i < s.length(); i++) {
-            for (int j = 0; j < p.length(); j++) {
-                if (p.charAt(j) == s.charAt(i)) {
+        for (int i = 0; i < s.length(); i++) { // scan s String
+            for (int j = 0; j < p.length(); j++) { // scan p Pattern
+                if (p.charAt(j) == s.charAt(i)) { // single char matching
                     dp[i + 1][j + 1] = dp[i][j];
                 }
-                if (p.charAt(j) == '.') {
+                if (p.charAt(j) == '.') { // any char matching
                     dp[i + 1][j + 1] = dp[i][j];
                 }
-                if (p.charAt(j) == '*') {
-                    if (p.charAt(j - 1) != s.charAt(i) && p.charAt(j - 1) != '.') {
+                if (p.charAt(j) == '*') { //  '*' found
+                    if (p.charAt(j - 1) != s.charAt(i) && p.charAt(j - 1) != '.') { // NOT  aa==a*  or a*==.*
                         dp[i + 1][j + 1] = dp[i + 1][j - 1];
-                    } else {
+                    } else { // IS  aa==a*  or a*==.*
                         dp[i + 1][j + 1] = (dp[i + 1][j] || dp[i][j + 1] || dp[i + 1][j - 1]);
                     }
                 }

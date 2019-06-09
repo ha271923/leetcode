@@ -25,21 +25,21 @@ class RemoveNthNodeFromEnd {
      * Dummy head and Runner's technique
      */
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode pre = new ListNode(0);
-        pre.next = head;
-        ListNode p1 = pre;
-        ListNode p2 = pre;
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode slow = dummy;
+        ListNode fast = dummy;
         int i = 0;
-        while (i < n) {
-            p2 = p2.next;
+        while (i < n) { // EX:倒數第2個, 當fast指到前數2個時,才讓slow與fast開始跑, 當fast抵達終點時, slow剛好慢2步
+            fast = fast.next;
             i++;
         }
-        while (p2.next != null) {
-            p1 = p1.next;
-            p2 = p2.next;
+        while (fast.next != null) { // slow與fast開始跑
+            slow = slow.next;
+            fast = fast.next;
         }
 
-        p1.next = p1.next.next;
-        return pre.next;
+        slow.next = slow.next.next; //刪除Nth Node
+        return dummy.next;
     }
 }
