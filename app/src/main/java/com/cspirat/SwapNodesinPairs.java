@@ -19,23 +19,26 @@ public class SwapNodesinPairs {
 
      time : O(n);
      space : O(1);
-     * @param head
+     * @param node
      * @return
      */
-    public ListNode swapPairs(ListNode head) {
-        if (head == null || head.next == null) return head;
-        ListNode dummy = new ListNode(0);
-        dummy.next = head;
-        ListNode l1 = dummy;
-        ListNode l2 = head;
+    // 注意Node連鎖反應, 較好理解com.freetymekiyan.algorithms.level.medium\swapPairs.java
+    public ListNode swapPairs(ListNode node) {
+        if (node == null || node.next == null) return node;
+        ListNode dummyhead = new ListNode(0);
+        dummyhead.next = node; // dummyhead作為操作N1的指標ptr
+        ListNode l1 = dummyhead; // l1 = dummyhead->node1->node2->node3...
+        ListNode l2 = node;      // l2 =            node1->node2->node3...
         while (l2 != null && l2.next != null) {
-            ListNode nextStart = l2.next.next;
-            l1.next = l2.next;
-            l2.next.next = l2;
-            l2.next = nextStart;
-            l1 = l2;
-            l2 = l2.next;
+            ListNode nextStart = l2.next.next; // l2.next.next=n3 每次置換前先記住下一輪起點,以便下一輪使用
+            // SOUR: l1.next=l2, l2.next=l3, start=l1
+            // SWAP: l1.next=l3, l2.next=l1, start=l2
+            l1.next = l2.next;    // 1. n1 = n2  置換兩個節點之1 , front=behind
+            l2.next.next = l2;    // 2. n3 = n1  置換兩個節點之2 , behind=front
+            l2.next = nextStart;  // 3. n2 = nexStart = n3  設定下次起始節點
+            l1 = l2;              // 4. l1 = n1 ( l1起點往右移一位, 以利下一輪使用 )
+            l2 = l2.next;         // 5. l2 = n2 ( l2起點往右移一位, 以利下一輪使用 )
         }
-        return dummy.next;
+        return dummyhead.next;
     }
 }

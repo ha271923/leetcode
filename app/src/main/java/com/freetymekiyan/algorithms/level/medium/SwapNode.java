@@ -1,5 +1,7 @@
 package com.freetymekiyan.algorithms.level.medium;
 
+import com.cspirat.ListNode;
+
 /**
  * Given a linked list, swap every two adjacent nodes and return its head.
  * <p>
@@ -11,38 +13,29 @@ package com.freetymekiyan.algorithms.level.medium;
  * <p>
  * Tags: Linkedlist
  */
-class SwapNode {
+public class SwapNode {
 
     /**
      * create a node at before the head
      * swap two next nodes on the node before them
      */
     public ListNode swapPairs(ListNode head) {
-        ListNode dummy = new ListNode(0);
-        dummy.next = head;
-        ListNode cur = dummy;
+        ListNode dummyhead = new ListNode(0);
+        dummyhead.next = head;
+        ListNode cur = dummyhead;
 
-        while (cur != null && cur.next != null && cur.next.next != null) {
+        while (cur != null && cur.next != null && cur.next.next != null) { // dummyhead作為操作N1的指標ptr
             cur.next = swap(cur.next, cur.next.next);
-            cur = cur.next.next;
+            cur = cur.next.next; // 前移兩個Node 作為下次迴圈的start node
         }
 
-        return dummy.next;
+        return dummyhead.next;
     }
 
-    private ListNode swap(ListNode next1, ListNode next2) {
-        next1.next = next2.next;
-        next2.next = next1;
-        return next2; // return latter node 
+    private ListNode swap(ListNode front, ListNode behind) {
+        front.next = behind.next;
+        behind.next = front;
+        return behind; // return latter node
     }
 
-    class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-            next = null;
-        }
-    }
 }
