@@ -19,7 +19,7 @@ public class SubstringwithConcatenationofAllWords {
      * in words exactly once and without any intervening characters.
 
      For example, given:
-     s: "barfoothefoobarman"
+     s: "barfoothefoobarman"  注意:barXXXfoo 就不算concatenation
      words: ["foo", "bar"]
 
      You should return the indices: [0,9].
@@ -32,32 +32,33 @@ public class SubstringwithConcatenationofAllWords {
      * @param words
      * @return
      */
-    public List<Integer> findSubstring(String s, String[] words) {
-        if (s == null || words == null) return new ArrayList<>();
+    // Tips0: 给定一个长字符串，再给定几个长度相同的单词，让我们找出串联给定所有单词的子串的起始位置
+    public List<Integer> findSubstring(String sentence, String[] words) {
+        if (sentence == null || words == null) return new ArrayList<>();
 
         List<Integer> res = new ArrayList<>();
-        int n = words.length;
-        int m = words[0].length();
+        int numOfWords = words.length; // LeetCode Q: a list of words, number of list item.
+        int oneWordLength = words[0].length(); // LeetCode Q: Words are all of the same length.
         HashMap<String, Integer> map = new HashMap<>();
 
-        for (String str : words) {
-            map.put(str, map.getOrDefault(str, 0) + 1);
+        for (String str : words) { // put all words in hashmap, V的預設值設為 V=1
+            map.put(str, map.getOrDefault(str, 0) + 1); // KEY: 我們定義的flag V=1:代表還沒找過, V=0, -1利用get()的特性, 找到跟沒找到
         }
 
-        for (int i = 0; i <= s.length() - n * m; i++) {
-            HashMap<String, Integer> copy = new HashMap<>(map);
-            int k = n;
-            int j = i;
-            while (k > 0) {
-                String str = s.substring(j, j + m);
-                if (!copy.containsKey(str) || copy.get(str) < 1) {
-                    break;
+        for (int i = 0; i <= sentence.length() - numOfWords * oneWordLength; i++) { // 最後字尾少於n*m時, 可以避免算法在字元不足時的邊際效應, 數量不足時不須再掃, i是最終一定要掃完的圈數
+            HashMap<String, Integer> copy = new HashMap<>(map); // 要掃的字單
+            int needToMatch = numOfWords; // KEY:變數宣告在此, 可以在每次不匹配時, 重置掃描環境
+            int shift = i; // 每次右移一個字元
+            while (needToMatch > 0) { // 每次要掃numOfWords的字彙量
+                String compareStr = sentence.substring(shift, shift + oneWordLength); // 每次用固定長度, 取出新字元
+                if (!copy.containsKey(compareStr) || copy.get(compareStr) < 1) { // 沒找到! containsKey==false, 我們定義的flag V=1:代表還沒找過, V=0, -1利用get()的特性, 找到跟沒找到, get()=(1-1)=0是我們定義找到時的值
+                    break; // 沒找到, 跳出while
                 }
-                copy.put(str, copy.get(str) - 1);
-                k--;
-                j += m;
+                copy.put(compareStr, copy.get(compareStr) - 1); // KEY: 找到了一個word! V=(1-1)
+                needToMatch--; // 匹配了一個word
+                shift += oneWordLength; // 下次匹配起點
             }
-            if (k == 0) res.add(i);
+            if (needToMatch == 0) res.add(i); // 全部match時, 將idx加入output
         }
         return res;
     }

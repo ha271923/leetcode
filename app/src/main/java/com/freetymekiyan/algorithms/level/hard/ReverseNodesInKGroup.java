@@ -1,6 +1,7 @@
 package com.freetymekiyan.algorithms.level.hard;
 
-import com.freetymekiyan.algorithms.utils.Utils.ListNode;
+// import com.freetymekiyan.algorithms.utils.Utils.ListNode;
+import com.cspirat.ListNode;
 
 /**
  * 25. Reverse Nodes in k-Group

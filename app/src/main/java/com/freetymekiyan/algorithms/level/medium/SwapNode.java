@@ -20,7 +20,7 @@ public class SwapNode {
      * swap two next nodes on the node before them
      */
     public ListNode swapPairs(ListNode head) {
-        ListNode dummyhead = new ListNode(0);
+        ListNode dummyhead = new ListNode(0); // 為了將頭結點也一般化,我們創建一個dummyhead結點
         dummyhead.next = head;
         ListNode cur = dummyhead;
 

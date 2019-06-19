@@ -20,8 +20,8 @@ public class ImplementstrStr {
      */
     public int strStr(String haystack, String needle) {
         if (needle.length() == 0) return 0;
-        for (int i = 0; i <= haystack.length() - needle.length(); i++) {
-            if (haystack.substring(i, i + needle.length()).equals(needle)) return i;
+        for (int i = 0; i <= haystack.length() - needle.length(); i++) { // Time:n, haystack=1234567 , needle=345, loop=7-3=4 round
+            if (haystack.substring(i, i + needle.length()).equals(needle)) return i; // scan idx from i to i+needle.length()
         }
         return -1;
     }

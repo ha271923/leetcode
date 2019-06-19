@@ -22,14 +22,15 @@ public class SwapNodesinPairs {
      * @param node
      * @return
      */
-    // 注意Node連鎖反應, 較好理解com.freetymekiyan.algorithms.level.medium\swapPairs.java
+    // Tips0: Linkedlist只能往後遍歷,不能往前,所以head的移動要小心,注意Node連鎖反應
+    // 較好理解com.freetymekiyan.algorithms.level.medium\swapPairs.java
     public ListNode swapPairs(ListNode node) {
         if (node == null || node.next == null) return node;
         ListNode dummyhead = new ListNode(0);
-        dummyhead.next = node; // dummyhead作為操作N1的指標ptr
+        dummyhead.next = node; // dummyhead作為操作N1的指標ptr,為了將頭結點也一般化,我們創建一個dummy結點
         ListNode l1 = dummyhead; // l1 = dummyhead->node1->node2->node3...
         ListNode l2 = node;      // l2 =            node1->node2->node3...
-        while (l2 != null && l2.next != null) {
+        while (l2 != null && l2.next != null) { // 4. algorithm是把每一個node, 在每一loop從node一個接一個搬到dummyhead
             ListNode nextStart = l2.next.next; // l2.next.next=n3 每次置換前先記住下一輪起點,以便下一輪使用
             // SOUR: l1.next=l2, l2.next=l3, start=l1
             // SWAP: l1.next=l3, l2.next=l1, start=l2
