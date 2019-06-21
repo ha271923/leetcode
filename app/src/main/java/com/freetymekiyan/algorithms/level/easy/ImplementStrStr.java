@@ -29,12 +29,12 @@ public class ImplementStrStr {
         }
         int m = haystack.length();
         int n = needle.length();
-        for (int i = 0; i <= m - n; i++) { // Why m-n? From m-n+1 to m-1 the characters are not enough for needle.
-            for (int j = 0; j < n; j++) { // Compare with needle from the beginning.
-                if (haystack.charAt(i + j) != needle.charAt(j)) {
-                    break;
+        for (int i = 0; i <= m - n; i++) { // Offset char of main str, Why m-n? From m-n+1 to m-1 the characters are not enough for needle.
+            for (int j = 0; j < n; j++) { // Offset char of cmp str, Compare with needle from the beginning.
+                if (haystack.charAt(i + j) != needle.charAt(j)) { // compare, not equal.
+                    break; // escape
                 }
-                if (j == n - 1) {
+                if (j == n - 1) { // all char are match.
                     return i;
                 }
             }
