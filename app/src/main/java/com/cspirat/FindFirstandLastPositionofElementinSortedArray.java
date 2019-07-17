@@ -40,36 +40,38 @@ public class FindFirstandLastPositionofElementinSortedArray {
     public int findFirst(int[] nums, int target) {
         int start = 0;
         int end = nums.length - 1;
-        while (start + 1 < end) {
+        while (start + 1 < end) { // 3個(含)以上元素才進來用二分法分析, 因為二分法需要{start,mid,end}三元素
             int mid = (end - start) / 2 + start;
-            if (nums[mid] < target) {
-                start = mid;
+            if (nums[mid] < target) { // 中間值比目標值小
+                start = mid; // 下次應從2分後的 右半部開始找
             } else {
-                end = mid;
+                end = mid;   // 下次應從2分後的 左半部開始找
             }
         }
-        if (nums[start] == target) return start;
-        if (nums[end] == target) return end;
-        return -1;
+        if (nums[start] == target) return start; // 因為是findFirst, 先檢查start
+        if (nums[end] == target) return end; // 2個元素時,無法二分,故直接暴力法比對
+        return -1; // 沒找到
     }
     // csiration
+    // 與findFirst差異, 先檢查end再start
+    // 因為是sorted array, 只要從後找的到, 即是end, 因為sorted過的值不會中斷, ex: ...787.....是不可能的
     public int findLast(int[] nums, int target) {
         int start = 0;
         int end = nums.length - 1;
-        while (start + 1 < end) {
+        while (start + 1 < end) { // 3個(含)以上元素才進來用二分法分析, 因為二分法需要{start,mid,end}三元素
             int mid = (end - start) / 2 + start;
-            if (nums[mid] > target) {
-                end = mid;
+            if (nums[mid] > target) { // Diff: 變大於符號
+                end = mid; //  Diff: 先檢查end再start
             } else {
                 start = mid;
             }
         }
-        if (nums[end] == target) return end;
+        if (nums[end] == target) return end; //  Diff: 先檢查end再start
         if (nums[start] == target) return start;
         return -1;
     }
 
-    // Hawk algorithm: find repeat count in the sorted array
+    // Hawk algorithm: find repeat count in the sorted array 暴力法, O(n)
     public int findLast(int[] nums, int target, int start) {
         int repeatCount = 0;
         if(nums.length - 1 == start) // start at num end
