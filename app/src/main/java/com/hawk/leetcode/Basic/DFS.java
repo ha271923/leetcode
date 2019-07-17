@@ -17,18 +17,18 @@ public class DFS extends BaseClass {
         for (int i = 0; i < neighbours.size(); i++) { // 將該端點相關的端點們, 一個一個列舉出來
             Node n = neighbours.get(i);
             if (n != null && !n.visited) {
-                dfs_recursive(n); // KEY: 順著Node路徑一層一層往下挖
+                dfs_recursive(n); // KEY: visited flag, 且順著Node路徑一層一層往下挖
             }
         }
         return out;
     }
 
     // Iterative DFS using stack
-    public String dfs_stack(Node node) {
+    public String dfs_stack(Node startNode) {
         String out = "";
         Stack<Node> stack = new Stack<Node>();
-        stack.add(node);
-        node.visited = true;
+        stack.push(startNode);
+        startNode.visited = true;
         while (!stack.isEmpty()) {
             Node element = stack.pop();
             out = element.data + " > ";
@@ -37,7 +37,7 @@ public class DFS extends BaseClass {
             for (int i = 0; i < neighbours.size(); i++) {
                 Node n = neighbours.get(i);
                 if (n != null && !n.visited) {
-                    stack.add(n);
+                    stack.push(n);
                     n.visited = true;
                 }
             }

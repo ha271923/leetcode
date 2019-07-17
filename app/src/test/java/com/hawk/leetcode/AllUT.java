@@ -14,7 +14,7 @@ import com.hawk.leetcode.Exams.TwoSum;
 
 public class AllUT extends BaseUT {
 
-    int ut_item = CONSTANTS.ID_BASIC_BFS; // change the UT case at here
+    int ut_item = CONSTANTS.ID_BASIC_DFS_MATRIX; // change the UT case at here
 
     @DataProvider(name = "MedianOfTwoSortedArrays") // data for: void testExamples(int[] nums1, int[] nums2, double expected) API
     public Object[][] getExamples() {

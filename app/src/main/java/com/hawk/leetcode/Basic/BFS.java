@@ -9,15 +9,15 @@ import java.util.Queue;
 public class BFS extends BaseClass {
     // Tips1: 全節點探索一次
     // Tips2: 利用一個queue暫存所有所需探索的橫向節點
-    public String bfs_queue(Node node) {
+    public String bfs_queue(Node startNode) {
         String out = "";
-        Queue<Node> queue = new LinkedList<>(); // BFS用QUEUE
-        queue.add(node);
-        node.visited = true;
+        Queue<Node> queue = new LinkedList<>(); // Key: BFS用QUEUE, 紀錄探尋到的, 需走訪node清單
+        queue.add(startNode); // add start node to result queue
+        startNode.visited = true; // 因為已經加入result, 所以一開始start node是visited
         while (!queue.isEmpty()) {
-            Node element = queue.remove(); //  Retrieves and removes the head of this queue.
-            out = out + element.data + " > ";
-            List<Node> neighbours = element.getNeighbours(); // 抓出該端點所有鄰近端點清單
+            Node node = queue.remove(); //  Retrieves and removes the head of this queue.
+            out = out + node.data + " > ";
+            List<Node> neighbours = node.getNeighbours(); // 抓出該端點所有鄰近端點清單
             for (int i = 0; i < neighbours.size(); i++) { // 將該端點相關的端點們, 一個一個列舉出來
                 Node n = neighbours.get(i);
                 if (n != null && !n.visited) {
