@@ -26,10 +26,10 @@ public class CombinationSumII {
      For example, given candidate set [10, 1, 2, 7, 6, 1, 5] and target 8,
      A solution set is:
      [
-     [1, 7],
-     [1, 2, 5],
-     [2, 6],
-     [1, 1, 6]
+       [1, 7],
+       [1, 2, 5],
+       [2, 6],
+       [1, 1, 6]
      ]
 
      [1,1,2,5,6,7,10]
@@ -51,15 +51,17 @@ public class CombinationSumII {
     }
 
     public void helper(List<List<Integer>> res, List<Integer> list, int[] candidates, int target, int start) {
-        if (target < 0) return;
+        if (target < 0) // 6a.跳出条件
+            return;
         if (target == 0) {
             res.add(new ArrayList<>(list));
             return;
         }
         for (int i = start; i < candidates.length; i++) {
-            if (i != start && candidates[i] == candidates[i - 1]) continue;
+            if (i != start && candidates[i] == candidates[i - 1]) // 2. 取过的数不再取
+                continue;
             list.add(candidates[i]);
-            helper(res, list, candidates, target - candidates[i], i + 1);
+            helper(res, list, candidates, target - candidates[i], i + 1); // 4. 进行下一个位置的取数，pos+1
             list.remove(list.size() - 1);
         }
     }

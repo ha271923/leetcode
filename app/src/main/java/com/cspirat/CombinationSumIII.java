@@ -20,20 +20,20 @@ public class CombinationSumIII {
 
 
      Example 1:
-
      Input: k = 3, n = 7
-
      Output:
-
-     [[1,2,4]]
+     [
+       [1,2,4]
+     ]
 
      Example 2:
-
      Input: k = 3, n = 9
-
      Output:
-
-     [[1,2,6], [1,3,5], [2,3,4]]
+     [
+       [1,2,6],
+       [1,3,5],
+       [2,3,4]
+     ]
 
      time : O(2^n)
      space : O(n);
@@ -53,7 +53,7 @@ public class CombinationSumIII {
             res.add(new ArrayList<>(list));
             return;
         }
-        for (int i = start; i <=9; i++) {
+        for (int i = start; i <=9; i++) { // 1. 遍历池子中的数 --- 固定1~9
             list.add(i);
             helper(res, list, k - 1, n - i, i + 1);
             list.remove(list.size() - 1);

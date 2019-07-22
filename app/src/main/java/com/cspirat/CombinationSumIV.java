@@ -16,27 +16,27 @@ public class CombinationSumIV {
      target = 4
 
      The possible combination ways are:
-     (1, 1, 1, 1)
-     (1, 1, 2)
-     (1, 2, 1)
-     (1, 3)
-     (2, 1, 1)
-     (2, 2)
-     (3, 1)
-
+     [
+       [1, 1, 1, 1],
+       [1, 1, 2],
+       [1, 2, 1],
+       [1, 3],
+       [2, 1, 1],
+       [2, 2],
+       [3, 1]
+     ]
      Note that different sequences are counted as different combinations.
 
-     Therefore the output is 7.
+     Therefore the output is 7. 這才是要的答案, 找組合的"數量"
 
      1, DP : res[i] += res[i - num];
      2, DFS + Memoization : HashMap<Integer, Integer>
-
 
      * @param nums
      * @param target
      * @return
      */
-
+    // Tips: output代表意義
     // time : (n * k) space : O(k)
     public int combinationSum4(int[] nums, int target) {
         int[] res = new int[target + 1];
@@ -59,9 +59,11 @@ public class CombinationSumIV {
     }
 
     private int helper(int[] nums, int target, HashMap<Integer, Integer> map) {
-        if (target == 0) return 1;
-        if (target < 0) return 0;
-        if (map.containsKey(target)) {
+        if (target < 0) // 6a.跳出条件
+            return 0;
+        if (target == 0) // 6b.答案, 完成(往回退一步)条件
+            return 1;
+        if (map.containsKey(target)) { // ??? why Hash
             return map.get(target);
         }
         int res = 0;

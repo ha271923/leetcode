@@ -7,16 +7,20 @@ public class Permutations {
     /**
      * 46. Permutations
      * Given a collection of distinct numbers, return all possible permutations.
+     *
+     permutations 这个问题，是求一个数组的全排列，思路就是将数组当做一个池子，第一次取出一个数，然
+     后在池子里剩下的数中再任意取一个数此时组成两个数，然后再在池子中剩下的数里取数，直到无数可取，
+     即取完一次，形成一个排列。
 
      For example,
      [1,2,3] have the following permutations:
      [
-     [1,2,3],
-     [1,3,2],
-     [2,1,3],
-     [2,3,1],
-     [3,1,2],
-     [3,2,1]
+       [1,2,3],
+       [1,3,2],
+       [2,1,3],
+       [2,3,1],
+       [3,1,2],
+       [3,2,1]
      ]
 
      time : O(n!)
