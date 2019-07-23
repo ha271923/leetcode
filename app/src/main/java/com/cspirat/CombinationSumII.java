@@ -61,7 +61,7 @@ public class CombinationSumII {
             if (i != start && candidates[i] == candidates[i - 1]) // 2. 取过的数不再取
                 continue;
             list.add(candidates[i]);
-            helper(res, list, candidates, target - candidates[i], i + 1); // 4. 进行下一个位置的取数，pos+1
+            helper(res, list, candidates, target - candidates[i], i + 1); // 4. 持續縮小問題, 此題往下遍歷, 並提供正確參數, ，pos+1
             list.remove(list.size() - 1);
         }
     }

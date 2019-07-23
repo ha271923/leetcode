@@ -53,7 +53,7 @@ public class CombinationSumIII {
             res.add(new ArrayList<>(list));
             return;
         }
-        for (int i = start; i <=9; i++) { // 1. 遍历池子中的数 --- 固定1~9
+        for (int i = start; i <=9; i++) { // 1. 依序列舉所有的數 --- 固定1~9
             list.add(i);
             helper(res, list, k - 1, n - i, i + 1);
             list.remove(list.size() - 1);

@@ -39,7 +39,7 @@ package com.hawk.leetcode.Basic;
  *      ……
  *      return;
  *    }
- *    // 1. 遍历池子中的数
+ *    // 1. 依序列舉所有的數
  *    for(int i=0;i<nums.length;i++){
  *      int num = nums[i];
  *      // 2. 取过的数不再取
@@ -48,7 +48,7 @@ package com.hawk.leetcode.Basic;
  *      }
  *      // 3. 取出一个数
  *      s.add(num);
- *      // 4. 进行下一个位置的取数，pos+1
+ *      // 4. 持續縮小問題, 此題往下遍歷, 並提供正確參數, ，pos+1
  *      helper(s,nums,pos+1);
  *      // 5. 重要！！遍历过此节点后，要回溯到上一步，因此要把加入到结果中的此点去除掉！
  *      s.remove(s.size()-1);
