@@ -36,7 +36,7 @@ public class DFS_simple {
         private LinkedList<Integer> adjLists[];
         private boolean visited[];
 
-        Graph(int vertices)
+        public Graph(int vertices)
         {
             adjLists = new LinkedList[vertices];
             visited = new boolean[vertices];
@@ -58,9 +58,9 @@ public class DFS_simple {
             Iterator it = adjLists[vertex].listIterator();
             while (it.hasNext())
             {
-                int adj = (int)it.next();
-                if (!visited[adj])
-                    DFS(adj);
+                int n = (int)it.next();
+                if (!visited[n])
+                    DFS(n);
             }
         }
     }
