@@ -1,6 +1,7 @@
 package com.hawk.leetcode.Basic;
 
-import com.hawk.leetcode.BaseClass;
+import com.hawk.leetcode.Basic.data.Node;
+import com.hawk.leetcode.Basic.data.Nodes;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class BFS {
 
     // Tips1: 全節點探索一次
     // Tips2: 利用一個queue暫存所有所需探索的橫向節點
+    // Tips3: BFS不用recursive搜尋, 而是 two loops
     static public String bfs_queue(Node startNode) {
         String out = "";
         Queue<Node> queue = new LinkedList<>(); // Key: BFS用QUEUE, 紀錄探尋到的, 需走訪node清單

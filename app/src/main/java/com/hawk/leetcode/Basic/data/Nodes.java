@@ -1,9 +1,9 @@
-package com.hawk.leetcode.Basic;
+package com.hawk.leetcode.Basic.data;
 
 import java.util.ArrayList;
 
 public class Nodes {
-    static ArrayList<Node> nodes = createTestNodes();
+    static public ArrayList<Node> nodes = createTestNodes();
 
     static public ArrayList<Node> createTestNodes() {
         ArrayList<Node> nodes = new ArrayList<Node>();

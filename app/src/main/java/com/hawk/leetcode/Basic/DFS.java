@@ -1,6 +1,8 @@
 package com.hawk.leetcode.Basic;
 
 import com.hawk.leetcode.BaseClass;
+import com.hawk.leetcode.Basic.data.Node;
+import com.hawk.leetcode.Basic.data.Nodes;
 
 import java.util.List;
 import java.util.Stack;

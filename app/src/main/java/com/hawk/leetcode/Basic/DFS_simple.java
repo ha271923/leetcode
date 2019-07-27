@@ -84,9 +84,10 @@ public class DFS_simple {
         g.addEdge(2, 0);
         g.addEdge(2, 3);
         g.addEdge(3, 1);
-        System.out.println("Following is Depth First Traversal");
+        int startVertex = 2;
+        System.out.println("DFS start from "+startVertex);
 
-        g.DFS(2);
+        g.DFS(startVertex);
         return null;
     }
 }

@@ -1,11 +1,11 @@
-package com.hawk.leetcode.Basic;
+package com.hawk.leetcode.Basic.data;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Node {
-    int data;
-    boolean visited;
+    public int data;
+    public boolean visited;
     List<Node> nodes;
 
     Node(int data) {

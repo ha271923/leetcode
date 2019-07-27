@@ -42,13 +42,6 @@ public class AllUT extends BaseUT {
             case CONSTANTS.ID_BASIC_DFS_MATRIX:
                 testObj = new DFS_matrix();
                 break;
-            case CONSTANTS.ID_BASIC_DFS_SIMPLE:
-                testObj = new DFS_simple();
-                break;
-
-            case CONSTANTS.ID_BASIC_BFS_MATRIX:
-                testObj = new BFS_matrix();
-                break;
 
             case CONSTANTS.ID_Two_Sum:
                 testObj = new TwoSum();
