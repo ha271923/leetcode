@@ -11,6 +11,10 @@ import java.util.Stack;
 public class DFS_matrix extends BaseClass {
     static ArrayList<Node> nodes = new ArrayList<>();
 
+    public static void main(String[] args) {
+
+    }
+
     static class Node {
         int data;
         boolean visited; // 針對Search, 所設計的flag, 以免重複走訪

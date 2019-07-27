@@ -23,9 +23,13 @@ import java.util.Queue;
 // Tips: BFS與DFS是無方向性, 以任一Node起始, 朝四面八方走訪, 而非樹狀往下
 // Tips: BFS不使用recursive, 使用looping
 // Tips: BFS需要保存搜尋過的狀態, 一般使用一個queue
-public class BFS_matrix extends BaseClass {
-    private Queue<Node> queue; // KEY: BFS需要保存搜尋過的Temp Node狀態, 一般使用一個queue暫存
+public class BFS_matrix {
+    static private Queue<Node> queue; // KEY: BFS需要保存搜尋過的Temp Node狀態, 一般使用一個queue暫存
     static ArrayList<Node> nodes=new ArrayList<Node>();
+
+    public static void main(String[] args) {
+        test();
+    }
 
     static class Node
     {
@@ -45,7 +49,7 @@ public class BFS_matrix extends BaseClass {
 
     // 找出與此節點相連接的節點
     // if adjacency_matrix[i][j]==1, then nodes at index i and index j are connected
-    public ArrayList<Node> findNeighbours(int adjacency_matrix[][], Node x) { // function is same with DFS_matrix.java
+    static public ArrayList<Node> findNeighbours(int adjacency_matrix[][], Node x) { // function is same with DFS_matrix.java
         int nodeIndex = -1; // 因為要探尋ArrayList, 以-1代表陣列中無此node可作為start[?]Node
         for (int i = 0; i < nodes.size(); i++) { // find the matching idx of nodes
             if (nodes.get(i).equals(x)) {
@@ -66,7 +70,7 @@ public class BFS_matrix extends BaseClass {
     }
 
     // A. Looping BFS
-    public void bfs_ArrayList(int adjacency_matrix[][], Node startNode) { // 非遞迴
+    static public void bfs_ArrayList(int adjacency_matrix[][], Node startNode) { // 非遞迴
         queue.add(startNode);
         startNode.visited=true;
         while (!queue.isEmpty())  // KEY: BFS使用 looping
@@ -85,7 +89,7 @@ public class BFS_matrix extends BaseClass {
         }
     }
 
-    public Object test()
+    static public Object test()
     {
         // create each node
         Node node40 =new Node(40);

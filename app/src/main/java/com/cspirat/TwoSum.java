@@ -27,21 +27,28 @@ public class TwoSum {
      * @return
      */
 
+    /**
+     *   index =    0     1      2      3    Value
+     *  target =    9     9      9      9
+     *    nums = [  2  ,  7  ,  11  ,  15  ]
+     *    diff =    7     2     -2     -6    Key
+     *
+     */
     public static int[] twoSum(int[] nums, int target) {
 
        if (nums == null || nums.length < 2) {
            return new int[]{-1, -1};
        }
-
+       // ??? twoSum題目沒說input array是否是sorted
        int[] res = new int[]{-1, -1};
        HashMap<Integer, Integer> map = new HashMap<>();
        for (int i = 0; i < nums.length; i++) {
-           if (map.containsKey(target - nums[i])) { // LOAD-1
-               res[0] = map.get(target - nums[i]); // LOAD-2
+           if (map.containsKey(target - nums[i])) { // SELECT: Ki
+               res[0] = map.get(target - nums[i]);  // LOAD: Ki
                res[1] = i;
                break;
            }
-           map.put(nums[i], i); // SAVE
+           map.put(nums[i], i); // SAVE: A - B = Ki
        }
 
        return res;

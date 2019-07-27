@@ -31,4 +31,29 @@ public class BestTimetoBuyandSellStock {
         }
         return profit;
     }
+
+    // https://www.youtube.com/watch?v=KlgkDjwG6no
+    public static int maxProfit_BruteForce(int[] prices){
+        if (prices.length < 2 ) return 0;
+        int maxProfit = 0;
+
+        for (int i=0; i< prices.length; ++i)
+            for (int j = i+1; i< prices.length; ++i)
+                maxProfit = Math.max(maxProfit, prices[j] - prices[i]);
+
+        return maxProfit;
+    }
+
+    public static int maxProfit_OnePass(int[] prices){
+        if (prices.length < 2 ) return 0;
+        int maxProfit = 0, buy =prices[0];
+
+        for (int i=1; i< prices.length; ++i)
+            if(prices[i] < buy)
+                buy = prices[i];
+            else
+                maxProfit = Math.max(maxProfit, prices[i] - buy);
+
+        return maxProfit;
+    }
 }

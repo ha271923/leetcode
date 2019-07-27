@@ -5,13 +5,43 @@ import com.hawk.leetcode.BaseClass;
 import java.util.List;
 import java.util.Stack;
 
+/**
+ * https://www.zybuluo.com/Yano/note/255699
+ * LeetCode之Depth-first Search题目汇总
+ * Balanced Binary Tree
+ * Binary Tree Paths
+ * Binary Tree Right Side View
+ * Construct Binary Tree from Inorder and Postorder Traversal
+ * Construct Binary Tree from Preorder and Inorder Traversal
+ * Convert Sorted Array to Binary Search Tree
+ * Convert Sorted List to Binary Search Tree
+ * Course Schedule
+ * Course Schedule II
+ * Flatten Binary Tree to Linked List
+ * Maximum Depth of Binary Tree
+ * Number of Islands
+ * Path Sum
+ * Path Sum II
+ * Populating Next Right Pointers in Each Node
+ * Same Tree
+ * Symmetric Tree
+ * Sum Root to Leaf Numbers
+ * Validate Binary Search Tree
+ * */
+
 public class DFS extends BaseClass {
+
+    public static void main(String[] args) {
+        DFS dfs = new DFS();
+        dfs.test();
+    }
 
     // Tips1: 全節點探索一次
     // Tips2: 因為Node在connect時, 便是以List資料結構串接, 所以只要一層一層遞迴即可
     public String dfs_recursive(Node node) {
         String out = "";
         out = node.data + " > ";
+        System.out.print(node.data + " > ");
         node.visited = true;
         List<Node> neighbours = node.getNeighbours();
         for (int i = 0; i < neighbours.size(); i++) { // 將該端點相關的端點們, 一個一個列舉出來
@@ -46,56 +76,17 @@ public class DFS extends BaseClass {
     }
 
     public Object test() {
-
-        Node node10 = new Node(10);
-        Node node20 = new Node(20);
-        Node node30 = new Node(30);
-        Node node40 = new Node(40);
-        Node node50 = new Node(50);
-        Node node60 = new Node(60);
-        Node node70 = new Node(70);
-
-/**
- *    adjacency Map:
- *    40 ---> 20 ---> 50 ---> 70
- *     |      /|\             ^
- *     |     / | \            |
- *     V    /  |  \           /
- *    10 <--   |  --> 60 --->
- *     |       |      ^
- |       V      |
- *     | ---> 30 ---> |
- *
- *     Ans: 40 > 10 > 20 > 30 > 60 > 50 > 70 >
- * */
-        node40.connectNode(node10); // DFS在add node後, 是以 List<Node> 儲存與該node相鄰近的所有nodes
-        node40.connectNode(node20);
-        node10.connectNode(node30);
-        node20.connectNode(node10);
-        node20.connectNode(node30);
-        node20.connectNode(node60);
-        node20.connectNode(node50);
-        node30.connectNode(node60);
-        node60.connectNode(node70);
-        node50.connectNode(node70);
-
         DFS dfsExample = new DFS();
+
         System.out.println("The DFS traversal of the graph using stack ");
-        dfsExample.dfs_stack(node40);
+        dfsExample.dfs_stack(Nodes.nodes.get(3)); // start node
+        System.out.println(); // Ans1: 40 > 20 > 50 > 70 > 60 > 30 > 10 >
 
-        System.out.println();
-
-        // Resetting the visited flag for nodes
-        node40.visited = false;
-        node10.visited = false;
-        node20.visited = false;
-        node30.visited = false;
-        node60.visited = false;
-        node50.visited = false;
-        node70.visited = false;
+        Nodes.clearVistedFlag();
 
         System.out.println("The DFS traversal of the graph using recursion ");
-        dfsExample.dfs_recursive(node40); // start node
+        dfsExample.dfs_recursive(Nodes.nodes.get(3)); // start node
+        System.out.println(); // Ans2: 40 > 10 > 30 > 60 > 70 > 20 > 50 >
         return null;
     }
 }

@@ -6,10 +6,25 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class BFS extends BaseClass {
+/**
+ * LeetCode之Breadth-first Search题目汇总
+ * Binary Tree Level Order Traversal
+ * Binary Tree Level Order Traversal II
+ * Binary Tree Zigzag Level Order Traversal
+ * Course Schedule
+ * Course Schedule II
+ * Surrounded Regions
+ * */
+public class BFS {
+    public static void main(String[] args) {
+        System.out.println("The BFS traversal of the graph is ");
+        String res = bfs_queue(Nodes.nodes.get(3));
+        System.out.println("res = " + res);
+    }
+
     // Tips1: 全節點探索一次
     // Tips2: 利用一個queue暫存所有所需探索的橫向節點
-    public String bfs_queue(Node startNode) {
+    static public String bfs_queue(Node startNode) {
         String out = "";
         Queue<Node> queue = new LinkedList<>(); // Key: BFS用QUEUE, 紀錄探尋到的, 需走訪node清單
         queue.add(startNode); // add start node to result queue
@@ -29,42 +44,4 @@ public class BFS extends BaseClass {
         return out;
     }
 
-    public Object test() {
-        Node node10 = new Node(10);
-        Node node20 = new Node(20);
-        Node node30 = new Node(30);
-        Node node40 = new Node(40);
-        Node node50 = new Node(50);
-        Node node60 = new Node(60);
-        Node node70 = new Node(70);
-/**
- *    40 ---> 20 ---> 50 ---> 70
- *     |      /|\             ^
- *     |     / | \            |
- *     V    /  |  \           /
- *    10 <--   |  --> 60 --->
- *     |       |      ^
- *     |       V      |
- *     | ---> 30 ---> |
- *
- *
- *     Ans: 40 > 10 > 20 > 30 > 60 > 50 > 70 >
- * */
-
-        node40.connectNode(node10); // BFS在add node後, 是以 List<Node> 儲存與該node相鄰近的所有nodes
-        node40.connectNode(node20);
-        node10.connectNode(node30);
-        node20.connectNode(node10);
-        node20.connectNode(node30);
-        node20.connectNode(node60);
-        node20.connectNode(node50);
-        node30.connectNode(node60);
-        node60.connectNode(node70);
-        node50.connectNode(node70);
-        System.out.println("The BFS traversal of the graph is ");
-        BFS bfsExample = new BFS();
-        String res = bfsExample.bfs_queue(node40); // start node
-        System.out.println("res = " + res);
-        return null;
-    }
 }

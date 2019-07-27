@@ -46,10 +46,6 @@ public class AllUT extends BaseUT {
                 testObj = new DFS_simple();
                 break;
 
-            case CONSTANTS.ID_BASIC_BFS:
-                testObj = new BFS();
-                break;
-
             case CONSTANTS.ID_BASIC_BFS_MATRIX:
                 testObj = new BFS_matrix();
                 break;

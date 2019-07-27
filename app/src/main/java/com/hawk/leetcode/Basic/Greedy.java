@@ -10,4 +10,21 @@ package com.hawk.leetcode.Basic;
  * 解,在实际生活中还是有一定的意义的,因此贪心算法还是得到了广泛的应用.
  * */
 public class Greedy {
+
+    public static void main(String[] args) {
+        int sum;
+        greedy(1);
+        System.out.println();
+    }
+
+    static int greedy(int a){
+        if(a<100) {
+            System.out.print(a);
+            System.out.print(',');
+            return greedy(++a);
+        }
+        else
+            return a;
+    }
+
 }

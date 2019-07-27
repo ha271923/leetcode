@@ -1,4 +1,7 @@
 package com.hawk.leetcode.Basic;
+
+import java.util.ArrayList;
+
 /**
  * Backtracking
  * 回溯法通常用遞歸實現，因為換條路繼續走的時候換的那條路又是一條新的子路。
@@ -109,5 +112,23 @@ package com.hawk.leetcode.Basic;
  * 【842】Split Array into Fibonacci Sequence
  **/
 public class Backtrack {
+
+    public static void main(String[] args) {
+        backtrack(1);
+        System.out.println();
+    }
+
+    static int backtrack(int a){
+        if(a%10 == 0) // pruning
+            System.out.println();
+
+        if(a<100) {
+            System.out.print(a);
+            System.out.print(',');
+            return backtrack(++a);
+        }
+        else
+            return a;
+    }
 
 }

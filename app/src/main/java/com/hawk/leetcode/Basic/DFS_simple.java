@@ -25,17 +25,19 @@ import com.hawk.leetcode.BaseClass;
 
 import java.util.*;
 
-public class DFS_simple extends BaseClass {
+public class DFS_simple {
+
+    public static void main(String[] args) {
+        new DFS_simple().test();
+    }
 
     class Graph
     {
-        private int numVertices;
         private LinkedList<Integer> adjLists[];
         private boolean visited[];
 
         Graph(int vertices)
         {
-            numVertices = vertices;
             adjLists = new LinkedList[vertices];
             visited = new boolean[vertices];
 
@@ -53,22 +55,24 @@ public class DFS_simple extends BaseClass {
             visited[vertex] = true;
             System.out.print(vertex + " > ");
 
-            Iterator ite = adjLists[vertex].listIterator();
-            while (ite.hasNext())
+            Iterator it = adjLists[vertex].listIterator();
+            while (it.hasNext())
             {
-                int adj = (int)ite.next();
+                int adj = (int)it.next();
                 if (!visited[adj])
                     DFS(adj);
             }
         }
     }
+
     /**
-     *    0 ------> 1
-     *      \       |
-     *       \      |
-     *        \     |
-     *         \    V
-     *          \->(2) ----> 3
+     *    0 ------> 1 <--
+     *    ^ \       |    \
+     *     \ \      |     \
+     *      \ \     |      \
+     *       \ \    V       \
+     *        \ \->(2) ----> 3
+     *         \----|
      */
 
     public Object test()
@@ -77,12 +81,12 @@ public class DFS_simple extends BaseClass {
         g.addEdge(0, 1);
         g.addEdge(0, 2);
         g.addEdge(1, 2);
+        g.addEdge(2, 0);
         g.addEdge(2, 3);
-        // route(1) = 0 -> 1 ->2
-        // route(2) = 0 -> 2 ->3
+        g.addEdge(3, 1);
         System.out.println("Following is Depth First Traversal");
 
-        g.DFS(0);
+        g.DFS(2);
         return null;
     }
 }
