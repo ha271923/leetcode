@@ -1,5 +1,7 @@
 package com.hawk.leetcode.Basic;
 
+import java.util.Scanner;
+
 /**
  * 贪心算法其实本身就跟我们人性一样,看到眼前的好吃的,拿来拿来别客气.但是丝毫不顾忌自己还得燃烧卡路里.
  * 贪心算法也是这样.
@@ -11,20 +13,65 @@ package com.hawk.leetcode.Basic;
  * */
 public class Greedy {
 
-    public static void main(String[] args) {
-        int sum;
-        greedy(1);
-        System.out.println();
+    public static void main(String args[])
+    {
+        int[] arr;
+        arr = input();
+
+        arr = selectSort(arr);
+
+        output(arr);
     }
 
-    static int greedy(int a){
-        if(a<100) {
-            System.out.print(a);
-            System.out.print(',');
-            return greedy(++a);
+    static int[] selectSort(int[] arr) {
+        System.out.print("Selection Sort +++\n");
+        int temp;
+        for(int i=0; i<arr.length; i++)
+        {
+            for(int j=i+1; j<arr.length; j++)
+            {
+                if(arr[i] > arr[j]) // Greedy
+                {
+                    temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+            }
         }
-        else
-            return a;
+        System.out.print("Selection Sort ---\n");
+        return arr;
+    }
+
+    static int[] input() {
+        int size, i;
+        Scanner scan = new Scanner(System.in);
+
+        System.out.print("Enter Array Size : ");
+        size = scan.nextInt();
+        int arr[] = new int[size];
+
+        System.out.print("Enter Array Elements(space) : ");
+        for( i=0; i<size; i++)
+        {
+            arr[i] = scan.nextInt();
+        }
+        System.out.print("Input:\n");
+        for( i=0; i<arr.length; i++)
+        {
+            System.out.print(arr[i]+ "  ");
+        }
+        System.out.println();
+        return arr;
+    }
+
+    static void output(int[] arr) {
+        System.out.print("Output:\n");
+        for(int i=0; i<arr.length; i++)
+        {
+            System.out.print(arr[i]+ "  ");
+        }
+
+        System.out.println();
     }
 
 }
