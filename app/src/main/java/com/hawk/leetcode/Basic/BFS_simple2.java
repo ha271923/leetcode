@@ -17,7 +17,7 @@ package com.hawk.leetcode.Basic;
  */
 
 import com.hawk.leetcode.Basic.data.Edge;
-import com.hawk.leetcode.Basic.data.Graph;
+import com.hawk.leetcode.Basic.data.Graph2;
 
 import java.util.Queue;
 import java.util.*;
@@ -29,6 +29,8 @@ class BFS_simple2
     public static void main(String[] args)
     {
         /*
+         *    the Graph data struct is Bi-direction.  <---->
+         *
          *                    /- 9
          *                   /
          *               /- 5 -- 10
@@ -52,8 +54,9 @@ class BFS_simple2
         // List of graph edges as per above diagram
         List<Edge> edges = Arrays.asList(
                 new Edge(1, 2), new Edge(1, 3), new Edge(1, 4),
-                new Edge(2, 5), new Edge(2, 6), new Edge(5, 9),
-                new Edge(5, 10), new Edge(4, 7), new Edge(4, 8),
+                new Edge(2, 5), new Edge(2, 6),
+                new Edge(5, 9), new Edge(5, 10),
+                new Edge(4, 7), new Edge(4, 8),
                 new Edge(7, 11), new Edge(7, 12)
                 // vertex 0, 13 and 14 are single nodes
         );
@@ -62,19 +65,19 @@ class BFS_simple2
         final int numVertics = 15;
 
         // create a graph from edges
-        Graph graph = new Graph(edges, numVertics);
+        Graph2 graph2 = new Graph2(edges, numVertics);
 
         // BFS-1 loop -----------------------------------------------
-        BFS_1(graph);
+        BFS_1(graph2);
 
         // BFS-2 recursive -----------------------------------------------
-        BFS_2(graph);
+        BFS_2(graph2);
 
         System.out.println();
     }
 
     // Perform BFS loop on graph
-    public static void BFS_1(Graph graph) {
+    public static void BFS_1(Graph2 graph) {
         System.out.println("BFS_loop");
         boolean[] visited = new boolean[graph.numVertics];
 
@@ -87,7 +90,7 @@ class BFS_simple2
         System.out.println();
     }
 
-    public static void BFS_loop(Graph graph, int v, boolean[] visited)
+    public static void BFS_loop(Graph2 graph, int v, boolean[] visited)
     {
         Queue<Integer> q = new ArrayDeque<>(); // create a queue used to do BFS
         visited[v] = true; // mark source vertex as visited
@@ -111,7 +114,7 @@ class BFS_simple2
     }
 
     // Perform BFS recursively on graph
-    public static void BFS_2(Graph graph) {
+    public static void BFS_2(Graph2 graph) {
         System.out.println("BFS_recursive");
         boolean[] visited = new boolean[graph.numVertics];
         // create a queue used to do BFS
@@ -127,7 +130,7 @@ class BFS_simple2
         }
         System.out.println();
     }
-    public static void BFS_recursive(Graph graph, Queue<Integer> q, boolean[] visited)
+    public static void BFS_recursive(Graph2 graph, Queue<Integer> q, boolean[] visited)
     {
         if (q.isEmpty())
             return;

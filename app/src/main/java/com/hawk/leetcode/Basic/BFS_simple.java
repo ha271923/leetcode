@@ -1,5 +1,5 @@
 package com.hawk.leetcode.Basic;
-import java.io.*;
+import com.hawk.leetcode.Basic.data.Graph;
 import java.util.*;
 
 public class BFS_simple {
@@ -7,54 +7,30 @@ public class BFS_simple {
         new BFS_simple().test();
     }
 
-    class Graph
+    static void BFS(Graph graph, int vertex)
     {
-        private LinkedList<Integer> adjLists[];
-        private boolean visited[];
+        graph.visited[vertex]=true;
+        // queue example: dequeue <== |S| a|b|c| aa|ab| ba|bb|bc|ca| aaa|aab|aac| aba|abb|...
+        LinkedList<Integer> queue = new LinkedList<Integer>(); // 1. BFS queue
+        queue.add(vertex);
 
-        public Graph(int vertices)
+        while (queue.size() != 0) // KEY: 用queue迴圈
         {
-            adjLists = new LinkedList[vertices];
-            visited = new boolean[vertices];
+            vertex = queue.poll(); // Retrieves and removes the head (first element) of this list.
+            System.out.print(vertex +" > ");
 
-            for (int i = 0; i < vertices; i++)
-                adjLists[i] = new LinkedList<Integer>();
-        }
-        void addEdge(int src, int dest)
-        {
-            adjLists[src].add(dest);
-        }
-
-        void BFS(int vertex)
-        {
-            // Create a queue for BFS
-            LinkedList<Integer> queue = new LinkedList<Integer>();
-
-            // Mark the current node as visited and enqueue it
-            visited[vertex]=true;
-            queue.add(vertex);
-
-            while (queue.size() != 0)
+            Iterator<Integer> it = graph.adjLists[vertex].listIterator(); // 以此接點的連接列表的Iterator
+            while (it.hasNext()) // 一個接一個掃出列表中的項目
             {
-                // Dequeue a vertex from queue and print it
-                vertex = queue.poll();
-                System.out.print(vertex +" ");
-
-                Iterator<Integer> it = adjLists[vertex].listIterator();
-                while (it.hasNext())
+                int n = it.next();
+                if (!graph.visited[n])
                 {
-                    int n = it.next();
-                    if (!visited[n])
-                    {
-                        visited[n] = true;
-                        queue.add(n);
-                    }
+                    graph.visited[n] = true;
+                    queue.add(n); // KEY: 不是遞迴, 是add queue
                 }
             }
         }
     }
-
-
 
     /**
      *    0 ------> 1 <--
@@ -76,9 +52,8 @@ public class BFS_simple {
         g.addEdge(2, 3);
         g.addEdge(3, 1);
         int startVertex = 2;
-        System.out.println("DFS start from "+startVertex);
-
-        g.BFS(startVertex);
+        System.out.println("BFS start from "+startVertex);
+        BFS(g, startVertex);
         return null;
     }
 }

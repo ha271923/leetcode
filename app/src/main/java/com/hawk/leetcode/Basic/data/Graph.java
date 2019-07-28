@@ -1,33 +1,22 @@
 package com.hawk.leetcode.Basic.data;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
-// class to represent a graph object
 public class Graph
 {
-    // A List of Lists to represent an adjacency list
-    public List<List<Integer>> adjList = null;
-    public int numVertics;
+    public LinkedList<Integer> adjLists[]; // KEY: 圖的線段描述, 用連接點的"陣列", 每個點src都用一組LinkedList<Integer>來記錄dest
+    public boolean visited[];
 
-    // Constructor
-    public Graph(List<Edge> edges, int N)
+    public Graph(int vertices) // 這個圖形有幾個端點
     {
-        numVertics = N;
-        adjList = new ArrayList<>(N);
+        adjLists = new LinkedList[vertices]; // ex: graph 2個點(src), n+m個dest
+        visited = new boolean[vertices];
 
-        for (int i = 0; i < N; i++) {
-            adjList.add(i, new ArrayList<>());
-        }
-
-        // add edges to the undirected graph
-        for (int i = 0; i < edges.size(); i++)
-        {
-            int src = edges.get(i).source;
-            int dest = edges.get(i).dest;
-
-            adjList.get(src).add(dest);
-            adjList.get(dest).add(src);
-        }
+        for (int i = 0; i < vertices; i++)
+            adjLists[i] = new LinkedList<Integer>();
+    }
+    public void addEdge(int src, int dest)
+    {
+        adjLists[src].add(dest); // 描述線段的src到dest接法
     }
 }

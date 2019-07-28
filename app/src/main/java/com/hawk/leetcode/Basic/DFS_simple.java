@@ -1,28 +1,5 @@
 package com.hawk.leetcode.Basic;
-
-/**
- *
- * https://www.programiz.com/dsa/graph-dfs
- *
- *
- * DFS(G, u)
- *     u.visited = true
- *     for each v ∈ G.Adj[u]
- *         if v.visited == false
- *             DFS(G,v)
- *
- * init() {
- *     For each u ∈ G
- *         u.visited = false
- *      For each u ∈ G
- *        DFS(G, u)
- * }
- *
- *
- */
-
-import com.hawk.leetcode.BaseClass;
-
+import com.hawk.leetcode.Basic.data.Graph;
 import java.util.*;
 
 public class DFS_simple {
@@ -31,37 +8,17 @@ public class DFS_simple {
         new DFS_simple().test();
     }
 
-    class Graph
+    static void DFS(Graph graph, int vertex)
     {
-        private LinkedList<Integer> adjLists[];
-        private boolean visited[];
+        graph.visited[vertex] = true;
+        System.out.print(vertex + " > ");
 
-        public Graph(int vertices)
+        Iterator<Integer> it = graph.adjLists[vertex].listIterator(); // 以此接點的連接列表的Iterator
+        while (it.hasNext()) // 一個接一個掃出列表中的項目
         {
-            adjLists = new LinkedList[vertices];
-            visited = new boolean[vertices];
-
-            for (int i = 0; i < vertices; i++)
-                adjLists[i] = new LinkedList<Integer>();
-        }
-
-        void addEdge(int src, int dest)
-        {
-            adjLists[src].add(dest);
-        }
-
-        void DFS(int vertex)
-        {
-            visited[vertex] = true;
-            System.out.print(vertex + " > ");
-
-            Iterator it = adjLists[vertex].listIterator();
-            while (it.hasNext())
-            {
-                int n = (int)it.next();
-                if (!visited[n])
-                    DFS(n);
-            }
+            int n = it.next();
+            if (!graph.visited[n])
+                DFS(graph, n); // KEY: 遞迴往下層鑽
         }
     }
 
@@ -86,8 +43,7 @@ public class DFS_simple {
         g.addEdge(3, 1);
         int startVertex = 2;
         System.out.println("DFS start from "+startVertex);
-
-        g.DFS(startVertex);
+        DFS(g, startVertex);
         return null;
     }
 }
