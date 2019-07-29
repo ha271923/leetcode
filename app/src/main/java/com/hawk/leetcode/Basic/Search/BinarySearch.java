@@ -7,8 +7,9 @@ public class BinarySearch {
         int[] sortedArray = {2, 3, 5, 7, 11, 15, 16, 17, 21, 24, 27, 33, 38};
 
         int index;
-        index = binarySearch_Iterator(sortedArray, 5, 3, 9);
-        // index = binarySearch_Recursive(sortedArray, 15, 3, 9);
+        // index = binarySearch_Iterator(sortedArray, 5, 3, 9);
+        index = binarySearch_Recursive(sortedArray, 15, 3, 9);
+        System.out.println();
     }
 
     static public int binarySearch_Iterator(
