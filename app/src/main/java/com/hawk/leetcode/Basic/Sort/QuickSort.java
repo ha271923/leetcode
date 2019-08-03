@@ -3,52 +3,59 @@ package com.hawk.leetcode.Basic.Sort;
 import java.util.Random;
 
 public class QuickSort {
-
     public static void main(String[] args) {
-        int[] numbers = {27, 17, 2, 24, 7, 11, 38, 15, 21, 3, 33, 16, 5};
+        int n = 9;
+        int[] numbers = new int[n];
+        // for (int i = 0; i < numbers.length; i++)
+        //    numbers[i] = (new Random()).nextInt(100);
+        numbers = new int[] { 3 ,5 ,8 ,1 ,2 ,9 ,4 ,7 ,6 };
         quick(numbers);
         System.out.print(numbers);
         System.out.println();
     }
 
-    public static void quick(int[] array) {
-        sort(array, 0, array.length - 1);
+    public static void quick(int[] numbers)
+    {
+        Sort(numbers, 0, numbers.length - 1);
     }
 
-    public static void sort(int[] numbers, int left, int right) {
-        if (right <= left)
-            return;
-        int swapIndex = partition(numbers, left, right);
-
-        sort(numbers, left, swapIndex - 1);
-        sort(numbers, swapIndex + 1, right);
-    }
-
-    private static int partition(int numbers[], int start, int end) {
-        // A. random pivot
-        Random random = new Random();
-        int pivotIndex = start + random.nextInt(end - start + 1);
-
-        // B. middle pivot
-        // int pivotIndex = (left + right) / 2;
-
-        int pivot = numbers[pivotIndex];
-        swap(numbers, pivotIndex, end);
-        int swapIndex = start;
-        for (int i = start; i < end; ++i) {
-            if (numbers[i] <= pivot) {
-                swap(numbers, i, swapIndex);
-                ++swapIndex;
+    private static void Sort(int[] numbers, int left, int right)
+    {
+        if (left < right)
+        {
+            int pivot;
+            // 1. middle pivot
+            // pivot = numbers[(left + right) / 2];
+            // 2a. start
+            // pivot = numbers[left];
+            // 2b. end
+            // pivot = numbers[right];
+            // 3. random
+            int seed=0;
+            Random r = new Random();
+            seed = r.nextInt((right - left) + 1) + left;
+            pivot = numbers[seed];
+            int L = left - 1;
+            int R = right + 1;
+            while (true)
+            {
+                while (numbers[++L] < pivot)
+                    ;
+                while (numbers[--R] > pivot)
+                    ;
+                if (L >= R)
+                    break;
+                Swap(numbers, L, R);
             }
+            Sort(numbers, left, L - 1);
+            Sort(numbers, R + 1, right);
         }
-        swap(numbers, swapIndex, end);
-        return swapIndex;
     }
 
-    private static void swap(int[] numbers, int indexA, int indexB) {
-        int tmp = numbers[indexA];
-        numbers[indexA] = numbers[indexB];
-        numbers[indexB] = tmp;
+    private static void Swap(int[] numbers, int i, int j)
+    {
+        int number = numbers[i];
+        numbers[i] = numbers[j];
+        numbers[j] = number;
     }
-
 }
