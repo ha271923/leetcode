@@ -8,7 +8,6 @@ public class QuickSort {
      * https://zh.wikipedia.org/wiki/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F#Java
      */
     public static void main(String[] args) {
-        int n = 9;
         int[] numbers;
         numbers = new int[] { 3 ,5 ,8 ,1 ,2 ,9 ,4 ,7 ,6 };
         // Utils.getRandNumbers(numbers); // Random it!
