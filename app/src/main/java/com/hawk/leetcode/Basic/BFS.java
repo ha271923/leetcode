@@ -8,6 +8,22 @@ import java.util.List;
 import java.util.Queue;
 
 /**
+ * void BFS(tree T) { // 非遞迴BFS
+ * 	   queue_of_node Q; // 宣告一個先進先出的Queue
+ * 	   node u,v;
+ * 	   initialize(Q); //初始時將Queue清空
+ * 	   v = root of T; //走訪根節點
+ * 	   visit v;
+ * 	   enqueue(Q,v); //將根節點存入Queue尾端
+ * 	   while(!empty(Q)) { //當Queue中有節點時
+ * 	   	   dequeue(Q,v); //從Queue前端取出一個節點 v
+ * 	   	   for(each child u of v) { //走訪 v 的每個子節點 u
+ * 	   	   	   visit u ;         
+ * 	   	   	   enqueue(Q,u); //每走訪一個子節點 u 就將它放到Queue中
+ *         }
+ *     }
+ * }
+ * 
  * LeetCode之Breadth-first Search题目汇总
  * Binary Tree Level Order Traversal
  * Binary Tree Level Order Traversal II
