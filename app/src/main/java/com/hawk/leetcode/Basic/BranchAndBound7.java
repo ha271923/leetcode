@@ -8,33 +8,42 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 
+/**
+ * 一个旅行者有一个最多能装m公斤的背包，现在有n中物品，每件的重量分别
+ * 是W1、W2、……、Wn，每件物品的价值分别为C1、C2、……、Cn， 需要将物
+ * 品放入背包中，要怎么样放才能保证背包中物品的总价值最大？
+ *
+ */
 public class BranchAndBound7 {
-
     public static void main(String[] args) {
-        Knapsack[] bags = new Knapsack[] { new Knapsack(2, 13),
-        new Knapsack(1, 10), new Knapsack(3, 24), new Knapsack(2, 15),
-        new Knapsack(4, 28), new Knapsack(5, 33), new Knapsack(3, 20),
-        new Knapsack(1, 8) };
-        int totalWeight = 12;
-        BranchAndBound7 problem = new BranchAndBound7(bags, totalWeight);
+        Knapsack[] bags = new Knapsack[] {
+            new Knapsack(2, 13),
+            new Knapsack(1, 10),
+            new Knapsack(3, 24),
+            new Knapsack(2, 15),
+            new Knapsack(4, 28),
+            new Knapsack(5, 33),
+            new Knapsack(3, 20),
+            new Knapsack(1, 8)
+        };
 
+        BranchAndBound7 problem = new BranchAndBound7(bags);
         problem.solve();
         System.out.println(problem.getBestValue());
     }
 
     // 准备放入背包中的物品
     private Knapsack[] bags;
-    // 背包的总承重
-    private int totalWeight;
-    // 给定的物品数
+    // 背包的总承重m
+    private int maxWeight = 12;
+    // 给定的物品数n
     private int n;
     // 物品放入背包可以获得的最大价值
     private int bestValue;
 
-    public BranchAndBound7(Knapsack[] bags, int totalWeight) {
+    public BranchAndBound7(Knapsack[] bags) {
         super();
         this.bags = bags;
-        this.totalWeight = totalWeight;
         this.n = bags.length;
         // 物品依据单位重量价值进行排序
         Arrays.sort(bags, Collections.reverseOrder());
@@ -61,7 +70,7 @@ public class BranchAndBound7 {
                 left.upboundValue = getUpboundValue(left);
 
                 // 当物品放入背包中左节点的判断条件为保证不超过背包的总承重
-                if (left.currWeight <= totalWeight
+                if (left.currWeight <= maxWeight
                         && left.upboundValue > bestValue) {
                     // 将左节点添加到队列中
                     nodeList.add(left);
@@ -72,8 +81,7 @@ public class BranchAndBound7 {
                 }
 
                 // 右节点：该节点表示物品不放入背包中，上个节点的价值为当前价值
-                Node right = new Node(node.currWeight, node.currValue,
-                        node.index + 1);
+                Node right = new Node(node.currWeight, node.currValue,node.index + 1);
 
                 // 不放入当前物品后可以获得的价值上限
                 right.upboundValue = getUpboundValue(right);
@@ -88,14 +96,10 @@ public class BranchAndBound7 {
 
     // 当前操作的节点，放入物品或不放入物品
     class Node {
-        // 当前放入物品的重量
-        private int currWeight;
-        // 当前放入物品的价值
-        private int currValue;
-        // 不放入当前物品可能得到的价值上限
-        private int upboundValue;
-        // 当前操作的索引
-        private int index;
+        private int currWeight; // 当前放入物品的重量
+        private int currValue; // 当前放入物品的价值
+        private int upboundValue; // 不放入当前物品可能得到的价值上限
+        private int index; // 当前操作的索引
 
         public Node(int currWeight, int currValue, int index) {
             this.currWeight = currWeight;
@@ -110,7 +114,7 @@ public class BranchAndBound7 {
     private int getUpboundValue(Node n) {
 
         // 获取背包剩余容量
-        int surplusWeight = totalWeight - n.currWeight;
+        int surplusWeight = maxWeight - n.currWeight;
         int value = n.currValue;
         int i = n.index;
 
@@ -131,7 +135,5 @@ public class BranchAndBound7 {
     public int getBestValue() {
         return bestValue;
     }
-
-
 
 }
