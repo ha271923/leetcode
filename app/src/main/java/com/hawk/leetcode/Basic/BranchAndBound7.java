@@ -2,7 +2,7 @@ package com.hawk.leetcode.Basic;
 
 // https://blog.csdn.net/ljmingcom304/article/details/50324007
 
-import com.hawk.leetcode.Basic.data.Knapsack;
+import com.hawk.leetcode.Basic.data.item;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,15 +16,15 @@ import java.util.LinkedList;
  */
 public class BranchAndBound7 {
     public static void main(String[] args) {
-        Knapsack[] bags = new Knapsack[] {
-            new Knapsack(2, 13),
-            new Knapsack(1, 10),
-            new Knapsack(3, 24),
-            new Knapsack(2, 15),
-            new Knapsack(4, 28),
-            new Knapsack(5, 33),
-            new Knapsack(3, 20),
-            new Knapsack(1, 8)
+        item[] bags = new item[] {
+            new item(2, 13),
+            new item(1, 10),
+            new item(3, 24),
+            new item(2, 15),
+            new item(4, 28),
+            new item(5, 33),
+            new item(3, 20),
+            new item(1, 8)
         };
 
         BranchAndBound7 problem = new BranchAndBound7(bags);
@@ -33,7 +33,7 @@ public class BranchAndBound7 {
     }
 
     // 准备放入背包中的物品
-    private Knapsack[] bags;
+    private item[] bags;
     // 背包的总承重m
     private int maxWeight = 12;
     // 给定的物品数n
@@ -41,7 +41,7 @@ public class BranchAndBound7 {
     // 物品放入背包可以获得的最大价值
     private int bestValue;
 
-    public BranchAndBound7(Knapsack[] bags) {
+    public BranchAndBound7(item[] bags) {
         super();
         this.bags = bags;
         this.n = bags.length;

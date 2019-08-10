@@ -1,6 +1,6 @@
 package com.hawk.leetcode.Basic.data;
 
-public class Knapsack implements Comparable<Knapsack> {
+public class item implements Comparable<item> {
     /** 物品重量 */
     private int weight;
     /** 物品价值 */
@@ -8,7 +8,7 @@ public class Knapsack implements Comparable<Knapsack> {
     /** 单位重量价值 */
     private int unitValue;
 
-    public Knapsack(int weight, int value) {
+    public item(int weight, int value) {
         this.weight = weight;
         this.value = value;
         this.unitValue = (weight == 0) ? 0 : value / weight;
@@ -35,7 +35,7 @@ public class Knapsack implements Comparable<Knapsack> {
     }
 
     @Override
-    public int compareTo(Knapsack snapsack) {
+    public int compareTo(item snapsack) {
         int value = snapsack.unitValue;
         if (unitValue > value)
             return 1;
