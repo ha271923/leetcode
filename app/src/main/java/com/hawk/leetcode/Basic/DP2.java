@@ -60,7 +60,7 @@ public class DP2 {
         *           [6][0] |  6   |  0   |  0   |  0   |  0   |  0   |  0   |  0   |
         *            word1
         * */
-        int[][] dp = new int[yLen + 1][xLen + 1];
+        int[][] dp = new int[yLen + 1][xLen + 1]; // 為什麼要把input陣列XY維度+1? 因為下面的dp算法都是往正上[y-1][x]跟左上[y-1][x-1]跟左[y][x-1], 所以要創造出一開始的數值才不會out-of-bound
         for (int y = 0; y <= yLen; y++) { // 為什麼x一開始是1,2,3,4,5,6,7? 因為一開始都沒字所以完全相同=0, 之後y=1時, word1挑c1, word2還在c0, 所以一定是1個字不相同, 填入1
             dp[y][0] = y;
         }

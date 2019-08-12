@@ -31,7 +31,7 @@ public class DP3 {
 
         int xLen = coinArray[0].length;
         int yLen = coinArray.length;
-        int[][] dp = new int[yLen + 1][xLen + 1];
+        int[][] dp = new int[yLen + 1][xLen + 1]; // 一開始的new int[xLen+1][yLen+1], 是為了讓下面dp的[x-1][y-1]左上取值算法能通用所有情況
         for (int y = 0; y <= yLen; y++) {
             dp[y][0] = 0;
         }
@@ -42,8 +42,9 @@ public class DP3 {
         int coin = 0;
         for (int x = 1; x <= xLen; x++) { // 往右走
             for (int y = 1; y <= xLen; y++) { // 往下走
-                coin = coinArray[x-1][y-1];
+                coin = coinArray[x-1][y-1]; // 為了讓dp的左上取值算法[x-1][y-1]能通用所有情況, 所以一開始的new int[xLen+1][yLen+1]
                 dp[y][x] = Math.max(dp[y][x-1], dp[y-1][x]) + coin; // 小問題的結果更新於dp
+            //  新的錢    = 哪邊錢較多(  往下走  或  往右走   ) + 上次的錢
             }
 
         }
