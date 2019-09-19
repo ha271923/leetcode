@@ -35,28 +35,30 @@ import java.util.ArrayList;
  *
  *  // 这是最原始的模板，根据题要求的不同会增加参数或各种判断条件，但都离不开这个框架。
  *
- *  //list s是已取出的数，nums是原始数组，pos是当前取第几个位置的数
- *  public void helper(List<Integer> s,int[] nums,int pos) {
- *    // 6.跳出条件
- *    if(……){
- *      ……
- *      return;
+ *
+ *    //list<TYPE> s用來記憶已取出過的数，nums是原始数组，pos是当前取第几个位置的数
+ *    public void backtrack(List<Integer> s,int[] nums,int pos) {
+ *        // 6.跳出条件
+ *        if(……) {
+ *            ……
+ *            return;
+ *        }
+ *        // 1. 依序列舉所有的數
+ *        for(int i=0; i<nums.length; i++) {
+ *            int num = nums[i];
+ *            // 2. 取过的数不再取
+ *            if(s.contains(num)) {
+ *                continue;
+ *            }
+ *            // 3. 取出一个数
+ *            s.add(num);
+ *            // 4. 持續縮小問題, 此題往下遍歷, 並提供正確參數, pos+1
+ *            backtrack(s,nums,pos+1);
+ *            // 5. 重要！！遍历过此节点后，要回溯到上一步，因此要把加入到结果中的此点去除掉！
+ *            s.remove(s.size()-1);
+ *        }
  *    }
- *    // 1. 依序列舉所有的數
- *    for(int i=0;i<nums.length;i++){
- *      int num = nums[i];
- *      // 2. 取过的数不再取
- *      if(s.contains(num)){
- *        continue;
- *      }
- *      // 3. 取出一个数
- *      s.add(num);
- *      // 4. 持續縮小問題, 此題往下遍歷, 並提供正確參數, ，pos+1
- *      helper(s,nums,pos+1);
- *      // 5. 重要！！遍历过此节点后，要回溯到上一步，因此要把加入到结果中的此点去除掉！
- *      s.remove(s.size()-1);
- *    }
- *  }
+ *
  *
  *  在leetcode中比较经典的backtracking问题有以下几个：
  *    39. Combination Sum
