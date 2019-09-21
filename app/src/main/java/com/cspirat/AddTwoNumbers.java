@@ -29,8 +29,8 @@ public class AddTwoNumbers {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode head = new ListNode(0);
         int sum = 0;
-        ListNode cur = head; // head永遠指向Node頭, cur指向Node尾
-        ListNode p1 = l1, p2 = l2;
+        ListNode cur = head; // head永遠指向Node頭, cur PTR指向Node尾
+        ListNode p1 = l1, p2 = l2; //  p1, p2 PTR可隨意浮動所指Node
         while (p1 != null || p2 != null) {
             if (p1 != null) {
                 sum += p1.val;
