@@ -6,19 +6,19 @@ import java.util.List;
 public class Node {
     public int data;
     public boolean visited;
-    List<Node> nodes;
+    List<Node> toNodes;
 
     Node(int data) {
         this.data = data;
-        this.nodes = new ArrayList<>();
+        this.toNodes = new ArrayList<>();
     }
 
-    public void connectNode(Node neighbourNode) {
-        this.nodes.add(neighbourNode);
+    public void connectToNode(Node toNode) {
+        this.toNodes.add(toNode);
     }
 
-    public List<Node> getNeighbours() {
-        return nodes;
+    public List<Node> getMyToNodes() {
+        return toNodes;
     }
 
 }

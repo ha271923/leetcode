@@ -16,7 +16,7 @@ public class Nodes {
         Node node50 = new Node(50);
         Node node60 = new Node(60);
         Node node70 = new Node(70);
-        // add all nodes to ArrayList for finding neighbours by looping
+        // add all toNodes to ArrayList for finding neighbours by looping
         nodes.add(node10);
         nodes.add(node20);
         nodes.add(node30);
@@ -38,16 +38,16 @@ public class Nodes {
  *
  *     Ans: 40 > 10 > 20 > 30 > 60 > 50 > 70 >
  * */
-        node10.connectNode(node30);
-        node20.connectNode(node10);
-        node20.connectNode(node30);
-        node20.connectNode(node60);
-        node20.connectNode(node50);
-        node30.connectNode(node60);
-        node40.connectNode(node10);
-        node40.connectNode(node20);
-        node50.connectNode(node70);
-        node60.connectNode(node70);
+        node10.connectToNode(node30);
+        node20.connectToNode(node10);
+        node20.connectToNode(node30);
+        node20.connectToNode(node60);
+        node20.connectToNode(node50);
+        node30.connectToNode(node60);
+        node40.connectToNode(node10);
+        node40.connectToNode(node20);
+        node50.connectToNode(node70);
+        node60.connectToNode(node70);
         return nodes;
     }
 
