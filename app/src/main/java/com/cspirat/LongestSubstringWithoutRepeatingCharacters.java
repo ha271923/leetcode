@@ -30,18 +30,30 @@ public class LongestSubstringWithoutRepeatingCharacters {
      * @return
      */
 
+    // subString重複沒關希, 重點是char不能重複, ex: abcabcbb, result = abc = 3
     // Tips1: 這一題subString最長的結果是abcdefghijklmnopqrstuvwxyz = 26
     // Tips2: j代表subString的head在allString中的絕對位置, 而非相對位置, 所以j不需歸0
-    public int lengthOfLongestSubstring(String s) {
+    // KEY: sliding Window, 字元不用往回掃
+    // KEY: 題目要看懂!!! 關鍵是當前一個字元c與前次一個字元c比對, 而非整個字組word比對!
+    static public int lengthOfLongestSubstring(String s) {
         if (s == null || s.length() == 0) return 0;
         HashMap<Character, Integer> map = new HashMap<>();
         int res = 0;
-        for (int i = 0, j = 0; i < s.length(); i++) { // i作為allString的iterator, j作為subString的第一字元位置
-            if (map.containsKey(s.charAt(i))) { // map中找到找到
-                j = Math.max(j, map.get(s.charAt(i)) + 1);
-            }
-            map.put(s.charAt(i), i); // <K,V> , <c1,i1><c2,i2><c3,i3>...<cn,in> = 每個字元char都是一組<K,V>
-            res = Math.max(res, i - j + 1); // 因為index由0開始, 但元素數量是1開始, 所以+1, 更新紀錄res目前找到的最長字的長度
+
+        // 組合超多
+        // a, aa, ab, ac.....az, aaa, aab...aaz, aba....abz  ................azzzzzzzzzzzzzzz
+        // b, ba, bb, bc.....bz, baa, bab...baz, bba....bbz, ................bzzzzzzzzzzzzzzz
+        //    ...
+        // z, za, zb, zc.....zz, zaa, zab...zaz, zba....zbz, ................zzzzzzzzzzzzzzzz
+        // 掃描所有輸入字元, 若沒有重複, 該subString長度繼續累積+1
+        for (int right = 0, left = 0; right < s.length(); right++) { // i作為allString的iterator, j作為subString的第一字元位置
+            // 比對有沒有重複
+            if (map.containsKey(s.charAt(right)) == true) { // 檢查map中是否已有該字元
+                left = Math.max(left, map.get(s.charAt(right)) + 1); // 若有該字元, 代表重複, 所以noRepeatStartPos推進
+            } // else {} 的情況代表不更新noRepeatStartPos, 這樣就可計算(scanPos-noRepeatStartPos)=Window寬度
+            // KEY: <K,V> = <當前掃到的'一個字元', 當前位置>
+            map.put(s.charAt(right), right); // <K,V> , <c1,i1><c2,i2><c3,i3>...<cn,in> = 每個字元char都是一組<K,V>
+            res = Math.max(res, right - left + 1); // KEY: sliding window的寬度
         }
         return res;
     }
@@ -62,5 +74,18 @@ public class LongestSubstringWithoutRepeatingCharacters {
             }
         }
         return res;
+    }
+}
+
+
+class Main {
+    // Program to create a generic array in Java
+    public static void main(String[] args)
+    {
+                   // Sliding Window( No loop back )
+                   //     >>>>>>>>>[    ]----
+        String strTest = "pwwwwwwwwkewccckew"; // len=18
+        System.out.println(LongestSubstringWithoutRepeatingCharacters
+                .lengthOfLongestSubstring(strTest));
     }
 }
