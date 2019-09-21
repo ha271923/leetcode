@@ -23,6 +23,7 @@ import java.util.Queue;
 import java.util.*;
 
 // https://www.techiedelight.com/breadth-first-search/
+// BFS 的Node可能有2個以上的分岔, Binary Search Trees則是只有1~2分岔(左小右大)
 class BFS_simple2
 {
     // Iterative Java implementation of Breadth first search

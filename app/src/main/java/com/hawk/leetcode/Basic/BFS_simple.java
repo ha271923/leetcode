@@ -2,6 +2,7 @@ package com.hawk.leetcode.Basic;
 import com.hawk.leetcode.Basic.data.Graph;
 import java.util.*;
 
+// BFS 的Node可能有2個以上的分岔, Binary Search Trees則是只有1~2分岔(左小右大)
 public class BFS_simple {
     public static void main(String[] args) {
         new BFS_simple().test();

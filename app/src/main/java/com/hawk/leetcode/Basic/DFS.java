@@ -30,7 +30,7 @@ import java.util.Stack;
  * Sum Root to Leaf Numbers
  * Validate Binary Search Tree
  * */
-
+// DFS 的Node可能有2個以上的分岔, Binary Search Trees則是只有1~2分岔(左小右大)
 public class DFS extends BaseClass {
 
     public static void main(String[] args) {
@@ -45,9 +45,9 @@ public class DFS extends BaseClass {
         out = node.data + " > ";
         System.out.print(node.data + " > ");
         node.visited = true;
-        List<Node> neighbours = node.getNeighbours();
-        for (int i = 0; i < neighbours.size(); i++) { // 將該端點相關的端點們, 一個一個列舉出來
-            Node n = neighbours.get(i);
+        List<Node> myToNodes = node.getMyToNodes();
+        for (int i = 0; i < myToNodes.size(); i++) { // 將該端點相關的端點們, 一個一個列舉出來
+            Node n = myToNodes.get(i);
             if (n != null && !n.visited) {
                 dfs_recursive(n); // KEY: visited flag, 且順著Node路徑一層一層往下挖
             }
@@ -65,7 +65,7 @@ public class DFS extends BaseClass {
             Node element = stack.pop();
             out = element.data + " > ";
             System.out.print(element.data + " > ");
-            List<Node> neighbours = element.getNeighbours();
+            List<Node> neighbours = element.getMyToNodes();
             for (int i = 0; i < neighbours.size(); i++) {
                 Node n = neighbours.get(i);
                 if (n != null && !n.visited) {

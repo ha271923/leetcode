@@ -8,6 +8,7 @@ import java.util.Stack;
 // http://leeeyou.xyz/2016/02/23/blog-2016-02-23-%E7%AE%97%E6%B3%95%E4%B9%8B%E5%9B%BE%E7%9A%84%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86%E5%92%8C%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/
 // Tips: BFS與DFS是無方向性, 以任一Node起始, 朝四面八方走訪, 而非樹狀往下
 // Tips: DFS不需要保存搜尋過的狀態
+// DFS 的Node可能有2個以上的分岔, Binary Search Trees則是只有1~2分岔(左小右大)
 public class DFS_matrix extends BaseClass {
     static ArrayList<Node> nodes = new ArrayList<>();
 

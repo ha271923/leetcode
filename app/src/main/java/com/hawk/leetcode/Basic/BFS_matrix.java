@@ -23,6 +23,7 @@ import java.util.Queue;
 // Tips: BFS與DFS是無方向性, 以任一Node起始, 朝四面八方走訪, 而非樹狀往下
 // Tips: BFS不使用recursive, 使用looping
 // Tips: BFS需要保存搜尋過的狀態, 一般使用一個queue
+// BFS 的Node可能有2個以上的分岔, Binary Search Trees則是只有1~2分岔(左小右大)
 public class BFS_matrix {
     static private Queue<Node> queue; // KEY: BFS需要保存搜尋過的Temp Node狀態, 一般使用一個queue暫存
     static ArrayList<Node> nodes=new ArrayList<Node>();

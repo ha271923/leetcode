@@ -1,6 +1,6 @@
 package com.hawk.leetcode.Basic.Search;
 
-
+// BFS 的Node可能有2個以上的分岔, Binary Search Trees則是只有1~2分岔(左小右大)
 public class BinarySearch {
     public static void main(String[] args) {
                           // 0  1  2  3   4   5   6   7   8   9  10  11  12

@@ -32,6 +32,7 @@ import java.util.Queue;
  * Course Schedule II
  * Surrounded Regions
  * */
+// BFS 的Node可能有2個以上的分岔, Binary Search Trees則是只有1~2分岔(左小右大)
 public class BFS {
     public static void main(String[] args) {
         System.out.println("The BFS traversal of the graph is ");
@@ -50,7 +51,7 @@ public class BFS {
         while (!queue.isEmpty()) {
             Node node = queue.remove(); //  Retrieves and removes the head of this queue.
             out = out + node.data + " > ";
-            List<Node> neighbours = node.getNeighbours(); // 抓出該端點所有鄰近端點清單
+            List<Node> neighbours = node.getMyToNodes(); // 抓出該端點所有鄰近端點清單
             for (int i = 0; i < neighbours.size(); i++) { // 將該端點相關的端點們, 一個一個列舉出來
                 Node n = neighbours.get(i);
                 if (n != null && !n.visited) {
