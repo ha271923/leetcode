@@ -1,0 +1,68 @@
+A. Interface:
+  Collection  The root interface in the collections hierarchy from which interfaces Set, Queue and List are derived.
+  Set         A collection that does not contain duplicates.
+  List        An ordered collection that can contain duplicate elements.
+  Map         A collection that associates keys to values and cannot contain duplicate keys.
+  Queue       Typically a first-in, first-out collection that models a waiting line; other orders can be specified.
+
+
+B. Choice Data Structure:
+if ( Data<K,V> == true )
+        if ( Data == AutoSort )
+            if( Data.MajorOp == Search )
+                ANS: TreeMap<K,V>
+            else // Data.MajorOp == Search,Add,Del...
+                ANS: unknown
+        else // Data != AutoSort
+            if( Data.MajorOp == Search )
+                ANS: HashMap<K,V>
+            else // Data.MajorOp == Need Iterator()
+                ANS: LinkedHashMap<K,V>
+else // Data != <K,V>, with Iterator()
+     if ( Data == Repeatable )
+        if( Data.MajorOp == FIFO )
+            ANS: PirorityQueue<E>, Dequeue<E>
+        else if ( Data.MajorOp == FILO )
+            ANS: Stack<E>
+        else // Data.MajorOp == Insert,Del...
+            ANS: ArrayList<E>, LinkedList<E>
+     else // Data != Repeatable
+        if ( Data == AutoSort )
+            ANS: TreeSet<E>
+        else // Data != AutoSort
+            ANS: HashSet<E>, LinkedHashSet<E>
+
+
+C. Java Data Structures:
+https://en.proft.me/2013/11/3/java-collection-framework-cheat-sheet/
+
+Iterator<E>
+    ^
+    |
+Iterable<E>
+    ^
+    |
+Collection<E> I/F <----  Queue<E> I/F <---- class PirorityQueue<E>
+                    |                    |
+                    |                    |-- class Dequeue<E>
+                    |                    |
+                    |                    |-- class LinkedList<E>
+                    |                    |
+                    |--   List<E> I/F <---- class ArrayList<E>
+                    |                   |
+                    |                   |-- class Vector<E> <---- Stack<E>
+                    |
+                    |--    Set<E> I/F <---- SortedSet<E> I/F <---- NavigableSet<E> I/F <---- TreeSet<E>
+                                        |
+                                        |-- class HashSet<E> <---- class LinkedHashSet<E>
+
+
+Map<K,V> I/F <---- SortedMap<K,V> I/F <---- NavigableMap<K,V> I/F <---- class TreeMap<K,V>
+          |
+          |-- class HashMap<K,V> <---- class LinkedHashMap<K,V>
+
+
+class Object <---- class Collections
+               |
+               |-- class Arrays
+
