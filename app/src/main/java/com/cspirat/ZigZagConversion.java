@@ -37,15 +37,18 @@ public class ZigZagConversion {
     */
     public String convert(String s, int numRows) {
         if (numRows <= 1) return s;
+        // 按照numRows創造出等數量的StringBuilder陣列
         StringBuilder[] sb = new StringBuilder[numRows];
         for (int i = 0; i < sb.length; i++) {
             sb[i] = new StringBuilder("");
         }
+        // 一一掃描所有字元
         for (int i = 0; i < s.length(); i++) {
             int index = i % (2 * numRows - 2); // Q:???
             index = index < numRows ? index : 2 * numRows - 2 - index; // Q:???
-            sb[index].append(s.charAt(i));
+            sb[index].append(s.charAt(i)); // 把字元放到對應的sb
         }
+        // 組合sb[]
         for (int i = 1; i < sb.length; i++) {
             sb[0].append(sb[i]);
         }
