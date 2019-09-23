@@ -8,6 +8,24 @@ import java.util.List;
 import java.util.Stack;
 
 /**
+ * Compare Backtracking with DFS
+ *  A. Backtracking is a more general purpose algorithm.
+ *  B. DFS is a specific form of backtracking related to searching tree structures.
+ *
+ * DFS(G, u)
+ *     u.visited = true
+ *     for each v ∈ G.Adj[u]
+ *         if v.visited == false
+ *             DFS(G,v)
+ *
+ * init() {
+ *     For each u ∈ G
+ *         u.visited = false
+ *      For each u ∈ G
+ *        DFS(G, u)
+ * }
+ *
+ *
  * https://www.zybuluo.com/Yano/note/255699
  * LeetCode之Depth-first Search题目汇总
  * Balanced Binary Tree

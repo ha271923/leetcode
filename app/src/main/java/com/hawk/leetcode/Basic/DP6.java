@@ -39,6 +39,7 @@ public class DP6 {
             maxSum = numbers[0];
         }
         for (int i = 1; i < numbers.length; i++) {
+            // KEY: 本題的algorithm +++++++++++++
             dp[i] = dp[i - 1] + numbers[i];  // Result=PrevResult+NewValue
             if (dp[i] > maxSum) { // 至少要大於0, 因為題目說:當所給的整數均為負數時和為0。
                 maxSum = dp[i];
@@ -46,6 +47,7 @@ public class DP6 {
             if (dp[i] < 0) { // 至少要大於0, 因為題目說
                 dp[i] = 0;
             }
+            // KEY: 本題的algorithm -------------
         }
         for (int i = 0; i < dp.length; i++) {
             System.out.print(dp[i] + " ");

@@ -65,10 +65,12 @@ public class DP5 {
 
         for (int row=1; row<len; row++ ) { // next num
             for (int column=0; column<row; column++ ) { // num[0] to  current num[row]
+                // KEY: 本題的algorithm +++++++++++++
                 //    數字是    升冪              且   是漸進(1階1階,故+1)式遞增 (總是與該row的最末dp[row]進行比對, 結果是否符合遞增)
                 if (number[row] > number[column] && (dp[column] + 1) > dp[row] ) { // KEY:注意dp[column]+1 > dp[row]這個條件，不能省略, 因為遞增意義:除了數字是增加的之外, 數的排列也必須是增加的
                     dp[row] = dp[column] + 1; // 確實符合遞增, 故結果+1
                 }
+                // KEY: 本題的algorithm -------------
             }
         }
         // print result

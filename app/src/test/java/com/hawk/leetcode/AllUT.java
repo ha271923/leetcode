@@ -32,6 +32,7 @@ public class AllUT extends BaseUT {
     // @Test(dataProvider = "MedianOfTwoSortedArrays")
     @Test
     public void runTest() throws Exception {
+        System.out.println(" ++++++++++++++++++++++++++[ "+ut_item+" ]++++++++++++++++++++++++++++++");
         BaseClass testObj = null;
         Object out;
         switch(ut_item){
@@ -63,6 +64,7 @@ public class AllUT extends BaseUT {
             testObj.test();
             testObj.result();
         }
+        System.out.println(" ---------------------------[ "+ut_item+" ]----------------------------");
     }
 
 }

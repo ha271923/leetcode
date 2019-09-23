@@ -3,6 +3,19 @@ package com.hawk.leetcode.Basic;
 import java.util.ArrayList;
 
 /**
+ * Compare Backtracking with DFS
+ *  A. Backtracking is a more general purpose algorithm.
+ *  B. DFS is a specific form of backtracking related to searching tree structures.
+ *
+ *    boolean solve(Node n) {
+ *       if n is a goal node, return true
+ *
+ *       foreach option O possible from n {
+ *           if solve(O) succeeds, return true
+ *       }
+ *       return false
+ *   }
+ *
  * Backtracking
  * 回溯法通常用遞歸實現，因為換條路繼續走的時候換的那條路又是一條新的子路。
  * 高人說，如果你發現問題如果不窮舉一下就沒辦法知道答案，就可以用回溯了。
@@ -36,7 +49,7 @@ import java.util.ArrayList;
  *  // 这是最原始的模板，根据题要求的不同会增加参数或各种判断条件，但都离不开这个框架。
  *
  *
- *    //list<TYPE> s用來記憶已取出過的数，nums是原始数组，pos是当前取第几个位置的数
+ *    // 0. list<TYPE> s用來記憶已取出過的数，nums是原始数组，pos是当前取第几个位置的数
  *    public void backtrack(List<Integer> s,int[] nums,int pos) {
  *        // 6.跳出条件
  *        if(……) {

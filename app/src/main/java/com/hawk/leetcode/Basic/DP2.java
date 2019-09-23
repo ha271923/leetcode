@@ -70,6 +70,7 @@ public class DP2 {
         // 暴力掃描,填充dp矩阵, 兩個word都從第一個char開始比, char index = (y or x) -1
         for (int y = 1; y <= yLen; y++) {
             for (int x = 1; x <= xLen; x++) { // begin from dp[1][1] to dp [yLen][xLen]
+                // KEY: 本題的algorithm +++++++++++++
                 char w1c = word1.charAt(y-1);
                 char w2c = word2.charAt(x-1);
                 if (w1c == w2c) {
@@ -88,6 +89,7 @@ public class DP2 {
                             min = Math.min(min, delete);
                     dp[y][x] = min;  // DP:為避免一再地解重複的子問題，一旦解出子問題的解答(solution)，即會將其存在表格(或陣列)中。
                 }
+                // KEY: 本題的algorithm -------------
             }
         }
 
