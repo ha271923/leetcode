@@ -51,10 +51,21 @@ public class LongestPalindromicSubstring {
     static public String longestPalindrome(String s) {
         if (s == null || s.length() == 0) return s;
         String res = "";
-        boolean[][] dp = new boolean[s.length()][s.length()]; // 用DP是因為, abc不是, abcb是, abcba是, 就算之前不是, 之後仍要重頭掃描之前掃過的一切
+        // 用2-D DP是因為, abc不是, abcb是, abcba是, 就算之前FALSE, 本來不是的字, 再增加一個字後, 有可能變成TRUE ,
+        // 解palindromic問題, 每增加一字重頭掃描之前掃過的一切是必須的
+        boolean[][] dp = new boolean[s.length()][s.length()];
         int max = 0;
-        for (int right = 0; right < s.length(); right++) {
-            for (int left = 0; left <= right; left++) {
+        // 01234
+        // >L R.
+        // babad
+        // 0      R=0, L=0       b=T --> 1
+        // 01     R=1, L=0~1    ba=F
+        // 012    R=2, L=0~2   bab=T --> 3
+        // 0123   R=3, L=0~3  baba=F
+        // 01234  R=4, L=0~4 babad=F
+        for (int right = 0; right < s.length(); right++) { // 右邊界：設定右邊界=right
+            for (int left = 0; left <= right; left++) {    // 向右推進：向右推進的left因為要與right進行比較, 所以放在第2層回圈
+                System.out.println("L="+left+" , R="+right +" ,  subString="+ s.substring(left,right+1));
                 /**
                  *          R =[0][j] [0][1] [0][2] [0][3] [0][4]
                  * L=dp[i][0] |  T   |  ?   |  ?   |  ?   |  ?   |
@@ -63,14 +74,14 @@ public class LongestPalindromicSubstring {
                  *     [3][0] |  ?   |  ?   |  ?   |  ?   |  ?   |
                  *     [4][0] |  ?   |  ?   |  ?   |  ?   |  ?   |
                  * L的遞增,代表sliding Window的往右 推進
-                 * R的遞增,代表sliding Window的往右 擴展
+                 * R的遞增,代表sliding Window的   右邊界
                  */
                 // 什麼是Palindrome? 要如何確認?
                 dp[left][right] =
                                   // KEY: 下述方程式難以理解?????
-                                  s.charAt(left) ==  s.charAt(right)  // boolean A1 = 最前字元 需等同 最後字元
+                                  s.charAt(left) ==  s.charAt(right)  // boolean A1 = 最前字元 需等同 最後字元 , {a,aa,aba,a?????a}
                                                  &&                   // boolean dp[][] = A3 = A1 && A2
-                                  ((right - left <= 2) || dp[left + 1][right - 1]); // boolean A2 = ((3字以內必為true,因A1已經比對) |
+                                  ((right - left <= 2) || dp[left + 1][right - 1]); // boolean A2 = ((3字以內必為true,因A1已經比對a,aa) || 上一次的值 = {可觀察兩次for的遞增規律=(left+1,right-1)} = dp[Y][X]
                 /*
 
                 // 測試邏輯小程式
