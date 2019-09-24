@@ -44,13 +44,11 @@ public class DP3 {
             for (int y = 1; y <= xLen; y++) { // 往下走
                 // KEY: 本題的algorithm +++++++++++++
                 coin = coinArray[x-1][y-1]; // 為了讓dp的左上取值算法[x-1][y-1]能通用所有情況, 所以一開始的new int[xLen+1][yLen+1]
-                dp[y][x] = Math.max(dp[y][x-1], dp[y-1][x]) + coin; // 小問題的結果更新於dp
+                dp[y][x] = Math.max(dp[y][x-1], dp[y-1][x]) + coin; // 現在的值dp[y][x] = max( dp[y][x-1]左邊往右走 , dp[y-1][x]上面往下走 )
             //  新的錢    = 哪邊錢較多(  往下走  或  往右走   ) + 上次的錢
                 // KEY: 本題的algorithm -------------
             }
-
         }
-        System.out.println("max Coins=" + dp[yLen][xLen]);
         return dp[yLen][xLen];
     }
 }
