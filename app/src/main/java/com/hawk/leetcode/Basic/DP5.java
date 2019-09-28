@@ -48,6 +48,7 @@ package com.hawk.leetcode.Basic;
  *
  *  https://qiemengdao.iteye.com/blog/1660229
  */
+// KEY: 最長遞增子序列求的是數字組的quantity, 不是total
 public class DP5 {
     public static void main(String[] args) {
     int[] input  = {5,1,6,8,2,4,5,10};
