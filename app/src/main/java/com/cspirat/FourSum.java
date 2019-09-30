@@ -47,7 +47,7 @@ public class FourSum {
                     } else high--;
                 }
             }
-            // 以下類似3Sum解法 -----------------------------
+            // 以上類似ThreeSum解法 -----------------------------
         }
         return res;
     }
