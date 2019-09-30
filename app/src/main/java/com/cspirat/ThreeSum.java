@@ -58,28 +58,56 @@ public class ThreeSum {
 
     // Tips1: A+B+C=0  -->  A+B=-C
     // Tips2: 用TwoSum會有重複答案
-    // Tips3: 數組劃分成左右兩半, 左半由low指標管理, 右半由high指標管理, 所以(low < high）左右逼近必須成立
+    // Tips3: 數組劃分成左右兩半, 左半由L指標管理, 右半由R指標管理, 所以(L < R）左右逼近必須成立
     // Reference: https://zhuanlan.zhihu.com/p/53066205
-    public List<List<Integer>> threeSum(int[] nums) {
+    static public List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
-        Arrays.sort(nums); // 重新排序過的數, 方便搜尋,  O(n log(n)),  sorted nums[]=[-1, 0, 1, 2, -1, -4] =>  [-4, -1, -1, 0, 1, 2]
+        Arrays.sort(nums); // 重新排序過的數, 創造 R >= L 的規律, 方便搜尋,  O(n log(n)),  sorted nums[]=[-1, 0, 1, 2, -1, -4] =>  [-4, -1, -1, 0, 1, 2]
+        // 小測試 { 1, 2, 3, 4} 要做幾次? 先用一個簡單的數組找出規律
+        // 1=2+3 N!, 1=2+4 N!
+        // 2=1+3 N!, 2=1+4 N!
+        // 3=1+2 Y!, 3=1+4 N!
+        // 4=1+2 N!, 4=1+3 Y!
+        // 規律: C=A+B, C會遍歷每一數字, A不會遍歷每一數字, B亦然
+     // for (int i = 0; i < nums.length    ; i++) { // 沒-2輸出依然正確
         for (int i = 0; i < nums.length - 2; i++) { // 每次拿出3個數字的數組迴圈, 次數上應該要做(nums.length-2)
-            if (i > 0 && nums[i] == nums[i - 1]) continue; // 第二次回圈開始, 假使上次取出的數組中的元素A與此次的元素B一樣的話, 因為結果數組不想要重複, 所以不管是否是正確或是錯誤數組, 不用往下運算
-            int low = i + 1, high = nums.length - 1, sum = 0 - nums[i]; // ex: sorted nums[]=[-4, -1, -1, 0, 1, 2] , idx={low=1,high=5}, 每次我們取出數組內的3個數, 第一個數存到sum=0-(-4)=4 將初始值被0減去,可以創造出A+B=-C的公式, 然後尋找剩下的兩個數num[low],num[high]
-            while (low < high) { //　 idx={low-->往左逼近 往右逼近<--high} , 各自管理各自的數組範圍
-                if (nums[low] + nums[high] == sum) { // 找到了
-                    res.add(Arrays.asList(nums[i], nums[low], nums[high])); // 將結果存入
-                    while (low < high && nums[low] == nums[low + 1]) // 遇到重複數字，避免結果是重複數組，不斷跳過重複的數，找下一個左半部不重複數
-                        low++;
-                    while (low < high && nums[high] == nums[high - 1]) // 遇到重複數字，避免結果是重複數組，不斷跳過重複的數，找下一個右半部不重複數
-                        high--;
-                    low++;// 沒有重複數，所以換下一個數來做
-                    high--;//  Q:??? 為什麼不將之一low++或high--就好, 而將兩者都++&--, A: 因為前次L1+H1=Sum, 所以在濾掉重複值之下L2+H1或L1+H2是不可能=同一 個Sum,只有L2與H2同時變化, 才有可能出現下次的Sum
-                } else if (nums[low] + nums[high] < sum) {
-                    low++; // 需要找更大的數
-                } else high--; // 需要找更小的數
+            // 快速過濾: 以獲得非重複數組
+            if (i > 0 && nums[i] == nums[i - 1]) // 快速過濾: 第二次回圈開始, 假使上次取出的數組中的元素C與此次的元素C一樣的話, 因為結果數組不想要重複,
+                continue;                        // 所以不管是否是正確或是錯誤數組, 不用往下運算
+            // sum[i] = C會遍歷每一數字,
+            //        ++L         R--
+            // i | ----->         <--------
+            // A+B=-C, C必需存在於nums[]數值陣列之中,本題才有解, 要獲得-C, 只要把數值陣列中的值乘以(-1)或是以0減去nums[]即可獲得
+            int L = i + 1;
+            int R = nums.length - 1;
+            int sum = 0 - nums[i]; // A+B=C, C = sum = -num[i], ex: sorted nums[]=[-4, -1, -1, 0, 1, 2] , idx={L=1,R=5},
+                                   // 每次我們取出數組內的3個數, 第一個數存到sum=0-(-4)=4 將初始值被0減去,可以創造出A+B=-C的公式, 然後尋找剩下的兩個數num[L],num[R]
+
+            while (L < R) { //　固定sum情況下! 用L,R掃描述組, idx={L-->往左逼近 往右逼近<--R} , 各自管理各自的數組範圍
+
+                if (nums[L] + nums[R] == sum) // KEY: 找到了! A+B=C
+                {
+                    res.add(Arrays.asList(nums[i], nums[L], nums[R])); // 將結果存入
+                    while (L < R && nums[L] == nums[L + 1]) // 遇到重複數字，避免結果是重複數組，不斷跳過重複的數，找下一個左半部不重複數
+                        L++;
+                    while (L < R && nums[R] == nums[R - 1]) // 遇到重複數字，避免結果是重複數組，不斷跳過重複的數，找下一個右半部不重複數
+                        R--;
+                    L++;// 沒有重複數，所以換下一個數來做
+                    R--;//  Q:??? 為什麼不將之一L++或R--就好, 而將兩者都++&--, A: 因為前次L1+H1=Sum, 所以在濾掉重複值之下L2+H1或L1+H2是不可能=同一 個Sum,只有L2與H2同時變化, 才有可能出現下次的Sum
+                } else if (nums[L] + nums[R] < sum) { // a+b+c
+                    L++; // 需要找更大的數
+                } else R--; // 需要找更小的數
             }
         }
         return res;
+    }
+
+    public static void main(String[] args) {
+        int[] input = {-1, 0, 1, 2, -1, -4};
+        System.out.println("threeSum ");
+        List<List<Integer>> res = threeSum(input);
+        for( List<Integer> value: res) {
+            System.out.println("value = " + value);
+        }
     }
 }
