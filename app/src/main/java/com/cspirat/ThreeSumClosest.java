@@ -1,6 +1,7 @@
 package com.cspirat;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Project Name : Leetcode
@@ -23,21 +24,46 @@ public class ThreeSumClosest {
      * @param target
      * @return
      */
-    public int threeSumClosest(int[] nums, int target) {
+    // Tips1: 一定要3個數字相加
+    // Tips2: two loop
+    //  A:   for loop --- scanning num[i]
+    //  B: while loop --- L or R pointer mover either
+    //                       A            B
+    //  iL->.......<-R = num[0] + num[1] ~~~ num[n-1]
+    //   iL->......<-R = num[1] + num[2] ~~~ num[n-1]
+    //    iL->.....<-R = num[2] + num[3] ~~~ num[n-1]
+    //     iL->....<-R = num[3] + num[4] ~~~ num[n-1]
+    //      iL->...<-R = num[4] + num[5] ~~~ num[n-1]
+    //       iL->..<-R = num[5] + num[6] ~~~ num[n-1]
+    //        iL->.<-R = num[6] + num[7] ~~~ num[n-1]
+    //         iL-><-R = num[7] + num[8] ~~~ num[n-1]
+    static public int threeSumClosest(int[] nums, int target) {
         int res = nums[0] + nums[1] + nums[nums.length - 1];
         Arrays.sort(nums);
         for (int i = 0; i < nums.length - 2; i++) {
-            int start = i + 1, end = nums.length - 1;
-            while (start < end) {
-                int sum = nums[i] + nums[start] + nums[end];
-                if (sum > target) {
-                    end--;
-                } else start++;
-                if (Math.abs(sum - target) < Math.abs(res - target)) {
+            int L = i + 1;
+            int R = nums.length - 1;
+
+            while (L < R) {
+                int sum = nums[i] + nums[L] + nums[R];
+                if (sum > target)
+                    R--;
+                else
+                    L++;
+
+                if (Math.abs(sum - target) < Math.abs(res - target)) { // KEY: abs(), closet is small value, not bigger.
                     res = sum;
                 }
             }
         }
         return res;
+    }
+
+    public static void main(String[] args) {
+        int[] input = {-1, 2, 1, -4};
+        int target = 1;
+        System.out.println("threeSumClosest ");
+        int res = threeSumClosest(input, target);
+        System.out.println("res = " + res);
     }
 }
