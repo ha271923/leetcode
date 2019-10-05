@@ -25,23 +25,29 @@ public class ValidPalindrome {
      * @param s
      * @return
      */
+    // Tips1: Character.isLetterOrDigit(str) 這支API的使用
+    // Tips2: L++, R--, L<R 這些palindrome的原則
     public static boolean isPalindrome(String s) {
         if (s == null || s.length() == 0) return true;
-        int left = 0;
-        int right = s.length() - 1;
-        while (left < right) {
-            while (left < right && !Character.isLetterOrDigit(s.charAt(left))) {
-                left++;
+        int L = 0;
+        int R = s.length() - 1;
+        while (L < R) {
+            while (L < R && !Character.isLetterOrDigit(s.charAt(L))) {
+                L++;
             }
-            while (left < right && !Character.isLetterOrDigit(s.charAt(right))) {
-                right--;
+            while (L < R && !Character.isLetterOrDigit(s.charAt(R))) {
+                R--;
             }
-            if (Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right))) {
+            if (Character.toLowerCase(s.charAt(L)) != Character.toLowerCase(s.charAt(R))) {
                 return false;
             }
-            left++;
-            right--;
+            L++;
+            R--;
         }
         return true;
+    }
+    public static void main(String[] args) {
+        boolean res = isPalindrome("aba");
+        System.out.println("res = " + res);
     }
 }
