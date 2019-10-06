@@ -57,4 +57,18 @@ public class MergeTwoSortedLists {
             return l2; // 最終結果可能會return L1或L2整串之一
         }
     }
+
+    public static void main(String[] args) {
+        ListNode param1 = new ListNode(1);
+        param1.next = new ListNode(2);
+        param1.next.next = new ListNode(4);
+        ListNode in1 = param1;
+        ListNode param2 = new ListNode(1);
+        param2.next = new ListNode(3);
+        param2.next.next = new ListNode(4);
+        ListNode in2 = param2;
+        ListNode res = mergeTwoLists(in1, in2);
+        // ListNode res = mergeTwoLists2(in1, in2);
+        ListNode.show(res);
+    }
 }
