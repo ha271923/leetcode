@@ -12,4 +12,12 @@ public class ListNode {
         val = x;
         next = null;
     }
+
+    public static void show(ListNode nodes) {
+        while(nodes!=null) {
+            System.out.println(nodes.val);
+            nodes = nodes.next;
+        }
+
+    }
 }
