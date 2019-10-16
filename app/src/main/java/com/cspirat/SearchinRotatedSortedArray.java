@@ -30,25 +30,75 @@ public class SearchinRotatedSortedArray {
      * @param target
      * @return
      */
-    public int search(int[] nums, int target) {
-        if (nums == null || nums.length == 0) return -1;
+
+    public static void main(String[] args) {
+        int[][] numsArr = {
+           {6},
+           { 4,5,6,7,0,1,2 }
+        };
+        int[] target = {6, 0};
+
+        for(int i=0; i<numsArr.length; i++) {
+            System.out.println("i=" + i);
+            System.out.println("target=" +target[i]);
+            // int ret = search(numsArr[i], target[i]);
+            int ret = search_Hawk(numsArr[i], target[i]);
+            System.out.println("ret=" + ret);
+        }
+    }
+
+    public static int search(int[] nums, int target) { // leetcode pass
+        if (nums == null || nums.length == 0)
+            return -1;
         int start = 0;
         int end = nums.length - 1;
         while (start + 1 < end) {
             int mid = (end - start) / 2 + start;
-            if (nums[mid] == target) return mid;
+            if (nums[mid] == target)
+                return mid;
             if (nums[start] < nums[mid]) {
-                if (nums[start] <= target && target <= nums[mid]) {
+                if (nums[start] <= target && target <= nums[mid])
                     end = mid;
-                } else start = mid;
-            } else {
-                if (nums[mid] <= target && target <= nums[end]) {
+                else
                     start = mid;
-                } else end = mid;
+            } else {
+                if (nums[mid] <= target && target <= nums[end])
+                    start = mid;
+                else
+                    end = mid;
             }
         }
-        if (nums[start] == target) return start;
-        if (nums[end] == target) return end;
+        if (nums[start] == target)
+            return start;
+        if (nums[end] == target)
+            return end;
+        return -1;
+    }
+
+    public static int search_Hawk(int[] nums, int target) {
+        int len = nums.length;
+        int pivot = 0;
+        if(len <2) {
+            if(nums[0] == target) // ERROR: Always ArrayIndexOutOfBoundsException
+               return 0;
+            else
+               return -1;
+        }
+        for(int i=0;i<(len-1);i++) {
+            if(nums[i] < nums[i+1])
+                pivot = i;
+        }
+        if(target < nums[pivot] ) { // L
+            for(int L=0; L<=pivot; L++) {
+                if(nums[L] == target)
+                    return L;
+            }
+        }
+        else { // R
+            for(int R=(pivot+1); R<len; R++)
+                if(nums[R] == target)
+                    return R;
+        }
         return -1;
     }
 }
