@@ -11,9 +11,25 @@ import java.util.ArrayList;
  *       if n is a goal node, return true
  *
  *       foreach option O possible from n {
- *           if solve(O) succeeds, return true
+ *           if solve(O) succeeds,  // KEY: 遞迴在此!!!!!!!!!!!!!!!
+ *               return true
  *       }
  *       return false
+ *   }
+ *
+ *
+ *   boolean pathFound(Position p) {
+ *      if (p is finish)
+ *          return true;
+ *
+ *      foreach option O from p {
+ *          boolean isThereAPath = pathFound(O);  // KEY: 遞迴在此!!!!!!!!!!!!!!!
+ *          if (isThereAPath)
+ *              return true; // We found a path using option O
+ *      }
+ *      // We have tried all options from this position and none of the options lead to finish.
+ *      // Hence there is no solution possible to finish
+ *      return false;
  *   }
  *
  * Backtracking
@@ -66,7 +82,7 @@ import java.util.ArrayList;
  *            // 3. 取出一个数
  *            s.add(num);
  *            // 4. 持續縮小問題, 此題往下遍歷, 並提供正確參數, pos+1
- *            backtrack(s,nums,pos+1);
+ *            backtrack(s,nums,pos+1); // KEY: 遞迴在此!!!!!!!!!!!!!!!!!!!!!!
  *            // 5. 重要！！遍历过此节点后，要回溯到上一步，因此要把加入到结果中的此点去除掉！
  *            s.remove(s.size()-1);
  *        }
