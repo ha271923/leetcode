@@ -86,10 +86,10 @@ public class ValidSudoku {
     }
 
     // No HashSet
-    // Tips: 9x9 x (9x9x9) = 81次填值 x 729次填後比對 = 共 59049 次Loop
+    // Tips: 9行x9列 x 檢查(9行x9列x9宮) = 81次填值 x 729次填後比對 = 共 59049 次Loop
     public static boolean isValidSudoku_BruteForce(char[][] board) {
-        for (int y = 0; y < board.length; y++) {
-            for (int x = 0; x < board[0].length; x++) {
+        for (int y = 0; y < board.length; y++) {  // LOOP1: 0~8
+            for (int x = 0; x < board[0].length; x++) {  // LOOP2: 0~8
                 if (board[y][x] == '.') // 掃到未知數
                     continue;
                 if (!valid(board, y, x)) // 一定是已知數
@@ -103,21 +103,21 @@ public class ValidSudoku {
         char curDigital = board[y][x];
 
         // x: 掃行
-        for (int col = 0; col < board[0].length; col++) {
+        for (int col = 0; col < board[0].length; col++) { // LOOP3x: 0~8
             if (col == x)
                 continue;
             if (board[y][col] == curDigital)
                 return false;
         }
         // y: 掃列
-        for (int row = 0; row < board[0].length; row++) {
+        for (int row = 0; row < board[0].length; row++) { // LOOP3y: 0~8
             if (row == y)
                 continue;
             if (board[row][x] == curDigital)
                 return false;
         }
         // 掃9x9宮
-        for (int row = (y / 3) * 3; row < (y / 3 + 1) * 3; row++) {
+        for (int row = (y / 3) * 3; row < (y / 3 + 1) * 3; row++) { // LOOP3xy: x,y
             for (int col = (x / 3) * 3; col < (x / 3 + 1) * 3; col++) {
                 if (row == y && col == x)
                     continue;
