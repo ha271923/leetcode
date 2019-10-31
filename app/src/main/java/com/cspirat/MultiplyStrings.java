@@ -26,18 +26,22 @@ public class MultiplyStrings {
      * @param num2
      * @return
      */
+    // Tips: 使用int[], 手繪乘法運作圖
     public String multiply(String num1, String num2) {
-        if (num1 == null || num2 == null) return "0";
-        int[] digits = new int[num1.length() + num2.length()];
-        for (int i = num1.length() - 1; i >= 0; i--) {
+        if (num1 == null || num2 == null)
+            return "0";
+        int[] digits = new int[num1.length() + num2.length()]; // KEY: 因為int有數值上限, 改用陣列數值
+        for (int i = num1.length() - 1; i >= 0; i--) { // 從個位數開始取出計算
             for (int j = num2.length() - 1; j >= 0; j--) {
                 int product = (num1.charAt(i) - '0') * (num2.charAt(j) - '0');
-                int p1 = i + j, p2 = i + j + 1;
-                int sum = product + digits[p2];
-                digits[p1] += sum / 10;
+                int p1 = i + j;
+                int p2 = i + j + 1;
+                int sum = product + digits[p2]; // KEY: 每次的sum需取出前次的進位值digits[p2],
+                digits[p1] += sum / 10; // KEY: 乘法在每次進位時, 需累加前次結果
                 digits[p2] = sum % 10;
             }
         }
+        // 把int[] digits轉換成字串
         StringBuilder res = new StringBuilder();
         for (int digit : digits) {
             if (!(digit == 0 && res.length() == 0)) {
