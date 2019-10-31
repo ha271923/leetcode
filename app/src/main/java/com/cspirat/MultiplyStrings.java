@@ -27,7 +27,7 @@ public class MultiplyStrings {
      * @return
      */
     // Tips: 使用int[], 手繪乘法運作圖
-    public String multiply(String num1, String num2) {
+    static public String multiply(String num1, String num2) {
         if (num1 == null || num2 == null)
             return "0";
         int[] digits = new int[num1.length() + num2.length()]; // KEY: 因為int有數值上限, 改用陣列數值
@@ -49,5 +49,15 @@ public class MultiplyStrings {
             }
         }
         return res.length() == 0 ? "0" : res.toString();
+    }
+
+    public static void main(String[] args) {
+        String input1 ="333333333333";
+        String input2 ="222222222222";
+        String ret = multiply(input1, input2); // ans: 74074074073925925925926
+        System.out.println("   "+input1);
+        System.out.println(" X "+input2);
+        System.out.println("________________________________________________________________________");
+        System.out.println(ret);
     }
 }
