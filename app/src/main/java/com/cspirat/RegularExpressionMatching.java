@@ -12,8 +12,12 @@ import com.hawk.leetcode.Basic.data.MyTree;
  */
 public class RegularExpressionMatching {
     /**
-     * Implement regular expression matching with support for '.' and '*'.
+     Implement regular expression matching with support for '.' and '*'.
+     注意!!! 這題Q10的 * 符號, 與 Q44: WildcardMatching的功能不同
 
+      EX: s=ac , p= a*c , 在Q44是false, Q10是true
+
+     Q10:
      '.' Matches any single character.
      '*' Matches zero or more of the preceding element.
 
@@ -32,12 +36,12 @@ public class RegularExpressionMatching {
      isMatch("aab", "c*a*b") → true  注意!! 消去前面字
      isMatch("mississippi", "mis*is*p*.") → false
 
-
-     "a*"  = "aa"       // *: REPEAT: 代表與前一字元相同且重複次數不限
-     "a*b" = "aaab"     // *: REPEAT: 代表與前一字元相同且重複次數不限
-     ".*"  = "aa"       // *: REPEAT: 代表與前一字元相同
-     ".*"->"."+".*" = "ab"  // *: ANY:    代表與前一字元相同, 若前一字元是 . , 代表可以是任意字元
-     "c*a*b" = "aab"    // *: DEL:    代表DEL前一字元
+     說明! 符號 * 的多種意義
+     "a*"  = "aa"           // 1. *: REPEAT: 代表與前一字元相同且重複次數不限
+     "a*b" = "aaab"         // 2. *: REPEAT: 代表與前一字元相同且重複次數不限
+     ".*"  = "aa"           // 3. *: REPEAT: 代表與前一字元相同
+     ".*"->"."+".*" = "ab"  // 4. *: ANY:    代表與前一字元相同, 若前一字元是 . , 代表可以是任意字元
+     "c*a*b" = "aab"        // 5. *: DEL:    代表DEL前一字元
 
      HAWK: * 星星符號有多種狀態如上!!
 
@@ -87,7 +91,7 @@ public class RegularExpressionMatching {
         System.out.println("isMatch()="+isMatch(s,p));
     }
 
-    // Tips1: RegEx裡的*跟DOS裡的* , 意義不同
+    // Tips1: RegEx(Q10)裡的*跟DOS(Q44)裡的* , 意義不同
     // Tips2: 匹配真值表 dp[s.len+1]*[p.len+1], X與Y多一行列是因為 a* = null, a, aa, aaa... 有null的可能性
     static public boolean isMatch(String s, String p) {
         if (s == null || p == null) return false;
