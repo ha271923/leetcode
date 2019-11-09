@@ -14,6 +14,17 @@ package com.hawk.leetcode.Basic;
  * 能夠獲得的最大價值為：11 = 1+3+3+3+1。
  */
 
+/*
+ * yLen = kitten  = 6
+ * xLen = sitting = 7
+ *           xLen>=x=[0][x] [0][1] [0][2] [0][3]  width
+ * yLen>=y=dp[y][0] |  0   |  0   |  0   |  0   |
+ *           [1][0] |  0   |  1   |  3   |  5   |
+ *           [2][0] |  0   |  4   |  5   |  7   |
+ *           [3][0] |  0   |  7   | 10   | 11   |
+ *           height
+ *      Ans: maxCoins=11
+ * */
 public class DP3 {
     public static void main(String[] args) {
         // int[] coinArr = {1,3,3,2,1,3,2,2,1};
@@ -49,6 +60,8 @@ public class DP3 {
                 // KEY: 本題的algorithm -------------
             }
         }
+
+        DP_utils.print(dp);
         return dp[yLen][xLen]; // 可獲得最多錢的全部紀錄矩陣dp[][]
     }
 }

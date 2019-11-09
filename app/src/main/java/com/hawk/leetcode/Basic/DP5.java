@@ -48,6 +48,16 @@ package com.hawk.leetcode.Basic;
  *
  *  https://qiemengdao.iteye.com/blog/1660229
  */
+
+/*
+         input=[ 5 , 1 , 6 , 8 , 2 , 4 , 5 ,10 ]
+       xLen>=x= [x] [1] [2] [3] [4] [5] [6] [7]  Length
+           ans=| 1 | 1 | 2 | 3 | 2 | 3 | 4 | 5 |
+
+           Ans: max=5
+ */
+
+
 // KEY: 最長遞增子序列求的是數字組的quantity, 不是total
 public class DP5 {
     public static void main(String[] args) {
@@ -74,13 +84,13 @@ public class DP5 {
                 // KEY: 本題的algorithm -------------
             }
         }
-        // print result
+        // find Max
         int max = 0;
         for (int i=0; i<len; i++ ) {
-            System.out.print(dp[i] + " ");
             if (dp[i] > max)
                 max = dp[i];  //dp[i]中找出最大值
         }
+        DP_utils.print(dp);
         return max;
     }
 }

@@ -23,7 +23,13 @@ import java.util.Scanner;
  *                   ^
  * https://blog.csdn.net/sunshine__0411/article/details/78484850
  */
+/*
+         input=[-5 , 11,-4 , 13,-4 ,-2 ]
+       xLen>=x= [x] [1] [2] [3] [4] [5]  Length
+           ans=| 0 | 11| 7 | 20| 16| 14|
 
+           Ans: max segSum of num=20
+ */
 public class DP6 {
     public static void main(String[] args) {
         int[] input = {-5, 11, -4, 13, -4, -2};
@@ -49,9 +55,8 @@ public class DP6 {
             }
             // KEY: 本題的algorithm -------------
         }
-        for (int i = 0; i < dp.length; i++) {
-            System.out.print(dp[i] + " ");
-        }
+
+        DP_utils.print(dp);
         return maxSum;
     }
 

@@ -43,21 +43,21 @@ public class DP1 {
         if(triangle.length==0){
             return 0;
         }
-        int height=triangle.length;
-        int width=height; // 本解法只適合正三角形, width==height
-        int dp[][]=new int[height][width];
+        int layer=triangle.length;
+        int width=layer; // 本解法只適合正三角形, width==layer
+        int dp[][]=new int[layer][width];
         dp[0][0]=triangle[0][0];
         /*
          * 初始化矩阵
-         *                                                        dp[0][x] [0][1] [0][2] [0][3]
+         *                                                        dp[0][x] [0][1] [0][2] [0][3] element
          *     {5},      ==>  {   5,   0,   0,   0}  ==>  dp[y][0] |  5   |  0   |  0   |  0   |
          *    {8, 4},    ==>  { 5+8, 5+4,   0,   0}  ==>    [1][0] | 13   |  9   |  0   |  0   |
          *   {3, 6, 9},  ==>  {13+3, 9+6, 9+9,   0}  ==>    [2][0] | 16   | 15   | 18   |  0   |
          *  {7, 2, 9, 5} ==>  {16+7,15+2,18+9,18+5}  ==>    [3][0] | 23   | 17   | 24   | 23   |
-         *                                                  height
+         *       Ans: 17                                     layer
          * */
         // KEY: algorithm
-        for (int y = 1; y < height; y++) { // 從第1列開始
+        for (int y = 1; y < layer; y++) { // 從第1列開始
             for (int x = 0; x <= y; x++) { // 因為本題是正三角形
                 // KEY: 本題的algorithm +++++++++++++
                 if (x == 0) { // 左斜邊路線 = { 5,13, 16, 23 }
@@ -72,8 +72,9 @@ public class DP1 {
         }
         int min=Integer.MAX_VALUE;
         for(int i=0;i<width;i++){
-            min=Math.min(min, dp[height-1][i]);
+            min=Math.min(min, dp[layer-1][i]);
         }
+        DP_utils.print(dp);
         return min;
     }
 }
