@@ -111,27 +111,33 @@ public class WildcardMatching {
 
     // Tips1: RegEx(Q10)裡的*跟DOS(Q44)裡的* , 意義不同
     // Tips2: 匹配真值表 dp[s.len+1]*[p.len+1], X與Y多一行列是因為EMPTY==EMPTY
+    // Tips3: 長度上須考量, pattern比string長的邊界情況
     static public boolean isMatch_DP(String s, String p) {
         int yLen = s.length();
         int xLen = p.length();
 
-        boolean[][] dp = new boolean[yLen + 1][xLen + 1]; // Tips: new出來時預設都為false, 所以符合的改為true即可
-        dp[0][0] = true;
+        boolean[][] dp = new boolean[yLen + 1][xLen + 1]; // Tips: dp[str][pattern], new出來時預設都為false, 所以符合的改為true即可
+        dp[0][0] = true; // 因為參考前次結果的公式是 dp[y][x] = dp[y-1][x-1], 所以左上角需先設定
 
-        for (int y = 1; y <= yLen; y++) {// LOOP1: 掃描string
-            for (int x = 1; x <= xLen; x++) {// LOOP2: 掃描pattern
+        for (int y = 1; y <= yLen; y++) { // S_LOOP1: 先選一組string, 從y=1開始
+            for (int x = 1; x <= xLen; x++) {// P_LOOP2: 再掃描所有pattern, 從x=1開始
+                // // Tips: charAt(0) 代表第一個字元
                 if (s.charAt(y - 1) == p.charAt(x - 1) || // C1. pattern發現指定字元相同 或 萬用單一'?'字元
                     p.charAt(x - 1) == '?') {
-                    dp[y][x] = dp[y - 1][x - 1]; // KEY: 因為相同,所以結果不變
-                } else if (p.charAt(x - 1) == '*') {
-                    int cur = y;
-                    while (cur > 0) {// LOOP2-1: 掃描*字串時的 string字串
-                        if (dp[cur - 1][x - 1] == true ) { // KEY: 因為是任意字元, 所以與取前次結果相同, 設為true
+                    dp[y][x] = dp[y - 1][x - 1]; // 因為相同,所以結果不變
+                } else if (p.charAt(x - 1) == '*') { // C2. pattern首次發現'*'字元
+                    int curChar = y;
+                    while (curChar > 0) { // Pstar_LOOP2-1: KEY: *小迴圈, 往回掃描*字串時的 string字串的連續符合字元
+                        // 遇到*符號, 參考dp[y-1][x-1]左上一次記錄, 與[y-(2~N)][x-1]正上, 正上上,正上上上,正上上上上...紀錄
+                        // *的複數字元替換情況, ex: acd != a*, 但是 ac == a*, 所以 acd == a* , dp[
+                        if (dp[curChar - 1][x - 1] == true ) { // KEY: , 一個*符號, 替換多個字元迴圈
                             dp[y][x] = true;
-                            break;
+                            break; // KEY: 注意這個break keyword
                         }
-                        cur--;
+                        curChar--;
                     }
+                } else {
+                    // 以上條件均不符合, 此次dp[y][x]仍是預設值=false
                 }
             }
         }
@@ -145,42 +151,49 @@ public class WildcardMatching {
         return dp[yLen][xLen];
     }
 
-
+    // 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4
+    // String =======================
+    // L->
+    // a c d c b
+    // Pattern ======================
+    // R->
+    // a * c * b
     static public boolean isMatch_recursion(String s, String p) {
         return helper(s, p, 0, 0);
     }
-    static boolean helper(String s, String p, int L, int R) {
-        if (R == p.length())
-            return L == s.length();
+    static boolean helper(String s, String p, int sIdx, int pIdx) {
+        if (pIdx == p.length()) // 若pattern已掃到最後了
+            return sIdx == s.length(); // 若String已掃到最後了, 則代表p與s均成功掃完, string符合pattern規則無誤
 
-        if (p.charAt(R) == '*') {
-            while (R < p.length() &&
-                    p.charAt(R) == '*')
-                R++;   // Move the index at p to a non-start char.
-            while (L < s.length()) {
-                if (helper(s, p, L, R)) // RECURSIVE!!
-                    return true; // Find one match, return true.
-                L++; // Try the next one.
+        if (sIdx < s.length() &&  // C1. pattern發現指定字元相同 或 萬用單一'?'字元
+                (p.charAt(pIdx) == '?' || s.charAt(sIdx) == p.charAt(pIdx))) {
+            return helper(s, p, sIdx + 1, pIdx + 1); // RECURSIVE!! 相符後, 進入下一個字元(Idx+1)與pattern符號比對遞迴
+        } else if (p.charAt(pIdx) == '*') { // C2. pattern發現'*'字元
+            while (pIdx < p.length() &&
+                    p.charAt(pIdx) == '*') {
+                pIdx++;   // Move the index at p to a non-start char.
             }
-            return helper(s, p, L, R); // RECURSIVE!!
-        } else if (L < s.length() &&
-                (p.charAt(R) == '?' || s.charAt(L) == p.charAt(R))) {
-            return helper(s, p, L + 1, R + 1); // RECURSIVE!!
+            while (sIdx < s.length()) {
+                if (helper(s, p, sIdx, pIdx)) // RECURSIVE!!
+                    return true; // Find one match, return true.
+                sIdx++; // Try the next one.
+            }
+            return helper(s, p, sIdx, pIdx); // RECURSIVE!!
         } else {
-            return false;
+            return false; // 以上條件均不符合, 直接返回false
         }
     }
 
     public static void main(String[] args) {
         // case1: pattern len < string len
-        String inputStr = "acdcb";
-        String pattern = "a*c?b";
+        String inputStr = "abcv";
+        String pattern = "abd*";
         // case2: pattern len > string len
         // String inputStr = "acb";
         // String pattern = "acb*";
         // boolean ret = isMatch_Greedy(inputStr, pattern);
-        boolean ret = isMatch_DP(inputStr, pattern);
-        // boolean ret = isMatch_recursion(inputStr, pattern);
+        // boolean ret = isMatch_DP(inputStr, pattern);
+        boolean ret = isMatch_recursion(inputStr, pattern);
         System.out.println(ret);
     }
 }
