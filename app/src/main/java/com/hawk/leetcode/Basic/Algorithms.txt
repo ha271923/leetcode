@@ -2,12 +2,17 @@
    a. 獨立性? 是否可以重複
    b. 代表符號 or 數字? 是否具有大小關希
    c. 範圍性? 例如: 3 可以為 1或2或3 其中之一, 還是僅只有3
+   d. 有沒有可能負數(後退)
 
-
-2. 將一個題目成切割多個小題目, 再一一進行分析並解答,
+2. 題目就是找出規則, 將一個題目成切割多個小題目, 再一一進行分析並解答,
   例如: Q46: Permutation
-   a. 先考慮 Edge case
-   b. 排序數組
-   c. 判斷使用 DFS algorithm, 找出組合後的某組數組
-   d. 判斷使用 swap algorithm, 創造數組
+   a. 先根據題目給的input數組範例, 與output值, 一一畫在真值表上, 並推導規則
+   b. 實作時先考慮 Edge case
+   c. 排序數組
+   d. 判斷使用 DFS algorithm, 找出組合後的某組數組
+   e. 判斷使用 swap algorithm, 創造數組
    Ans: 解答Permutation
+
+3. 留意事項
+   a. length , index從0開始, distance=length-1
+   b. 變數存的是總累積值? 還是當期值?
