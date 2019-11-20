@@ -101,6 +101,11 @@ public class RotateImage {
     }
 
     // 直接座標互換
+    // [ B. Position
+    //   [(0,0),(0,1),(0,2)],                           [(0,2),(0,1),(0,0)],
+    //   [(1,0),(1,1),(1,2)], ->  f(y,x) => F(X,Y)   -> [(1,2),(1,1),(1,0)],
+    //   [(2,0),(2,1),(2,2)]                            [(2,2),(2,1),(2,0)]
+    // ]
     // https://blog.csdn.net/happyaaaaaaaaaaa/article/details/51563752
     static public void rotate_2loop(int[][] matrix) {
         int n = matrix.length;
@@ -108,6 +113,7 @@ public class RotateImage {
         for (int y = 0; y < n / 2; ++y) {
             for (int x = y; x < end - y; ++x) {
                 int tmp = matrix[y][x];
+                // ??? 好暈
                 matrix[y][x] = matrix[end - x][y];
                 matrix[end - x][y] = matrix[end - y][end - x];
                 matrix[end - y][end - x] = matrix[x][end - y];
