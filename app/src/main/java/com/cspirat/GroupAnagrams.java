@@ -16,62 +16,85 @@ public class GroupAnagrams {
      For example, given: ["eat", "tea", "tan", "ate", "nat", "bat"],
      Return:
      [
-     ["ate", "eat","tea"],
-     ["nat","tan"],
-     ["bat"]
+        ["ate", "eat","tea"],
+        ["nat","tan"],
+        ["bat"]
      ]
 
 
      * @param strs
      * @return
      */
+    // 1.  判斷'唯一性': 忽略順序時, 檢查字元是否重複 ==> HashMap
+    // 2a. 既有: 將重複的放同一列 ==> res.get(map.get(s)).add(str)
+    // 2b. 全新: 紀錄此重複, 並創造出新一列 ==> new ArrayList<String>
+    public static void main(String[] args) {
+        List<List<String>> ret;
+        String[] input={"eat", "tea", "tan", "ate", "nat", "bat"};
+        // ret = groupAnagrams_charArray(input);
+        ret = groupAnagrams_charInt(input);
+        printAnswer(ret);
+        System.out.println("ANS: ret.size()="+ret.size());
+    }
+
+    static private void printAnswer(List<List<String>> result){
+        for(int i = 0; i< result.size(); i++) {
+            for(int j=0; j<result.get(i).size(); j++){
+                System.out.print(result.get(i).get(j)+",");
+            }
+            System.out.println("");
+        }
+    }
 
     // time : O(m * n * logn) space : O(n)
-
-    public List<List<String>> groupAnagrams(String[] strs) {
+    static public List<List<String>> groupAnagrams_charArray(String[] strs) {
         List<List<String>> res = new ArrayList<>();
-        if (strs == null || strs.length == 0) return res;
-        HashMap<String, Integer> map = new HashMap<>();
-        for (String str : strs) {
-            char[] ch = str.toCharArray();
+        if (strs == null || strs.length == 0)
+            return res;
+        HashMap<String, Integer> map = new HashMap<>(); // 下面會利用HashMap, 來判斷字串的'唯一性'
+        for (String str : strs) { // LOOP1: 列舉每一次字串
+            char[] ch = str.toCharArray(); // Tips: 將String轉為char[]並排序, 來判斷字串的'唯一性'
             Arrays.sort(ch);
-            String s = new String(ch);
-            if (map.containsKey(s)) {
-                List<String> list = res.get(map.get(s));
+            String K = new String(ch); // 將排序過的char[]轉換回String, 來判斷字串的'唯一性'
+            if (map.containsKey(K)) { // '唯一性': 利用HashMap, 來判斷字串是否唯一 ==> 已重複
+                List<String> list = res.get(map.get(K)); // 把重複的字放在同一列List<String>
                 list.add(str);
-            } else {
-                List<String> list = new ArrayList<>();
+            } else { // '唯一性': 利用HashMap, 來判斷字串是否唯一 ==> 尚未重複
+                List<String> list = new ArrayList<>(); // 創建新的一列List<String>
                 list.add(str);
-                map.put(s, res.size());
-                res.add(list);
+                map.put(K, res.size());
+                res.add(list); // 加到res
             }
         }
         return res;
     }
 
     // time : O(m * n) space : O(n)  counting sort
-
-
-    public List<List<String>> groupAnagrams2(String[] strs) {
+    // 自定義資料結構給K, 以判斷唯一性
+    // String.valueOf() API的使用
+    static public List<List<String>> groupAnagrams_charInt(String[] strs) {
         HashMap<String, List<String>> map = new HashMap<>();
-        for (String str : strs) {
-            int[] count = new int[26];
-            for (Character ch : str.toCharArray()) {
+        for (String str : strs) { // LOOP1: 列舉每一次字串
+            int[] count = new int[26]; // 英文26個字母, 每字元出現計次
+            for (Character ch : str.toCharArray()) { // LOOP2: 列舉該字串的每一次字元char
                 count[ch - 'a']++;
             }
-            String s = "";
-            for (int i = 0; i < count.length; i++) {
+            String K = "";
+            for (int i = 0; i < count.length; i++) {  // 自訂一個新的資料組合紀錄: ["ate", "eat","tea"] = "1a1e1t" = K , 以判斷'唯一性'
                 if (count[i] != 0) {
-                    s += String.valueOf(count[i]) + String.valueOf((char)(i + 'a'));
+                    System.out.println("String.valueOf(count["+i+"]="+String.valueOf(count[i])+")");
+                    System.out.println("String.valueOf((char)("+i+" + 'a']="+String.valueOf((char)(i + 'a')+")"));
+                    K += String.valueOf(count[i]) + String.valueOf((char)(i + 'a'));
+                    System.out.println("K="+K);
                 }
             }
-            if (map.containsKey(s)) {
-                List<String> list = map.get(s);
+            if (map.containsKey(K)) { // '唯一性': 利用HashMap, 來判斷字串是否唯一 ==> 已重複
+                List<String> list = map.get(K);
                 list.add(str);
             } else {
                 List<String> list = new ArrayList<>();
                 list.add(str);
-                map.put(s, list);
+                map.put(K, list);
             }
         }
         return new ArrayList<>(map.values());
