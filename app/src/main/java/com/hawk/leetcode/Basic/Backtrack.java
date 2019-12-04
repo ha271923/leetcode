@@ -44,7 +44,7 @@ import java.util.ArrayList;
  * 回溯法采用DFS搜索解空间，而分支限界法一般采用用BFS或以最小耗费优先的方式搜索解空间。
  * backtracking（回溯算法）也叫试探法或穷举法，它是一种系统地搜索问题的解的方法。
  * 回溯算法的基本思想是：
- * 从一条路往前走，能进则进，不能进则退回来，换一条路再试，可以看作蛮力法穷举搜索的改进。
+ * 从一条路往前走，能进则进，不能进则退回来，换一条路再试(N-Queen)，可以看作蛮力法穷举搜索的改进。
  * Q1: permutations
  * 首先看 permutations 这个问题，是求一个数组的"全排列"，思路就是将数组当做一个池子，第一次取出一个数，
  * 然后在池子里剩下的数中再任意取一个数此时组成两个数，然后再在池子中剩下的数里取数，直到无数可取，即取
@@ -143,7 +143,9 @@ import java.util.ArrayList;
  * 【842】Split Array into Fibonacci Sequence
  **/
 public class Backtrack {
-
+    // Recursive跟Backtracking都是遞迴的一種:
+    // A. 只是Recursive是一層獲得部粉解答後,再繼續往下一層(Q51. N-Queen), 直到找出答案, 也是窮舉法一種
+    // B. Backtracking則是先鑽到最深一層後, 再從最後一層獲得部粉解答,再繼續退回上一層前進(Q50. Pow),逐漸獲得全部解答
     public static void main(String[] args) {
         backtrack(1);
         System.out.println();
