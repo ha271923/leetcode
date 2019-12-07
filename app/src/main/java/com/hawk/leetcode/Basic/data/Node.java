@@ -8,7 +8,7 @@ public class Node {
     public boolean visited;
     List<Node> toNodes;
 
-    Node(int data) {
+    public Node(int data) {
         this.data = data;
         this.toNodes = new ArrayList<>();
     }
