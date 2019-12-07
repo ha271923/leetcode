@@ -82,6 +82,7 @@ class JumpGame2 {
 
         System.out.println("distance="+distance);
 
+        // 只要記住最大值即可, 例如: 2 = {1,2} 可選擇二種跳躍情況, 所以只要記住最大2,不須記住與下一部可產生最大值的(1再去加上未來的下一步3)
         // LOOP: 把兩個目標放在一個for中, 這樣就可以達到O(n)的時間複雜度, 已知每一格都有大於1的前進步數,
         //       所以每次的i++, 代表就算當前最大可前進3步, 我們也只前先進1步, 以此掃描最大步數的最小數量組合數組
         // INDEX: i有兩個意義: current Position 與 index of next Max steps, i++代表僅一步一步前進

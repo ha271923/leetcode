@@ -19,10 +19,10 @@ package com.freetymekiyan.algorithms.level.medium;
 class JumpGame {
     public static void main(String[] args) {
         JumpGame j = new JumpGame();
-        int[] A = {3, 2, 1, 0, 4};
-        int[] B = {2, 3, 1, 1, 4};
-        int[] C = {0};
-        int[] D = {2, 5, 0, 0};
+        int[] A = {3, 2, 1, 0, 4}; // F
+        int[] B = {2, 3, 1, 1, 4}; // T
+        int[] C = {0};             // T
+        int[] D = {2, 5, 0, 0};    // T
         System.out.println(j.canJump(A));
         System.out.println(j.canJump(B));
         System.out.println(j.canJump(C));
@@ -32,29 +32,37 @@ class JumpGame {
     /**
      * Dynamic Programming
      * Keep track of the maximum of jumps we left
-     * Initialized as A[0]
+     * Initialized as nums[0]
      * Traverse from second to second last
      * Reduce 1 every time we jump
-     * maxJump should be max of maxJump - 1 and A[i]
+     * maxJump should be max of maxJump - 1 and nums[i]
      * if maxJump reduces to zero, we are not able to reach anymore
      */
-    public boolean canJump(int[] A) {
-        if (A == null || A.length == 0) return false;
-        if (A.length == 1) return true; // already reach last index
-        if (A[0] == 0) return false; // note its important cause we start from 1
-        int maxJump = A[0];
-        for (int i = 1; i < A.length - 1; i++) {
-            maxJump = Math.max(maxJump - 1, A[i]);
-            if (maxJump == 0) return false;
+    public boolean canJump(int[] nums) {
+        // Corner cases
+        if (nums == null || nums.length == 0)
+            return false;
+        if (nums.length == 1) // 當輸入是 int[] C = {0}; 的情況
+            return true; // already reach last index
+        if (nums[0] == 0) // 當輸入是 int[] C = {0, 9, 7, 5}; 的情況
+            return false; // note its important cause we start from 1
+
+        // Algorithm
+        // 只要記住最大值即可, 例如: 3 = {1,2,3} 可選擇三種跳躍情況, 所以只要記住最大3,不須記住與下一部可產生最大值的(2再去加上未來的下一步)
+        int maxJump = nums[0];
+        for (int i = 1; i < nums.length - 1; i++) {
+            maxJump = Math.max(maxJump - 1, nums[i]);
+            if (maxJump == 0)
+                return false;
         }
         return true;
     }
 
-    public boolean canJump2(int[] A) {
-        int len = A.length;
+    public boolean canJump2(int[] nums) {
+        int len = nums.length;
         int i = 0;
         for (int reach = 0; i < len && i <= reach; i++) {
-            reach = Math.max(A[i] + i, reach);
+            reach = Math.max(nums[i] + i, reach);
             if (reach >= len - 1)
                 return true;
         }
