@@ -198,19 +198,19 @@ public class Permutations {
         return result;
     }
 
-    static private void dfs2(List<List<Integer>> res, Stack<Integer> list, int[] nums) {
-        if (list.size() == nums.length) {
-            res.add(new ArrayList<>(list));
+    static private void dfs2(List<List<Integer>> res, Stack<Integer> stack, int[] nums) {
+        if (stack.size() == nums.length) {
+            res.add(new ArrayList<>(stack));
             return;
         }
 
         for (int i = 0; i < nums.length; i++) {
-            if (list.contains(nums[i])) {
+            if (stack.contains(nums[i])) {
                 continue;
             }
-            list.push(nums[i]);
-            dfs2(res, list, nums);
-            list.pop();
+            stack.push(nums[i]);
+            dfs2(res, stack, nums);
+            stack.pop();
         }
     }
 
