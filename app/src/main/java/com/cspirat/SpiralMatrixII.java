@@ -1,5 +1,7 @@
 package com.cspirat;
 
+import java.util.List;
+
 /**
  * Project Name : Leetcode
  * Package Name : leetcode
@@ -8,6 +10,34 @@ package com.cspirat;
  * Date : Sep, 2017
  * Description : 59. Spiral Matrix II
  */
+/*
+        [
+        [ 0, 1, 2 ],
+        [ 7, 8, 3 ],
+        [ 6, 5, 4 ]
+        ]
+        ||
+        [
+        [ (0,0), (0,1), (0,2) ],
+        [ (1,0), (1,1), (1,2) ],
+        [ (2,0), (2,1), (2,2) ],
+        ]
+        ||
+        [
+        [ (0,0), (0,1), (0,2) ],  A. scan X (0 ~ n-1 , 0      )
+        [      ,      , (1,2) ],  B. scan Y (n-1     , 1 ~ n-1)
+        [      ,      , (2,2) ],
+        [ (2,0), (2,1),       ],  C. scan X (n-1 ~ 0 , n-1    )
+        [ (1,0),      ,       ],  D. scan Y (0       , n-1 ~ 1)
+        ~~~~  繞完一圈  ~~~~
+        [      , (1,1),       ],  scan X (1 ~ n-2 , n-2    )
+        ]
+
+ */
+// Q: SpiralMatrix VS SpiralMatrixII 差異:
+// SpiralMatrix =  List<Integer> spiralOrder(int[][] matrix)
+// SpiralMatrix2=        int[][] generateMatrix(int n)
+// Tips: 正方形
 public class SpiralMatrixII {
 
     /**
@@ -29,36 +59,37 @@ public class SpiralMatrixII {
      * @param n
      * @return
      */
+    public static void main(String[] args) {
+        int n = 3;
+        int[][] ret = generateMatrix(n);
+    }
+    // Algorithm is same as SpiralMatrix
+    static public int[][] generateMatrix(int length) {
 
-    public int[][] generateMatrix(int n) {
-
-        int[][] matrix = new int[n][n];
-        int rowBegin = 0;
-        int rowEnd = n - 1;
-        int colBegin = 0;
-        int colEnd = n - 1;
+        int[][] matrix = new int[length][length];
+        int yStart = 0;
+        int yEnd = length - 1;
+        int xStart = 0;
+        int xEnd = length - 1;
         int num = 1;
 
-        while (rowBegin <= rowEnd && colBegin <= colEnd) {
-            for (int i = colBegin; i <= colEnd; i++) {
-                matrix[rowBegin][i] = num++;
-            }
-            rowBegin++;
+        while (xStart <= xEnd && yStart <= yEnd) {
+            for (int i = xStart; i <= xEnd  ; i++)  // L to R
+                matrix[yStart][i] = num++;
 
-            for (int i = rowBegin; i <= rowEnd; i++) {
-                matrix[i][colEnd] = num++;
-            }
-            colEnd--;
+            yStart++;
+            for (int i = yStart; i <= yEnd  ; i++)  // T to D
+                matrix[i][xEnd] = num++;
 
-            for (int i = colEnd; i >= colBegin; i--) {
-                matrix[rowEnd][i] = num++;
-            }
-            rowEnd--;
+            xEnd--;
+            for (int i =   xEnd; i >= xStart; i--)  // R to L
+                matrix[yEnd][i] = num++;
 
-            for (int i = rowEnd; i >= rowBegin; i--) {
-                matrix[i][colBegin] = num++;
-            }
-            colBegin++;
+            yEnd--;
+            for (int i =   yEnd; i >= yStart; i--)  // D to T
+                matrix[i][xStart] = num++;
+
+            xStart++;
         }
         return matrix;
     }
