@@ -1,5 +1,7 @@
 package com.freetymekiyan.algorithms.level.medium;
 
+import com.cspirat.ListNode;
+
 /**
  * Given a list, rotate the list to the right by k places, where k is
  * non-negative.
@@ -12,8 +14,14 @@ package com.freetymekiyan.algorithms.level.medium;
  */
 class RotateList {
     public static void main(String[] args) {
-        int n = -4;
-        System.out.println(n % 5);
+        ListNode n1 = new com.cspirat.ListNode(1);
+        com.cspirat.ListNode n2 = new com.cspirat.ListNode(2);
+        com.cspirat.ListNode n3 = new com.cspirat.ListNode(3);
+        com.cspirat.ListNode n4 = new com.cspirat.ListNode(4);
+        com.cspirat.ListNode n5 = new com.cspirat.ListNode(5);
+        n1.next = n2; n2.next = n3; n3.next = n4; n4.next = n5; n5.next = null;
+        com.cspirat.ListNode res = rotateRight(n1, 2);
+        com.cspirat.ListNode.show(res);
     }
 
     /**
@@ -23,16 +31,30 @@ class RotateList {
      * Connect fast with head, update new head
      * Set slow.next to null to unlink the list
      */
-    public static ListNode rotateRight(ListNode head, int n) {
-        if (head == null || head.next == null) return head;
+    // Tips: 三個節點操作, 頭指+中接+尾收null
+    public static ListNode rotateRight(ListNode head, int k) {
+        if (head == null || head.next == null)
+            return head;
         ListNode dummy = new ListNode(0);
         dummy.next = head;
-        ListNode fast = dummy, slow = dummy;
+        ListNode fast = dummy;
+        ListNode slow = dummy;
         // get length and move fast to the end of list
         int len;
-        for (len = 0; fast.next != null; len++) fast = fast.next;
+        for (len = 0; fast.next != null; len++)
+            fast = fast.next;
         // get the len-n%len th node
-        for (int j = len - n % len; j > 0; j--) slow = slow.next;
+        int step = len - k % len; // KEY:
+        for (int j = step; j > 0; j--)
+            slow = slow.next;
+        // step1--:
+        //                                          slow                 fast
+        //    [dummy,next]->[n1,next]->[n2,next]->[n3,next]->[n4,next]->[n5,next]->null
+        //
+        // step2++:
+        //    dummy.next指向起點, fast.next接n1, slow.next接null
+        //                                          slow                  fast
+        //     [dummy,next]->[n1,next]->[n2,next]->[n3,next]->null  [n4,next]->[n5,next]->n1
         fast.next = dummy.next;
         dummy.next = slow.next;
         slow.next = null; // break linkedlist
@@ -44,18 +66,18 @@ class RotateList {
      * Calculate length of list, then adjust n in range
      * Break the list at right point, which is len - n % len
      */
-    public ListNode rotateRightB(ListNode head, int n) {
+    public ListNode rotateRightB(ListNode head, int k) {
         if (head == null || head.next == null) return head;
         int len = listLength(head);
-        n %= len;
-        if (n == 0) return head;
-        if (n < 0) n += len;
-        n = len - n;
+        k %= len;
+        if (k == 0) return head;
+        if (k < 0) k += len;
+        k = len - k;
         ListNode p = new ListNode(0);
         p.next = head;
-        while (n > 0) {
+        while (k > 0) {
             p = p.next;
-            n--;
+            k--;
         }
         ListNode newHead = p.next;
         p.next = null;
@@ -75,13 +97,4 @@ class RotateList {
         return res;
     }
 
-    static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-            next = null;
-        }
-    }
 }

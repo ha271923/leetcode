@@ -32,6 +32,7 @@ public class RotateList {
         ListNode.show(res);
     }
 
+    // Tips: 三個節點操作, 頭指+中接+尾收null
     static public ListNode rotateRight(ListNode head, int k) {
         if (head == null || head.next == null)
             return head;
@@ -43,17 +44,17 @@ public class RotateList {
         }
 
         // Q: 原本一開始
-        //    [head,next]
+        // ptr[head,next]
         //       |
         //       V
         //    [n1,next]->[n2,next]->[n3,next]->[n4,next]->[n5,next]->null
         // A: 鏈結向右, 指標head向右移動(本提要求rotate right)
-        //               [head,next]
+        //            ptr[head,next]
         //                 |
         //                 V
         //    [n1,next]->[n2,next]->[n3,next]->[n4,next]->[n5,next]->null
         //    由上可知,只要移動head(n1)的next從指向n1改成指向n4即可(右移三次)
-        int step =len - k % len;
+        int step =len - k % len; // KEY:
         index.next = head;
         for (int i = 1; i < step; i++) { // KEY:  (len-(k%len)) , 逆推出公式ex: (5-(2%5))=3, 右移三次
             head = head.next;  // head指標右移一個node
