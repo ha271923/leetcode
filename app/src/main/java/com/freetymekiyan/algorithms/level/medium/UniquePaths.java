@@ -46,8 +46,10 @@ class UniquePaths {
     }
 
     public static int uniquePathsDP(int m, int n) {
-        if (m <= 0 || n <= 0) return 0;
-        if (m == 1 || n == 1) return 1;
+        if (m <= 0 || n <= 0)
+            return 0;
+        if (m == 1 || n == 1)
+            return 1;
         if (paths[m][n] == 0)
             paths[m][n] = uniquePathsDP(m - 1, n) + uniquePathsDP(m, n - 1);
         return paths[m][n];
