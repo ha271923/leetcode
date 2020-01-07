@@ -21,15 +21,24 @@ public class PlusOne {
      * @param digits
      * @return
      */
+
+    public static void main(String[] args) {
+        int[] input ={ 1, 9 }; // Ans: 20
+
+        System.out.println(plusOne(input));
+    }
+
+    // 陣列
     public static int[] plusOne(int[] digits) {
 
-        if (digits == null || digits.length == 0) return digits;
+        if (digits == null || digits.length == 0)
+            return digits;
 
         for (int i = digits.length - 1; i >= 0; i--) {
             if (digits[i] < 9) {
-                digits[i]++;
+                digits[i]++; // 一定會加1, 只是是 個位數 還是 十位數
                 return digits;
-            } else {
+            } else { // digits[i] == 9 , 考慮進位後必為0, 因為一定只加1
                 digits[i] = 0;
             }
         }
