@@ -11,9 +11,7 @@ package com.cspirat;
 public class EditDistance {
 
     public static void main(String[] args) {
-        // String input="/home/"; //  Ans: "/home"
-        String input="/a/./b/../../c/"; // Ans: "/c"
-        System.out.println(minDistance(input));
+        System.out.println(minDistance("kitten", "sitting"));
     }
 
     /**
@@ -66,12 +64,12 @@ public class EditDistance {
         //
         for (int y = 1; y <= len1; y++) {
             for (int x = 1; x <= len2; x++) {
-                if (word1.charAt(y - 1) == word2.charAt(x - 1)) {
-                    dp[y][x] = dp[y - 1][x - 1];
+                if (word1.charAt(y - 1) == word2.charAt(x - 1)) { // 字一樣
+                    dp[y][x] = dp[y - 1][x - 1]; // 紀錄不變
                 } else {
                     dp[y][x] = Math.min(
-                                Math.min(dp[y][x - 1], dp[y - 1][x]),
-                               dp[y -1][x - 1]);
+                                Math.min(dp[y][x - 1], dp[y - 1][x]),  // DEL , INSERT
+                               dp[y -1][x - 1]); // REPLACE
                 }
             }
         }
