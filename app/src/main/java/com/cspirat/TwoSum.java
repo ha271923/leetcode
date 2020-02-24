@@ -33,6 +33,12 @@ public class TwoSum {
      *    nums = [  2  ,  7  ,  11  ,  15  ]
      *    diff =    7     2     -2     -6    Key
      *
+     *
+     *
+     *   Ans:
+     *    inputs=[  2  ,  7  ,  11  ,  15  ] Value[i]
+     *    --------------------------------------
+     *  diff=9 |    7     2     -2     -6   <- diffs[i]
      */
     public static int[] twoSum(int[] nums, int target) {
 
@@ -44,12 +50,13 @@ public class TwoSum {
        HashMap<Integer, Integer> map = new HashMap<>();
         // KEY: 原本需要兩個LOOPs=LOOP1+LOOP2=RESULT的演算法找出答案
        for (int i = 0; i < nums.length; i++) { // KEY: 現在利用LOOP1[i]算出答案, LOOP1[i+1]利用hashmap快速查找已記錄的答案
-           if (map.containsKey(target - nums[i])) { // 2. SEARCH: Ki
-               res[0] = map.get(target - nums[i]);  // 3. LOAD: Ki
-               res[1] = i;
+           // 2. i=i+1
+           if (map.containsKey(target - nums[i])) { // 3. SEARCH: 尋找所缺少的差值 , KEY: 在已儲存的資料中查找
+               res[0] = map.get(target - nums[i]);  // 4. LOAD: 該差值的V就是index_1
+               res[1] = i; // 4. LOAD: 當前的index就是index_2
                break;
            }
-           map.put(nums[i], i); // 1. SAVE: A - B = Ki
+           map.put(nums[i], i); // 1. SAVE: 儲存與Sum-target=所缺少的差值
        }
 
        return res;
