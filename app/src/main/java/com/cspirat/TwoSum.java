@@ -42,13 +42,14 @@ public class TwoSum {
        // ??? twoSum題目沒說input array是否是sorted
        int[] res = new int[]{-1, -1};
        HashMap<Integer, Integer> map = new HashMap<>();
-       for (int i = 0; i < nums.length; i++) {
-           if (map.containsKey(target - nums[i])) { // SELECT: Ki
-               res[0] = map.get(target - nums[i]);  // LOAD: Ki
+        // KEY: 原本需要兩個LOOPs=LOOP1+LOOP2=RESULT的演算法找出答案
+       for (int i = 0; i < nums.length; i++) { // KEY: 現在利用LOOP1[i]算出答案, LOOP1[i+1]利用hashmap快速查找已記錄的答案
+           if (map.containsKey(target - nums[i])) { // 2. SEARCH: Ki
+               res[0] = map.get(target - nums[i]);  // 3. LOAD: Ki
                res[1] = i;
                break;
            }
-           map.put(nums[i], i); // SAVE: A - B = Ki
+           map.put(nums[i], i); // 1. SAVE: A - B = Ki
        }
 
        return res;
