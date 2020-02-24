@@ -3,15 +3,16 @@ package com.hawk.leetcode.Basic.data.Examples;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
+
 /**
  * ashmap vs Hashtable
  * 1. HashMap is non synchronized. It is not-thread safe and can’t be shared between many threads without proper synchronization code whereas Hashtable is synchronized. It is thread-safe and can be shared with many threads.
  * 2. HashMap allows one null key and multiple null values whereas Hashtable doesn’t allow any null key or value.
  * 3. HashMap is generally preferred over HashTable if thread synchronization is not needed
  */
-public class HashMapExample {
+public class HashTableExample {
     public static void main(String[] args) {
-        HashMap<String, String> input = new HashMap<>();
+        Hashtable<String, String> input = new Hashtable<>();
         initHashmap(input);
         System.out.println("res = "+input.get("Taiwan"));
     }
