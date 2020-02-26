@@ -1,6 +1,6 @@
 package com.freetymekiyan.algorithms.level.medium;
 
-import com.hawk.leetcode.Basic.DP_utils;
+import com.utils.DP_utils;
 
 /**
  * Follow up for "Unique Paths":

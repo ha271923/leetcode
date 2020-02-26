@@ -1,6 +1,6 @@
 package com.cspirat;
 
-import com.hawk.leetcode.Basic.DP_utils;
+import com.utils.DP_utils;
 
 /**
  * Project Name : Leetcode

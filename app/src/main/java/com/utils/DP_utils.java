@@ -1,4 +1,4 @@
-package com.hawk.leetcode.Basic;
+package com.utils;
 
 import java.util.Arrays;
 

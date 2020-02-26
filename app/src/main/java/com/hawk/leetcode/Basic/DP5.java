@@ -1,5 +1,7 @@
 package com.hawk.leetcode.Basic;
 
+import com.utils.DP_utils;
+
 /**
  * 1-D dynamic program
  * 例題5:最長遞增子序列

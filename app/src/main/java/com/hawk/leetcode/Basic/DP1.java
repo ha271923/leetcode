@@ -1,5 +1,7 @@
 package com.hawk.leetcode.Basic;
 
+import com.utils.DP_utils;
+
 /**
  * 例題1: 數塔取數問題
  * 一個高度為N的由正整陣列成的三角形，從上走到下，求經過的數字和的最小值。
