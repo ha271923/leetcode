@@ -50,6 +50,14 @@ public class pre_post_calc {
         if(a > 0)
             System.out.println("4. a="+a);
 
+        int shift=1;
+        if( 'a'== "abc".charAt(shift++)) // 判斷式失敗shift也會++麼? ans: YES
+            System.out.println("5  true. shift="+shift);
+        else
+            System.out.println("5 false. shift="+shift);
+
+
+
         System.out.println("5. a="+a);
     }
 }
