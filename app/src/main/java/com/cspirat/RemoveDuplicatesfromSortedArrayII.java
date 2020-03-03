@@ -4,6 +4,13 @@ package com.cspirat;
  * Created by Edward on 25/07/2017.
  */
 public class RemoveDuplicatesfromSortedArrayII {
+    public static void main(String[] args) {
+        // test1
+        int[] inputs = {1,1,1,2,2,3};
+        int res = removeDuplicates(inputs);
+        System.out.println(res);
+    }
+
     /**
      * 80. Remove Duplicates from Sorted Array II (26. Remove Duplicates from Sorted Array: follow up)
      * Follow up for "Remove Duplicates":
@@ -27,10 +34,24 @@ public class RemoveDuplicatesfromSortedArrayII {
      * @return
      */
     public static int removeDuplicates(int[] nums) {
-        if (nums.length <= 2) return nums.length;
+        if (nums.length <= 2)
+            return nums.length;
+        /*
+
+         i= 0 1 2
+           [ ]      從i=0開始, 無法[i-1]以進行兩數比對
+           [   ]    從i=1開始, 可以[i-1]以進行兩數比對, 但是因為題目允許每個數字最多重複一次(即兩個相同的數字),所以[0][1]不論是否相同,必定為2
+           [ ]-[ ]  從i=2開始, 可以[i-2]以進行兩數比對, KEY:以下範例4組數組可推導出公式
+       Ex1= 1 1 1 =len=2
+       Ex2= 1 1 2 =len=3
+       Ex3= 1 2 2 =len=3
+       Ex4= 1 2 3 =len=3
+
+
+         */
         int count = 2;
         for (int i = 2; i < nums.length; i++) {
-            if (nums[i] != nums[count - 2]) {
+            if (nums[i] != nums[count-2]) { // KEY:由上述範例4組數組可推導出公式, 比對[i]與[i-2]是否相等, 每次的i++只是sliding window而已
                 nums[count++] = nums[i];
             }
         }
