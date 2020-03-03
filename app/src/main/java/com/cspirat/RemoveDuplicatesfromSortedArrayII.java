@@ -6,7 +6,7 @@ package com.cspirat;
 public class RemoveDuplicatesfromSortedArrayII {
     public static void main(String[] args) {
         // test1
-        int[] inputs = {1,1,1,2,2,3};
+        int[] inputs = {1,1,1,2,2,3}; // ans: 5 , remove the duplicates in-place(call-by-reference)
         int res = removeDuplicates(inputs);
         System.out.println(res);
     }
@@ -52,7 +52,8 @@ public class RemoveDuplicatesfromSortedArrayII {
         int count = 2;
         for (int i = 2; i < nums.length; i++) {
             if (nums[i] != nums[count-2]) { // KEY:由上述範例4組數組可推導出公式, 比對[i]與[i-2]是否相等, 每次的i++只是sliding window而已
-                nums[count++] = nums[i];
+                nums[count++] = nums[i];  // Output不僅要len還要call-by-reference
+
             }
         }
         return count;
