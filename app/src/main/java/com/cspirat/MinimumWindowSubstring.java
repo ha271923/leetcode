@@ -1,5 +1,7 @@
 package com.cspirat;
 
+import com.utils.Out;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +16,7 @@ import java.util.Map;
 public class MinimumWindowSubstring {
     public static void main(String[] args) {
         String ret = minWindow("ADOBECODEBANC", "ABC");
-        System.out.println("ret=" + ret); // Output: "BANC"
+        Out.i("ret=" + ret); // Output: "BANC"
     }
 
     /**
@@ -90,8 +92,8 @@ public class MinimumWindowSubstring {
         int range = Integer.MAX_VALUE;
         /**
          sliding window:
-                           L    R
-                         ->|range|<-
+                           L   R
+                        ->|range|<-
                    0123456789012
          srcStr = "ADOBECODEBANC"
          tgtStr = "ABC"
@@ -100,24 +102,30 @@ public class MinimumWindowSubstring {
          match2=    "BECODEBA"   <-- Len=8 , 'B'*2
          match3=      "CODEBA"   <-- Len=6
          match4=          "BANC" <-- Len=4 , smallest
+                  0123456789012
 
          */
-        for (int R = 0, L = 0; R < srcStr.length(); R++) { // LOOP:
-            char asciiChar =srcStr.charAt(R); // KEY: type char val= ASCII code 當作 index
-            System.out.println("R="+R+"    asciiChar="+asciiChar);
+        for (int R = 0, L = 0; R < srcStr.length(); R++) { // LOOP1:
+            char asciiChar = srcStr.charAt(R); // KEY: type char val= ASCII code 當作 index
+            Out.i("R="+R+"    asciiChar="+asciiChar);
             if (countByChar[asciiChar]-- > 0) // 掃到Target char, 該字元須出現次數與總數均減一
                 total--;
 
-            while (total == 0) { // 每當全部的Target的字元都有掃到時, 當時srcCharIdx指到哪? 計算sliding window範圍起點與寬度
-                System.out.println( "R="+R+"  L="+L+"  range="+range+"  from="+from);
+            // ???
+            while (total == 0) { // LOOP2: 每當全部的Target的字元都有掃到時, 當時srcCharIdx指到哪? 計算sliding window範圍起點與寬度
+                Out.i("R=" + R + "  L=" + L + "  range=" + range + "  from=" + from);
                 if (R - L + 1 < range) {
                     range = R - L + 1;
                     from = L;
                 }
-                if (++countByChar[srcStr.charAt(L++)] > 0)
-                    total++;
+                asciiChar = srcStr.charAt(L++); // L++
+                if (++countByChar[asciiChar] > 0)
+                    total++; // break LOOP
             }
         }
+
+        // LR可以丟棄了, 從字元的起點from與數目range, 得知result字串內容
+        // substring() 代表 Out.i("0123456".substring(2,2+3)); 會印出 "234"
         return (range == Integer.MAX_VALUE) ? "" : srcStr.substring(from, from + range);
     }
 
