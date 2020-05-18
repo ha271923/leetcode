@@ -35,17 +35,19 @@ public class RemoveDuplicatesfromSortedListII {
     // ListNode就是畫圖
     //  |dummy|->|0|->|1|->|2|->|3|->|3|->|4|->|4|->|5|  STEP1: question
     //  |dummy|->|0|->|1|->|2|--------------------->|5|  STEP2: algorithm
-    //           |0|->|1|->|2|--------------------->|5|  STEP3: assign head
+    //           |0|->|1|->|2|--------------------->|5|  STEP3: assign head for return answer
     static public ListNode deleteDuplicates(ListNode head) {
         if (head == null || head.next == null)
             return head;
+
+        // KEY: 需要 ListNode dummy , 因為題目所需的答案需要進行回溯比對, 所以不可以從head開始, 所以從dummy開始, 因此p.next.val為現在值, 而非p.val
         ListNode dummy = new ListNode(0);
         dummy.next = head;
         ListNode p = dummy;
-        while (p.next != null && p.next.next !=null) {
+        while (p.next != null && p.next.next !=null) { // LOOP1: 掃描全部Node
             if (p.next.val == p.next.next.val) { // Tip: 遇到現值與下一值相同時
                 int sameNum = p.next.val;        //      紀錄相同的數值
-                while (p.next != null && p.next.val == sameNum) { // KEY: 一次連續跳躍多個相同節點
+                while (p.next != null && p.next.val == sameNum) { // LOOP2: 掃描連續相同Node
                     p.next = p.next.next; // KEY: 步進一個節點
                 }
             } else {
