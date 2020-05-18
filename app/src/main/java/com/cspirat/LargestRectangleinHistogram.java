@@ -40,8 +40,17 @@ public class LargestRectangleinHistogram {
      * @param heights
      * @return
      */
-    public int largestRectangleArea(int[] heights) {
-        if (heights == null || heights.length == 0) return 0;
+    public static void main(String[] args) {
+        int[] height = { 2, 1, 5, 6, 2, 3 };
+        int[] height2 = { 1, 2, 3, 4, 5, 6 };
+
+        int ret = largestRectangleArea(height);
+        System.out.println(ret);
+    }
+
+    static public int largestRectangleArea(int[] heights) {
+        if (heights == null || heights.length == 0)
+            return 0;
         Stack<Integer> stack = new Stack<>();
         int res = 0;
         for (int i = 0; i <= heights.length; i++) {
