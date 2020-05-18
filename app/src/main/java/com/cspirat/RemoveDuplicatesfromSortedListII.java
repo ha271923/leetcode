@@ -43,10 +43,10 @@ public class RemoveDuplicatesfromSortedListII {
         dummy.next = head;
         ListNode p = dummy;
         while (p.next != null && p.next.next !=null) {
-            if (p.next.val == p.next.next.val) {
-                int sameNum = p.next.val;
-                while (p.next != null && p.next.val == sameNum) { // KEY: while變if重複數會保留一個
-                    p.next = p.next.next;
+            if (p.next.val == p.next.next.val) { // Tip: 遇到現值與下一值相同時
+                int sameNum = p.next.val;        //      紀錄相同的數值
+                while (p.next != null && p.next.val == sameNum) { // KEY: 一次連續跳躍多個相同節點
+                    p.next = p.next.next; // KEY: 步進一個節點
                 }
             } else {
                 p = p.next;
