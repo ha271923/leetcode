@@ -144,7 +144,7 @@ public class LargestRectangleinHistogram {
             while (!stack.isEmpty() && curNum < nums[stack.peek()]) { // KEY: 因為是從左至右掃數值群, 只有遞增curNum<prevNum才可能比上一次面積還大
                 int height = nums[stack.pop()];
                 int start = (stack.isEmpty())? -1 : stack.peek(); // ???
-                int area = height * (i - start - 1);
+                int area = height * (i - start - 1); // width = (i - start - 1)
                 res = Math.max(res, area);
             }
             stack.push(i);
