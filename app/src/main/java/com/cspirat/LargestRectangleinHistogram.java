@@ -63,34 +63,39 @@ public class LargestRectangleinHistogram {
   nums[i]= 2 1 5 6 2 3
        i = 0 1 2 3 4 5
  */
-    // https://www.programcreek.com/2014/05/leetcode-largest-rectangle-in-histogram-java/
-    static public int largestRectangleArea(int[] nums) {
+    // https://youtu.be/KkJrGxuQtYo?list=PLH8TFsY0qnE2R9kf_9vahNY6pG9601z_4&t=481
+    // 1. 由往右掃
+    // 1-1. 以nums[i]當中柱
+    // 1-2. 左半部比nums[i]小的當左邊界,leftMostIdx(用stack解法時,)
+    // 1-3. 右半部比nums[i]小的當右邊界,rightMostIdx
+    // 1-4. area=W*H=(rightMostIdx-leftMostIdx-1)*rangeLow=(4-1-1)*5=10
+    static public int largestRectangleArea_stack(int[] nums) {
         if (nums == null || nums.length == 0) {
             return 0;
         }
         // KEY: 為什麼用Stack?
-        Stack<Integer> stack = new Stack<>(); // stack存的是i, 不是nums[i]
+        Stack<Integer> stack = new Stack<>(); // stack存的是i, 不是nums[i], 因為width=(rightMostIdx-leftMostIdx-1)
 
         int maxArea = 0;
-        int i = 0;
+        int i = 0; //
 
-        while (i < nums.length) { // LOOP1:
-            // 新的右柱讓Area一定會變更大, 不用馬上算面積, 待會看下一次的右柱: push index to stack when the current height is larger than the previous one
-            if (stack.isEmpty() || nums[i] >= nums[stack.peek()]) { // 左柱起點在一開始 或
-                stack.push(i);
+        while (i < nums.length) { // LOOP1: 每次以nums[i]為左柱時, 尋找其右柱idx, 或直接計算Area
+            // 新的上升右柱讓Area一定會變更大, 不用馬上算面積, 放入stack, 待會看下一次的右柱
+            if (stack.isEmpty() || nums[i] >= nums[stack.peek()]) { // 相同或是遞增:代表新的右柱一定讓Area會變大
+                stack.push(i); // 放入stack, 之後給LOOP2計算
                 i++;
-            } else { // 新的右柱不一定讓Area會變大, 要算一下面積確認Area才知道: calculate maxArea value when the current height is less than the previous one
+            } else { // 遞減:代表新的下降右柱不一定讓Area會變大, 要算一下面積確認Area看有沒有破紀錄才知道:
                 int p = stack.pop();
                 int h = nums[p];
-                int w = stack.isEmpty() ? i : i - stack.peek() - 1; // KEY: ???
+                int w = stack.isEmpty() ? i : i - stack.peek() - 1; // KEY: width=(rightMostIdx-leftMostIdx-1)=(i-stack.peek()-1)
                 maxArea = Math.max(h * w, maxArea);
             }
         }
 
-        while (!stack.isEmpty()) { // LOOP2:
+        while (!stack.isEmpty()) { // LOOP2: 將所有stack的上升右柱一一取出, 並跟左柱計算Area
             int p = stack.pop();
             int h = nums[p];
-            int w = stack.isEmpty() ? i : i - stack.peek() - 1;
+            int w = stack.isEmpty() ? i : i - stack.peek() - 1; // 確認Area看有沒有破紀錄
             maxArea = Math.max(h * w, maxArea);
         }
 
@@ -108,7 +113,7 @@ public class LargestRectangleinHistogram {
             curArea = heights[i];
             Out.i("heights["+i+"]="+heights[i]);
             for (int L = i-1; L >= 0; L--) {  // LOOP1_1: 從基準柱heights[i]往左擴展
-                if( heights[L] >= heights[i]) { // 升階,新的右柱讓Area一定會變更大,
+                if( heights[L] >= heights[i]) { // 升階,新的左柱讓Area一定會變更大,
                     curArea += heights[i];
                 }else{
                     Out.i("L break");

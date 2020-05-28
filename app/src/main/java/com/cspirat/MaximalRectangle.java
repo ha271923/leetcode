@@ -54,44 +54,92 @@ public class MaximalRectangle {
      * @param matrix
      * @return
      */
+    public static void main(String[] args) {
+        char[][] input = {
+                   {'1','0','1','0','0'},
+                   {'1','0','1','1','1'},
+                   {'1','1','1','1','1'},
+                   {'1','0','0','1','0'}
+                 };
 
-    public int maximalRectangle(char[][] matrix) {
-        int m = matrix.length;
-        if (matrix == null || m == 0) return 0;
-        int n = matrix[0].length;
-        int res = 0;
-        int[] height = new int[n];
-        int[] left = new int[n];
-        int[] right = new int[n];
-        Arrays.fill(right, n);
-
-        for (int i = 0; i < m; i++) {
-            int curLeft = 0, curRight = n;
-            for (int j = 0; j < n; j++) {
-                if (matrix[i][j] == '1') height[j]++;
-                else height[j] = 0;
+        // int ret = maximalRectangle(input);
+        int ret = maximalRectangle_mix(input);
+        System.out.println(ret);
+    }
+/*
+         input = {
+                   {'1','0','1','0','0'},
+                   {'1','0','1','1','1'},
+                   {'1','1','1','1','1'},
+                   {'1','0','0','1','0'}
+                 };
+    針對每一列ROW, 掃描
+ */
+    // https://www.youtube.com/watch?v=2Yk3Avrzauk
+    static public int maximalRectangle_mix(char[][] matrix) {
+        int H = matrix.length;
+        if (matrix == null || H == 0)
+            return 0;
+        int W = matrix[0].length;
+        int area = 0;
+        int[] heights = new int[W]; // 在COLUMN=x時, 某期間連續累積的柱高
+        for (int y = 0; y < H; y++) { // scan each Row
+            for (int x = 0; x < W; x++) { // scan heights of COLUMN
+                if(matrix[y][x] == '1')
+                    heights[x]++;
+                else
+                    heights[x] = 0;
             }
-            for (int j = 0; j < n; j++) {
-                if (matrix[i][j] == '1') {
-                    left[j] = Math.max(curLeft, left[j]);
+            area = Math.max(area ,
+                    LargestRectangleinHistogram.largestRectangleArea_stack(heights)
+            );
+        }
+        return area;
+    }
+
+
+    static public int maximalRectangle(char[][] matrix) {
+        int H = matrix.length;
+        if (matrix == null || H == 0)
+            return 0;
+        int W = matrix[0].length;
+        int area = 0;
+        int[] heights = new int[W]; // 在COLUMN=x時, 某期間連續累積的柱高
+        int[]    left = new int[W]; // 某ROW, 由左往右掃, 最右邊(min)1當作左邊界
+        int[]   right = new int[W]; // 某ROW, 由右往左掃, 最左邊(max)1當作右邊界
+        Arrays.fill(right, W);
+
+        for (int y = 0; y < H; y++) { // scan each Row
+            int curLeft = 0, curRight = W;
+
+            // find max width of ROW
+            for (int x = 0; x < W; x++) { // scan heights of COLUMN
+                if (matrix[y][x] == '1')
+                    heights[x]++; // y = 0 ~ H , 一直累加height[x]
+                else
+                    heights[x] = 0; // KEY: 遇到一次'0', 該行所有累加height歸0
+            }
+            for (int x = 0; x < W; x++) { // find left[x] of ROW
+                if (matrix[y][x] == '1') {
+                    left[x] = Math.max(curLeft, left[x]);  // max  ???
                 } else {
-                    left[j] = 0;
-                    curLeft = j + 1;
+                    left[x] = 0;
+                    curLeft = x + 1;
                 }
             }
-            for (int j = n - 1; j >= 0; j--) {
-                if (matrix[i][j] == '1') {
-                    right[j] = Math.min(curRight, right[j]);
+            for (int x = W - 1; x >= 0; x--) { // find right[x] of ROW
+                if (matrix[y][x] == '1') {
+                    right[x] = Math.min(curRight, right[x]);  // min  ???
                 } else {
-                    right[j] = n;
-                    curRight = j;
+                    right[x] = W;
+                    curRight = x;
                 }
             }
-            for (int j = 0; j < n; j++) {
-                res = Math.max(res, (right[j] - left[j]) * height[j]);
+            for (int x = 0; x < W; x++) { // calc & compare area
+                area = Math.max(area, (right[x] - left[x]) * heights[x]);
             }
         }
-        return res;
+        return area;
     }
 
     /**
