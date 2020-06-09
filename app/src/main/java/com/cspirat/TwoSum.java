@@ -7,6 +7,15 @@ import java.util.HashMap;
  */
 public class TwoSum {
 
+    public static void main(String[] args) {
+        int[] nums = new int[]{  2  ,  7  ,  11  ,  15  };
+        int   target = 9;
+        int[] res = twoSum(nums, target);
+
+        System.out.println(res[0]);
+        System.out.println(res[1]);
+    }
+
     /**
      *  1. Two Sum
 
@@ -51,12 +60,12 @@ public class TwoSum {
         // KEY: 原本需要兩個LOOPs=LOOP1+LOOP2=RESULT的演算法找出答案
        for (int i = 0; i < nums.length; i++) { // KEY: 現在利用LOOP1[i]算出答案, LOOP1[i+1]利用hashmap快速查找已記錄的答案
            // 2. i=i+1
-           if (map.containsKey(target - nums[i])) { // 3. SEARCH: 尋找所缺少的差值 , KEY: 在已儲存的資料中查找
+           if (map.containsKey(target - nums[i])) { // 3. SEARCH: 比對快取, 尋找是否有所缺少的差值 , KEY: 在已儲存的資料中查找
                res[0] = map.get(target - nums[i]);  // 4. LOAD: 該差值的V就是index_1
                res[1] = i; // 4. LOAD: 當前的index就是index_2
                break;
            }
-           map.put(nums[i], i); // 1. SAVE: 儲存與Sum-target=所缺少的差值
+           map.put(nums[i], i); // 1. KEY: CACHE: 將掃過的數值存入快取, 利用HashMap的 Time-Complexity 優勢
        }
 
        return res;

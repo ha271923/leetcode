@@ -41,11 +41,11 @@ public class TwoSum extends BaseClass {
 */
 
     //  Map
-    //  KEY | VALUE (because ANSWER required index, not value.)
+    //    KEY  | VALUE (because ANSWER required index, not value.)
     // --------------
-    // 差值A |  0
-    // 差值B |  1
-    // 差值C |  2
+    // 數值[0] |  0
+    // 數值[1] |  1
+    // 數值[2] |  2
 
     public int[] twoSum(int[] nums, int target) {
         Map<Integer, Integer> map = new HashMap<>();
