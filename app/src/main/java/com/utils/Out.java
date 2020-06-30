@@ -38,9 +38,11 @@ public class Out {
 
     public static void print_ListNode(ListNode nodes) {
         while(nodes!=null) {
-            System.out.println(nodes.val);
+            System.out.print(nodes.val);
+            System.out.print("->");
             nodes = nodes.next;
         }
-
+        System.out.print("null");
+        System.out.println("");
     }
 }
