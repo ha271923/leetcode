@@ -1,5 +1,7 @@
 package com.cspirat;
 
+import com.utils.Out;
+
 /**
  * Created by Edward on 25/07/2017.
  */
@@ -14,10 +16,12 @@ public class ListNode {
     }
 
     public static void show(ListNode nodes) {
+        Out.print_ListNode(nodes);
+        /*
         while(nodes!=null) {
             System.out.println(nodes.val);
             nodes = nodes.next;
         }
-
+        */
     }
 }
