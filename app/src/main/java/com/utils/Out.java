@@ -1,6 +1,7 @@
 package com.utils;
 
 import com.cspirat.ListNode;
+import com.cspirat.TreeNode;
 
 import java.util.List;
 
@@ -44,5 +45,18 @@ public class Out {
         }
         System.out.print("null");
         System.out.println("");
+    }
+    public static void print_ListTreeNode(List<TreeNode> nodesLists) {
+        for(TreeNode node: nodesLists) {
+            printTreeNodes(node);
+            System.out.print("\n");
+        }
+    }
+    public static void printTreeNodes(TreeNode node) {
+        if (node != null) {
+            System.out.print(node.val);
+            printTreeNodes(node.left);
+            printTreeNodes(node.right);
+        }
     }
 }
