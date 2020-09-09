@@ -59,4 +59,29 @@ public class Out {
             printTreeNodes(node.right);
         }
     }
+    static public void print2DArray(int[][] dp){
+        for (int y = 0; y < dp.length; y++) {
+            for (int x = 0; x < dp[y].length; x++) {
+                System.out.print(dp[y][x] + " ");
+            }
+            System.out.println();
+        }
+        // System.out.println(Arrays.deepToString(dp));
+    }
+    static public void print2DArray(boolean[][] dp){
+        for (int y = 0; y < dp.length; y++) {
+            for (int x = 0; x < dp[y].length; x++) {
+                System.out.print(dp[y][x] + " ");
+            }
+            System.out.println();
+        }
+        // System.out.println(Arrays.deepToString(dp));
+    }
+    static public void printArray(int[] dp){
+        for (int x = 0; x < dp.length; x++) {
+            System.out.print(dp[x] + " ");
+        }
+        System.out.println();
+        // System.out.println(Arrays.toString(dp));
+    }
 }
