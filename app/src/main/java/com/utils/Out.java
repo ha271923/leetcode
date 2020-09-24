@@ -54,7 +54,7 @@ public class Out {
     }
     public static void printTreeNodes(TreeNode node) {
         if (node != null) {
-            System.out.print(node.val);
+            System.out.print(node.val+",");
             printTreeNodes(node.left);
             printTreeNodes(node.right);
         }
