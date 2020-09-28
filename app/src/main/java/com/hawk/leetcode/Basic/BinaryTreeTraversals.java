@@ -4,6 +4,11 @@ import com.cspirat.TreeNode;
 import com.hawk.leetcode.Basic.data.Node;
 import com.utils.Out;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 public class BinaryTreeTraversals {
 /**
  * 理論上有四種輸出順序：
@@ -47,6 +52,30 @@ public class BinaryTreeTraversals {
 
         Out.i("\nPostorder traversal of binary tree is ");
         Out.printBTreeByPostorder(root);
+
+        Out.i("\nLevelorder traversal of binary tree is ");
+        levelOrder(root);
     }
 
+
+    public static List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        if (root == null) return result;
+        Queue<TreeNode> q = new LinkedList<TreeNode>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            List<Integer> list = new ArrayList<Integer>();
+            int qSize = q.size();
+            for (int i = 0; i < qSize; i++) {
+                TreeNode node = q.poll();
+                list.add(node.val);
+                // push child node into queue
+                if (node.left != null) q.offer(node.left);
+                if (node.right != null) q.offer(node.right);
+            }
+            result.add(new ArrayList<Integer>(list));
+        }
+        Out.println_ListList(result);
+        return result;
+    }
 }
