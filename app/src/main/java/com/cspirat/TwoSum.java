@@ -1,6 +1,7 @@
 package com.cspirat;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Edward on 23/07/2017.
@@ -60,11 +61,14 @@ public class TwoSum {
         // KEY: 原本需要兩個LOOPs=LOOP1+LOOP2=RESULT的演算法找出答案
        for (int i = 0; i < nums.length; i++) { // KEY: 現在利用LOOP1[i]算出答案, LOOP1[i+1]利用hashmap快速查找已記錄的答案
            // 2. i=i+1
-           if (map.containsKey(target - nums[i])) { // 3. SEARCH: 比對快取, 尋找是否有所缺少的差值 , KEY: 在已儲存的資料中查找
+           // TRUE == map.containsKey(V)
+           if (map.containsKey(target - nums[i])) { // KEY: 3. SEARCH ALL by contains: 比對快取, 尋找是否有所缺少的差值 , KEY: 在已儲存的資料中查找
+               // V = map.get(K)
                res[0] = map.get(target - nums[i]);  // 4. LOAD: 該差值的V就是index_1
                res[1] = i; // 4. LOAD: 當前的index就是index_2
                break;
            }
+           // map.put(K,V)
            map.put(nums[i], i); // 1. KEY: CACHE: 將掃過的數值存入快取, 利用HashMap的 Time-Complexity 優勢
        }
 
