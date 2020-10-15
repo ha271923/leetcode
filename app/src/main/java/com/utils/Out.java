@@ -17,7 +17,13 @@ public class Out {
         }
         System.out.println();
     }
-
+    static public void print_IntArray(String text, int[] input) {
+        System.out.print(text);
+        for (int x : input) {
+            System.out.print(x+",");
+        }
+        System.out.println();
+    }
     static public void print_List(List<Integer> input){
         for(Integer x: input) {
             System.out.print(x+",");

@@ -3,7 +3,15 @@ package com.hawk.leetcode.Basic.Sort;
 import com.utils.Out;
 
 import java.util.Random;
-
+/*
+時間複雜度(Time Complexity)
+  Best Case：Ο(n log n)
+    第一個基準值的位置剛好是中位數，將資料均分成二等份
+  Worst Case：Ο(n^2)　
+    當資料的順序恰好為由大到小或由小到大時
+    有分割跟沒分割一樣
+  Average Case：Ο(n log n)
+ */
 public class QuickSort {
     /**
      * C# version

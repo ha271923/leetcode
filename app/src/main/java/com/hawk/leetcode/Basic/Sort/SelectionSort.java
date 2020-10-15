@@ -1,5 +1,15 @@
 package com.hawk.leetcode.Basic.Sort;
-
+/*
+選擇排序作法：
+  將資料分成已排序、未排序兩部份
+  依序由未排序中找最小值(or 最大值)，加入到已排序部份的末端
+時間複雜度(Time Complexity):
+  Best Case：Ο(n^2)
+  Worst Case：Ο(n^2)
+  Average Case：Ο(n^2)
+  說明：
+  無論資料順序如何，都會執行兩個迴圈
+ */
 public class SelectionSort {
     // KEY: 簡單！ 每次將所有未排序過的n張牌, 全部掃一遍, 找到最小跟當前第1位互換, 重複(n-1)張牌, 直到全部數處理完
     public static void main(String[] args) {
