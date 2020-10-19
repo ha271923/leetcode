@@ -91,34 +91,4 @@ public class Out {
         // System.out.println(Arrays.toString(dp));
     }
 
-    // Given a binary tree, print its nodes in preorder
-    public static void printBTreeByPreorder(TreeNode node)
-    {
-        if (node == null)
-            return;
-        System.out.print(node.val + " "); // Pre-order 先印
-        printBTreeByPreorder(node.left);
-        printBTreeByPreorder(node.right);
-    }
-
-    // Given a binary tree, print its nodes in In-order
-    public static void printBTreeByInorder(TreeNode node)
-    {
-        if (node == null)
-            return;
-        printBTreeByInorder(node.left);
-        System.out.print(node.val + " "); // In-order 中印
-        printBTreeByInorder(node.right);
-    }
-
-    // Given a binary tree, print its nodes in Post-order
-    public static void printBTreeByPostorder(TreeNode node)
-    {
-        if (node == null)
-            return;
-        printBTreeByPostorder(node.left);
-        printBTreeByPostorder(node.right);
-        System.out.print(node.val + " "); // Post-order 後印
-    }
-
 }

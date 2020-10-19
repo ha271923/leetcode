@@ -45,18 +45,47 @@ public class BinaryTreeTraversals {
         root.left.right = new TreeNode(5);
 
         Out.i("Preorder traversal of binary tree is ");
-        Out.printBTreeByPreorder(root);
+        printBTreeBy_Preorder(root);
 
         Out.i("\nInorder traversal of binary tree is ");
-        Out.printBTreeByInorder(root);
+        printBTreeBy_Inorder(root);
 
         Out.i("\nPostorder traversal of binary tree is ");
-        Out.printBTreeByPostorder(root);
+        printBTreeBy_Postorder(root);
 
         Out.i("\nLevelorder traversal of binary tree is ");
         levelOrder(root);
     }
 
+    // Given a binary tree, print its nodes in preorder
+    public static void printBTreeBy_Preorder(TreeNode node)
+    {
+        if (node == null)
+            return;
+        System.out.print(node.val + " "); // Pre-order 先印
+        printBTreeBy_Preorder(node.left);
+        printBTreeBy_Preorder(node.right);
+    }
+
+    // Given a binary tree, print its nodes in In-order
+    public static void printBTreeBy_Inorder(TreeNode node)
+    {
+        if (node == null)
+            return;
+        printBTreeBy_Inorder(node.left);
+        System.out.print(node.val + " "); // In-order 中印
+        printBTreeBy_Inorder(node.right);
+    }
+
+    // Given a binary tree, print its nodes in Post-order
+    public static void printBTreeBy_Postorder(TreeNode node)
+    {
+        if (node == null)
+            return;
+        printBTreeBy_Postorder(node.left);
+        printBTreeBy_Postorder(node.right);
+        System.out.print(node.val + " "); // Post-order 後印
+    }
 
     public static List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> result = new ArrayList<List<Integer>>();
