@@ -5,7 +5,25 @@ import java.util.*;
 public class DFS_simple {
 
     public static void main(String[] args) {
-        new DFS_simple().test();
+        /**
+         *    0 ------> 1 <--
+         *    ^ \       |    \
+         *     \ \      |     \
+         *      \ \     |      \
+         *       \ \    V       \
+         *        \ \->(2) ----> 3
+         *         \----|
+         */
+            Graph g = new Graph(4);
+            g.addEdge(0, 1);
+            g.addEdge(0, 2);
+            g.addEdge(1, 2);
+            g.addEdge(2, 0);
+            g.addEdge(2, 3);
+            g.addEdge(3, 1);
+            int startVertex = 2;
+            System.out.println("DFS start from "+startVertex);
+            DFS(g, startVertex);
     }
 
     static void DFS(Graph graph, int vertex)
@@ -20,30 +38,5 @@ public class DFS_simple {
             if (!graph.visited[n])
                 DFS(graph, n); // KEY: 遞迴往下層鑽
         }
-    }
-
-    /**
-     *    0 ------> 1 <--
-     *    ^ \       |    \
-     *     \ \      |     \
-     *      \ \     |      \
-     *       \ \    V       \
-     *        \ \->(2) ----> 3
-     *         \----|
-     */
-
-    public Object test()
-    {
-        Graph g = new Graph(4);
-        g.addEdge(0, 1);
-        g.addEdge(0, 2);
-        g.addEdge(1, 2);
-        g.addEdge(2, 0);
-        g.addEdge(2, 3);
-        g.addEdge(3, 1);
-        int startVertex = 2;
-        System.out.println("DFS start from "+startVertex);
-        DFS(g, startVertex);
-        return null;
     }
 }

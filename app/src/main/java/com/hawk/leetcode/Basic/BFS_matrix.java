@@ -29,11 +29,54 @@ public class BFS_matrix {
     static ArrayList<Node> nodes=new ArrayList<Node>();
 
     public static void main(String[] args) {
-        test();
+        // create each node
+        Node node40 =new Node(40);
+        Node node10 =new Node(10);
+        Node node20 =new Node(20);
+        Node node30 =new Node(30);
+        Node node60 =new Node(60);
+        Node node50 =new Node(50);
+        Node node70 =new Node(70);
+        // add all nodes to ArrayList for finding neighbours by looping
+        nodes.add(node40);
+        nodes.add(node10);
+        nodes.add(node20);
+        nodes.add(node30);
+        nodes.add(node60);
+        nodes.add(node50);
+        nodes.add(node70);
+
+/**
+ *    adjacency Map: BFS與DFS是無方向性, 以任一Node起始, 朝四面八方走訪, 而非樹狀往下
+ *    40 ---> 20 ---> 50 ---> 70
+ *     |      /|\             ^
+ *     |     / | \            |
+ *     V    /  |  \           /
+ *    10 <--   |  --> 60 --->
+ *     |       |      ^
+ *     |       V      |
+ *     | ---> 30 ---> |
+ *
+ *     Ans: 40 > 10 > 20 > 30 > 60 > 50 > 70 >
+ * */
+        // describe the connections of all nodes by matrix[Y][X]
+        int adjacency_matrix[][] = {
+//                Matrix { 1=Nx connected Ny, 0=Nx not connect Ny }
+//                N0, N1, N2, N3, N4, N5, N6
+                {  0,  1,  1,  0,  0,  0,  0  }, // N0: 40
+                {  0,  0,  0,  1,  0,  0,  0  }, // N1 :10
+                {  0,  1,  0,  1,  1,  1,  0  }, // N2: 20
+                {  0,  0,  0,  0,  1,  0,  0  }, // N3: 30
+                {  0,  0,  0,  0,  0,  0,  1  }, // N4: 60
+                {  0,  0,  0,  0,  0,  0,  1  }, // N5: 50
+                {  0,  0,  0,  0,  0,  0,  0  }, // N6: 70
+        };
+        System.out.println("The BFS traversal of the graph is ");
+        BFS_matrix bfsExample2 = new BFS_matrix();
+        bfsExample2.bfs_ArrayList(adjacency_matrix, node40); // start node
     }
 
-    static class Node
-    {
+    static class Node {
         int data;
         boolean visited; // 針對Search, 所設計的flag, 以免重複走訪
 
@@ -88,58 +131,6 @@ public class BFS_matrix {
                 }
             }
         }
-    }
-
-    static public Object test()
-    {
-        // create each node
-        Node node40 =new Node(40);
-        Node node10 =new Node(10);
-        Node node20 =new Node(20);
-        Node node30 =new Node(30);
-        Node node60 =new Node(60);
-        Node node50 =new Node(50);
-        Node node70 =new Node(70);
-        // add all nodes to ArrayList for finding neighbours by looping
-        nodes.add(node40);
-        nodes.add(node10);
-        nodes.add(node20);
-        nodes.add(node30);
-        nodes.add(node60);
-        nodes.add(node50);
-        nodes.add(node70);
-
-/**
- *    adjacency Map: BFS與DFS是無方向性, 以任一Node起始, 朝四面八方走訪, 而非樹狀往下
- *    40 ---> 20 ---> 50 ---> 70
- *     |      /|\             ^
- *     |     / | \            |
- *     V    /  |  \           /
- *    10 <--   |  --> 60 --->
- *     |       |      ^
- *     |       V      |
- *     | ---> 30 ---> |
- *
- *     Ans: 40 > 10 > 20 > 30 > 60 > 50 > 70 >
- * */
-        // describe the connections of all nodes by matrix[Y][X]
-        int adjacency_matrix[][] = {
-//                Matrix { 1=Nx connected Ny, 0=Nx not connect Ny }
-//                N0, N1, N2, N3, N4, N5, N6
-                {  0,  1,  1,  0,  0,  0,  0  }, // N0: 40
-                {  0,  0,  0,  1,  0,  0,  0  }, // N1 :10
-                {  0,  1,  0,  1,  1,  1,  0  }, // N2: 20
-                {  0,  0,  0,  0,  1,  0,  0  }, // N3: 30
-                {  0,  0,  0,  0,  0,  0,  1  }, // N4: 60
-                {  0,  0,  0,  0,  0,  0,  1  }, // N5: 50
-                {  0,  0,  0,  0,  0,  0,  0  }, // N6: 70
-        };
-        System.out.println("The BFS traversal of the graph is ");
-        BFS_matrix bfsExample2 = new BFS_matrix();
-        bfsExample2.bfs_ArrayList(adjacency_matrix, node40); // start node
-
-        return null;
-
     }
 }
 

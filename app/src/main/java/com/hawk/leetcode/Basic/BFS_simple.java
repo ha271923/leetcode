@@ -5,7 +5,25 @@ import java.util.*;
 // BFS 的Node可能有2個以上的分岔, Binary Search Trees則是只有1~2分岔(左小右大)
 public class BFS_simple {
     public static void main(String[] args) {
-        new BFS_simple().test();
+    /**
+     *    0 ------> 1 <--
+     *    ^ \       |    \
+     *     \ \      |     \
+     *      \ \     |      \
+     *       \ \    V       \
+     *        \ \->(2) ----> 3
+     *         \----|
+     */
+        Graph g = new Graph(4);
+        g.addEdge(0, 1);
+        g.addEdge(0, 2);
+        g.addEdge(1, 2);
+        g.addEdge(2, 0);
+        g.addEdge(2, 3);
+        g.addEdge(3, 1);
+        int startVertex = 2;
+        System.out.println("BFS start from "+startVertex);
+        BFS(g, startVertex);
     }
 
     static void BFS(Graph graph, int vertex)
@@ -31,30 +49,5 @@ public class BFS_simple {
                 }
             }
         }
-    }
-
-    /**
-     *    0 ------> 1 <--
-     *    ^ \       |    \
-     *     \ \      |     \
-     *      \ \     |      \
-     *       \ \    V       \
-     *        \ \->(2) ----> 3
-     *         \----|
-     */
-
-    public Object test()
-    {
-        Graph g = new Graph(4);
-        g.addEdge(0, 1);
-        g.addEdge(0, 2);
-        g.addEdge(1, 2);
-        g.addEdge(2, 0);
-        g.addEdge(2, 3);
-        g.addEdge(3, 1);
-        int startVertex = 2;
-        System.out.println("BFS start from "+startVertex);
-        BFS(g, startVertex);
-        return null;
     }
 }

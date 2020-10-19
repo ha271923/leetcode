@@ -52,13 +52,21 @@ import java.util.Stack;
 public class DFS extends BaseClass {
 
     public static void main(String[] args) {
-        DFS dfs = new DFS();
-        dfs.test();
+        System.out.println("The DFS traversal of the graph using stack ");
+        dfs_stack(Nodes.nodes.get(3)); // start node
+        System.out.println(); // Ans1: 40 > 20 > 50 > 70 > 60 > 30 > 10 >
+
+        Nodes.clearVistedFlag();
+
+        System.out.println("The DFS traversal of the graph using recursion ");
+        dfs_recursive(Nodes.nodes.get(3)); // start node
+        System.out.println(); // Ans2: 40 > 10 > 30 > 60 > 70 > 20 > 50 >
+
     }
 
     // Tips1: 全節點探索一次
     // Tips2: 因為Node在connect時, 便是以List資料結構串接, 所以只要一層一層遞迴即可
-    public String dfs_recursive(Node node) {
+    static public String dfs_recursive(Node node) {
         String out = "";
         out = node.data + " > ";
         System.out.print(node.data + " > ");
@@ -74,7 +82,7 @@ public class DFS extends BaseClass {
     }
 
     // Iterative DFS using stack
-    public String dfs_stack(Node startNode) {
+    static public String dfs_stack(Node startNode) {
         String out = "";
         Stack<Node> stack = new Stack<Node>();
         stack.push(startNode);
@@ -95,18 +103,4 @@ public class DFS extends BaseClass {
         return out;
     }
 
-    public Object test() {
-        DFS dfsExample = new DFS();
-
-        System.out.println("The DFS traversal of the graph using stack ");
-        dfsExample.dfs_stack(Nodes.nodes.get(3)); // start node
-        System.out.println(); // Ans1: 40 > 20 > 50 > 70 > 60 > 30 > 10 >
-
-        Nodes.clearVistedFlag();
-
-        System.out.println("The DFS traversal of the graph using recursion ");
-        dfsExample.dfs_recursive(Nodes.nodes.get(3)); // start node
-        System.out.println(); // Ans2: 40 > 10 > 30 > 60 > 70 > 20 > 50 >
-        return null;
-    }
 }
