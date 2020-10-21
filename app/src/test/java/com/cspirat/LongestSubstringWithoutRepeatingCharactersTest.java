@@ -18,7 +18,7 @@ public class LongestSubstringWithoutRepeatingCharactersTest {
     @Test(dataProvider = "examples")
     public void testExamples(String s) {
         LongestSubstringWithoutRepeatingCharacters m = new LongestSubstringWithoutRepeatingCharacters();
-        int res = m.lengthOfLongestSubstring(s);
+        // int res = m.lengthOfLongestSubstring(s);
 
     }
 }
