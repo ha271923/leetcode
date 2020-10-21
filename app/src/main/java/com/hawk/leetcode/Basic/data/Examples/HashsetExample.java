@@ -8,6 +8,7 @@ class HashsetExample{
         hashSet=new HashSet(); // creating hashSet
         hashSet.add("Rachit"); // adding elements
         hashSet.add("Amit");
+        hashSet.add("Amit"); // Set 不會有重複
         hashSet.add("jack");
         Iterator itr;
         itr=hashSet.iterator();
