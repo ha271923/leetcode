@@ -1,5 +1,7 @@
 package com.cspirat;
 
+import com.utils.Out;
+
 /**
  * Project Name : Leetcode
  * Package Name : leetcode
@@ -19,12 +21,9 @@ public class AddTwoNumbers {
         ListNode m2 = new ListNode(6);
         ListNode m3 = new ListNode(4);
         m1.next = m2; m2.next = m3;
-
-        ListNode res = addTwoNumbers(n1,m1);
-        // ListNode res = addTwoNumbers_Hawk(n1,m1);
-
-
-        System.out.println("res= "+res.val+res.next.val+res.next.next.val);
+        ListNode res;
+        res = addTwoNumbers(n1,m1);
+        Out.print_ListNode(res);
     }
 
     /**
@@ -41,9 +40,8 @@ public class AddTwoNumbers {
      * @return
      */
     /**
-     *  Tips1: !! 注意題目Input/Output順序 !!
      *  Input: (個 -> 十 -> 百)  +  (個 -> 十 -> 百)
-     *  Output: (百 -> 十 -> 個)
+     *  Output: (個 -> 十 -> 百)
      * */
     static public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode head = new ListNode(0);
