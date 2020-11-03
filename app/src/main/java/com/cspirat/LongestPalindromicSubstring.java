@@ -1,5 +1,7 @@
 package com.cspirat;
 
+import com.utils.Out;
+
 /**
  * Project Name : Leetcode
  * Package Name : leetcode
@@ -31,25 +33,23 @@ public class LongestPalindromicSubstring {
      * @param s
      * @return
      */
+    // Program to create a generic array in Java
+    public static void main(String[] args)
+    {
+        // Sliding Window( No loop back )
+        //     >>>>>>>>>[    ]----
+        String strTest = "babad";
+        System.out.println(longestPalindrome(strTest));
+        // test algor2
+        System.out.println(longestPalindrome2(strTest));
+    }
 
-    /**
-     * 在運用邏輯運算子進行相關的操作，就不得不說“短路”現象。程式碼如下：
-     *
-     * if(1==1 && 1==2 && 1==3){  }
-     *
-     * 程式碼從左至右執行，
-     * 執行第一個邏輯表示式後：true && 1==2 && 1==3
-     * 執行第二個邏輯表示式後：true && false && 1==3
-     * 因為其中有一個表示式的值是false，可以判定整個表示式的值是false，就沒有必要執行第三個表示式了，
-     * 所以java虛擬機器不執行1==3程式碼，就好像被短路掉了。
-     *
-     * 邏輯或也存在“短路”現象，當執行到有一個表示式的值為true時，整個表示式的值就為true，後面的程式碼就不執行了。
-     * “短路”現象在多重判斷和邏輯處理中非常有用。
-     *
-     */
     // time : O(n^2) space : O(n^2);
+    // 1. 找出字串中的迴文
+    // 2. 找出所有迴文中最長的那一段迴文
     static public String longestPalindrome(String s) {
-        if (s == null || s.length() == 0) return s;
+        if (s == null || s.length() == 0)
+            return s;
         String res = "";
         // 用2-D DP是因為, abc不是, abcb是, abcba是, 就算之前FALSE, 本來不是的字, 再增加一個字後, 有可能變成TRUE ,
         // 解palindromic問題, 每增加一字重頭掃描之前掃過的一切是必須的
@@ -63,43 +63,55 @@ public class LongestPalindromicSubstring {
         // 012    R=2, L=0~2   bab=T --> 3
         // 0123   R=3, L=0~3  baba=F
         // 01234  R=4, L=0~4 babad=F
-        for (int right = 0; right < s.length(); right++) { // 右邊界：設定右邊界=right
-            for (int left = 0; left <= right; left++) {    // 向右推進：向右推進的left因為要與right進行比較, 所以放在第2層回圈
-                System.out.println("L="+left+" , R="+right +" ,  subString="+ s.substring(left,right+1));
-                /**
-                 *          R =[0][j] [0][1] [0][2] [0][3] [0][4]
-                 * L=dp[i][0] |  T   |  ?   |  ?   |  ?   |  ?   |
-                 *     [1][0] |  ?   |  ?   |  ?   |  ?   |  ?   |
-                 *     [2][0] |  ?   |  ?   |  ?   |  ?   |  ?   |
-                 *     [3][0] |  ?   |  ?   |  ?   |  ?   |  ?   |
-                 *     [4][0] |  ?   |  ?   |  ?   |  ?   |  ?   |
-                 * L的遞增,代表sliding Window的往右 推進
-                 * R的遞增,代表sliding Window的   右邊界
+        // KEY: 注意!均是L++與R++, 而非L++與R--, 因為題目要求的是找出字串中的最長迴文, 而非字串整個是否為迴文
+        //  L(移動)    R(固定)
+        //  |++>       |++>
+        for (int R = 0; R < s.length(); R++) { // LOOP1: 右邊界：設定右邊界=right
+            for (int L = 0; L <= R; L++) {    // LOOP2: 左往右推進：由左向右推進的left因為要與right進行比較, 所以放在第2層回圈
+                System.out.println("L="+L+" , R="+R +" ,  subString="+ s.substring(L,R+1));
+                /**                 b      a      d      a      d
+                 *            R =[0][j] [0][1] [0][2] [0][3] [0][4]
+                 * L=dp[i][0]=b |  T   |  F   |  T   |  F   |  F   |
+                 *     [1][0]=a |  F   |  T   |  F   |  T   |  F   |
+                 *     [2][0]=d |  F   |  F   |  T   |  F   |  F   |
+                 *     [3][0]=a |  F   |  F   |  F   |  T   |  F   |
+                 *     [4][0]=d |  F   |  F   |  F   |  F   |  T   |
+                 * 先設定R, 因為 L <= R
+                 * R的遞增,代表sliding Window的右邊界, 慢慢擴大
+                 * L的遞增,代表sliding Window的往右, 慢慢推進
                  */
                 // 什麼是Palindrome? 要如何確認?
-                dp[left][right] =
-                                  // KEY: 下述方程式難以理解?????
-                                  s.charAt(left) ==  s.charAt(right)  // boolean A1 = 最前字元 需等同 最後字元 , {a,aa,aba,a?????a}
-                                                 &&                   // boolean dp[][] = A3 = A1 && A2
-                                  ((right - left <= 2) || dp[left + 1][right - 1]); // boolean A2 = ((3字以內必為true,因A1已經比對a,aa) || 上一次的值 = {可觀察兩次for的遞增規律=(left+1,right-1)} = dp[Y][X]
+                //     0 1 2 3 4
+                // (A)  L,R       --> L==R==1                --> 總數量為奇數時, 當LR 重疊時               --> (L+2 >= R)
+                // (B)   L R      --> L=1 , R=2 --> L+1 == R --> 總數量為偶數時, 當LR 各站一邊             --> (L+2 >= R)
+                // (C)   L   R    --> L=1 , R=3 --> L+2 == R --> 總數量為奇數時, 當LR 各站一邊, 中間還有一筆 --> (L+2 >= R)
+                // (D)   L     R  --> L=1 , R=4 --> L+3 == R -x> 總數量為偶數時, 當LR 各站一邊, 中間還有二筆 --> 不符合
+                 dp[L][R] = // 當下是否為迴文? 注意此處設計是R先固定,L陸續掃描, 因為是要找整個字串中, 最長的一段迴文
+                   // KEY: 邏輯“短路”現象以免OutOfBoundary
+                   (s.charAt(L) ==  s.charAt(R))       // boolean A1 = L字元 需等同 R字元 ,ex: {a,aa,aba,a?????a}
+                                  &&                   //           並且
+                   ((L+2 >= R) || dp[L + 1][R - 1]); // boolean A2 = (LR相近時,無法內縮取得上次的結果,直接比字元 || 上一次比對的結果 =
+                //    LR相近    ||   [L+1] ->|內縮|<- [R-1] ==上一次
+
                 /*
 
                 // 測試邏輯小程式
                 char a= 'a',b='a', c='c';
-                boolean dp[left][right] =
-                        a == b   // boolean A1
-                          &&     // boolean dp[][] = A3 = A1 && A2
-                        true == true; // boolean A2 =
+                boolean dp[L][R] =
+                        ((a == b)   // boolean A1
+                           &&       // boolean dp[][] = A3 = A1 && A2
+                        (true || true)); // boolean A2 =
                 System.out.println(o);
                  */
-                if (dp[left][right]) {
-                    if (right - left + 1 > max) {
-                        max = right - left + 1;
-                        res = s.substring(left, right + 1);
+                if (dp[L][R]) {
+                    if (R - L + 1 > max) {
+                        max = R - L + 1;
+                        res = s.substring(L, R + 1);
                     }
                 }
             }
         }
+        Out.print2DArray(dp);
         return res;
     }
 ///////////////////////////////////////////////////////
@@ -123,18 +135,5 @@ public class LongestPalindromicSubstring {
         if (cur.length() > res.length()) {
             res = cur;
         }
-    }
-
-    // Program to create a generic array in Java
-    public static void main(String[] args)
-    {
-        // Sliding Window( No loop back )
-        //     >>>>>>>>>[    ]----
-        String strTest = "babad";
-        System.out.println(LongestPalindromicSubstring
-                .longestPalindrome(strTest));
-        // test algor2
-        System.out.println(LongestPalindromicSubstring
-                .longestPalindrome2(strTest));
     }
 }
