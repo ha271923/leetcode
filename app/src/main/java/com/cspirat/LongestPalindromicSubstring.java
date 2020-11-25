@@ -36,12 +36,11 @@ public class LongestPalindromicSubstring {
     // Program to create a generic array in Java
     public static void main(String[] args)
     {
-        // Sliding Window( No loop back )
-        //     >>>>>>>>>[    ]----
-        String strTest = "babad";
-        System.out.println(longestPalindrome(strTest));
+        String strTest = "ba";
+        Out.i("Input=" + strTest);
+        Out.i(longestPalindrome(strTest));
         // test algor2
-        System.out.println(longestPalindrome2(strTest));
+        // System.out.println(longestPalindrome2(strTest));
     }
 
     // time : O(n^2) space : O(n^2);
@@ -58,6 +57,7 @@ public class LongestPalindromicSubstring {
         // 01234
         // >L R.
         // babad
+        // 每次輸入的檢驗字串不是比對"字串相同", 而是比對是否符合迴文
         // 0      R=0, L=0       b=T --> 1
         // 01     R=1, L=0~1    ba=F
         // 012    R=2, L=0~2   bab=T --> 3
@@ -67,42 +67,46 @@ public class LongestPalindromicSubstring {
         //  L(移動)    R(固定)
         //  |++>       |++>
         for (int R = 0; R < s.length(); R++) { // LOOP1: 右邊界：設定右邊界=right
-            for (int L = 0; L <= R; L++) {    // LOOP2: 左往右推進：由左向右推進的left因為要與right進行比較, 所以放在第2層回圈
-                System.out.println("L="+L+" , R="+R +" ,  subString="+ s.substring(L,R+1));
-                /**                 b      a      d      a      d
+            for (int L = 0; L <= R; L++) {     // LOOP2: 左往右推進：由左向右推進的left因為要與right進行比較, 所以放在第2層回圈
+                /** KEY: 先用筆把DP[][] table, 全填出來, 再想程式要怎麼寫, 才能同表上的結果
+                 *       只要有一個字元相同, 那就一定是迴文, 只是迴文len=1, 所以標示為True
+                 *       要做到兩個字元以上的迴文處理, 那就要DP才能參考上次的紀錄,
+                 *       要看上個的迴文比對結果, 而非字元是否相同, 所以是有限定方向的, 也就是[L+1][R-1]的內縮限定方向
+                 *       內縮到(L+1 >= R)時, 代表沒有辦法再內縮查上次的DP紀錄, 所以只要字元相同即可
+                 *
+                 *                     X= 慢慢增加數量的迴文輸入字串
+                 *                  b      a      b      a      d (欲比對字串)
                  *            R =[0][j] [0][1] [0][2] [0][3] [0][4]
-                 * L=dp[i][0]=b |  T   |  F   |  T   |  F   |  F   |
-                 *     [1][0]=a |  F   |  T   |  F   |  T   |  F   |
-                 *     [2][0]=d |  F   |  F   |  T   |  F   |  F   |
-                 *     [3][0]=a |  F   |  F   |  F   |  T   |  F   |
-                 *     [4][0]=d |  F   |  F   |  F   |  F   |  T   |
+                 * L=dp[i][0]=b |  T   |  F   |  T   |  F   |  F   |  全R 跟L的 b 比對
+                 *     [1][0]=a |      |  T   |  F   |  T   |  F   |  全R 跟L的 ba 比對
+                 *     [2][0]=b |      |      |  T   |  F   |  F   |  全R 跟L的 bab 比對
+                 *     [3][0]=a |      |      |      |  T   |  F   |  全R 跟L的 baba 比對
+                 *     [4][0]=d |      |      |      |      |  T   |  全R 跟L的 babad 比對
+                 * 挑L(L<=R) 跟R的  b比   ba比   bab比  baba比 babad比(所挑出的字元,並offset欲比對字串的起始點)
+                 *     Y列舉字元從 X迴文輸入字串內 選取一定字數範圍 , 因為兩字重疊性, 所以DP二維
                  * 先設定R, 因為 L <= R
-                 * R的遞增,代表sliding Window的右邊界, 慢慢擴大
-                 * L的遞增,代表sliding Window的往右, 慢慢推進
                  */
-                // 什麼是Palindrome? 要如何確認?
-                //     0 1 2 3 4
-                // (A)  L,R       --> L==R==1                --> 總數量為奇數時, 當LR 重疊時               --> (L+1 >= R)
-                // (B)   L R      --> L=1 , R=2 --> L+1 == R --> 總數量為偶數時, 當LR 各站一邊             --> (L+1 >= R)
-                // (C)   L   R    --> L=1 , R=3 --> L+2 == R --> 總數量為奇數時, 當LR 各站一邊, 中間還有一筆 --> 情況(A)(B)即可應付, 所以L+1即可
-                // (D)   L     R  --> L=1 , R=4 --> L+3 == R -x> 總數量為偶數時, 當LR 各站一邊, 中間還有二筆 --> 不符合
+                // "aacabdkacaa" <- 這不是迴文歐
+                // 什麼是Palindrome? 要如何確認? 為何是 (L+1 >= R) , 受限於LOOP2條件的關係, L不可能大於R
                  dp[L][R] = // 當下是否為迴文? 注意此處設計是R先固定,L陸續掃描, 因為是要找整個字串中, 最長的一段迴文
                    // KEY: 邏輯“短路”現象以免OutOfBoundary
-                   (s.charAt(L) ==  s.charAt(R))       // boolean A1 = L字元 需等同 R字元 ,ex: {a,aa,aba,a?????a}
+                   (s.charAt(L) ==  s.charAt(R))       // L字元 需等同 R字元 ,ex: {a,aa,aba,a?????a}
                                   &&                   //           並且
-                   ((L+1 >= R) || dp[L + 1][R - 1]); // boolean A2 = (LR相近時,無法內縮取得上次的結果,直接比字元 || 上一次比對的結果 =
-                //    LR相近    ||   [L+1] ->|內縮|<- [R-1] ==上一次
-
-                /*
-
-                // 測試邏輯小程式
-                char a= 'a',b='a', c='c';
-                boolean dp[L][R] =
-                        ((a == b)   // boolean A1
-                           &&       // boolean dp[][] = A3 = A1 && A2
-                        (true || true)); // boolean A2 =
-                System.out.println(o);
-                 */
+                   ((L+1 >= R) || dp[L + 1][R - 1]);   // 死背KEY:(LR很接近時,無法內縮取得上次的結果,直接比字元 || LR不接近時, 因為題目要求的是最長迴文, 有連續性, 所以要上一次的結果(內縮[L+1][R-1])才知道是否為持續增加的迴文
+                // A. 缺少(L+1 >= R)時,遇輸入"babad",將誤判將誤判"babad"為迴文
+                // B. 缺少dp[L+1][R-1]時,遇輸入"cbbd",將誤判"cb"為迴文
+                // C. 缺少A&B時, 遇輸入"aacabdkacaa",將誤判aacabdkacaa"為迴文
+                // LR相距1字元內||上次[L+1] ->|內縮|<- [R-1] ==要上一次的值, 要用內縮去查, 因為每次都是外擴LR+1(Ex: babad, 取baba時, 非Palindrome, 取aba時, 是Palindrome)
+                // (L+1 >= R)  || 以下兩種情況才可能是dp[L+1][R-1]的LR數值情況
+                //                1. (L+1+n >= R)  LR相距2字元外, L小於R
+                //                2. (L+1 < R)     LR相距2字元外, L小於R
+                //       0 1 2 3 4
+                //   (A)  L,R       --> L==R==1                --> 迴文字數是奇數時, 當LR 重疊時,              --> (L+1 >= R)
+                //   (B)   L R      --> L=1 , R=2 --> L+1 == R --> 迴文字數是偶數時, 當LR 各站一邊,            --> (L+1 >= R)
+                //   (C)   L   R    --> L=1 , R=3 --> L+2 == R -x> 迴文字數是奇數時, 當LR 各站一邊, 中間還有一筆 --> 上述情況(A)(B)即足夠應付迴文字數為奇數或偶數時, 所以L+1即足夠, (C)(D)用不到
+                //   (D)   L     R  --> L=1 , R=4 --> L+3 == R -x> 迴文字數是偶數時, 當LR 各站一邊, 中間還有二筆 --> 不符合
+                Out.i("dp["+L+"]["+R +"]="+dp[L][R]+" ,  subString="+ s.substring(L,R+1));
+                // 只要是true代表他是迴文, 接著馬上計算長度, 並保留最長的長度
                 if (dp[L][R]) {
                     if (R - L + 1 > max) {
                         max = R - L + 1;
@@ -115,25 +119,27 @@ public class LongestPalindromicSubstring {
         return res;
     }
 ///////////////////////////////////////////////////////
-    static String res = "";
+    static String sResult = "";
     // time : O(n^2) space : O(1)
     static public String longestPalindrome2(String s) {
-        if (s == null || s.length() == 0) return s;
+        if (s == null || s.length() == 0)
+            return s;
         for (int i = 0; i < s.length(); i++) {
             helper(s, i, i);
             helper(s, i, i + 1);
         }
-        return res;
+        return sResult;
     }
 
-    static public void helper(String s, int left, int right) {
-        while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
-            left--;
-            right++;
+    static public void helper(String s, int L, int R) {
+        while (L >= 0 && R < s.length() &&
+               s.charAt(L) == s.charAt(R) ) { // 避免 OutOfBoundary
+            L--;
+            R++;
         }
-        String cur = s.substring(left + 1, right);
-        if (cur.length() > res.length()) {
-            res = cur;
+        String cur = s.substring(L + 1, R);
+        if (cur.length() > sResult.length()) {
+            sResult = cur;
         }
     }
 }
