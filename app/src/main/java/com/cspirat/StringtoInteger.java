@@ -1,5 +1,7 @@
 package com.cspirat;
 
+import com.utils.Out;
+
 /**
  * Project Name : Leetcode
  * Package Name : leetcode
@@ -9,6 +11,11 @@ package com.cspirat;
  * Description : 8. String to Integer (atoi)
  */
 public class StringtoInteger {
+    public static void main(String[] args) {
+        int res;
+        res = myAtoi_Hawk("-91283472332");
+        Out.i("res="+res);
+    }
     /**
      * time : O(n)
      * space : O(1)
@@ -33,7 +40,7 @@ public class StringtoInteger {
          Input: "-91283472332"
          Output: -2147483648
      */
-    public int myAtoi(String str) {
+    static public int myAtoi(String str) {
         if (str == null || str.length() == 0) return 0;
         str = str.trim(); // removed " " at front of str
         char firstChar = str.charAt(0);
@@ -58,4 +65,45 @@ public class StringtoInteger {
         }
         return (int) res * sign;
     }
+
+    static public int myAtoi_Hawk(String str) {
+        long temp = 0;
+        int res = 0;
+        int num = 0;
+        int len = str.length();
+        int sign = 1;
+        char ch;
+        int  chIdx = 0;
+        ch = str.charAt(0);
+        while ( ch == ' ' ) {
+            ch = str.charAt(chIdx);
+            chIdx++;
+        }
+
+        ch = str.charAt(chIdx);
+        if(ch == '-') // Bug: 符號為'+'也應該處理
+            sign = -1;
+        else if( ch <'0' || ch > '9' )
+            return res;
+
+        for (int i = 0; i < len ; i++) { // Bug: len不應包含所有字串
+            ch = str.charAt(i);
+
+            if(ch >= '0' && ch <='9') {
+                num = ch - '0';
+                temp= temp*10 + num;
+            }
+
+            if(temp > Integer.MAX_VALUE) // Bug: temp還沒乘以sign
+                return Integer.MAX_VALUE;
+            else if(temp < Integer.MIN_VALUE)
+                return Integer.MIN_VALUE;
+            else
+                ;
+        }
+        res = (int) temp;
+        return res * sign;
+
+    }
+
 }
