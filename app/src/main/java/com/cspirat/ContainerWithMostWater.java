@@ -38,17 +38,4 @@ public class ContainerWithMostWater {
         return res;
     }
 
-    static public int maxArea_hawk(int[] height) {
-        int L = 0;
-        int R = height.length-1;
-        int area = 0, res = 0;
-        while(L < R) {
-            area = height[L]*height[R];  // ERROR: a stupid fail 疏忽疏忽疏忽!
-            res = Math.max(res, area);
-            if(height[L] > height[R])
-                R--;
-            else
-                L++;
-        }
-    }
 }
