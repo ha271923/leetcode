@@ -24,6 +24,14 @@ public class ThreeSumClosest {
      * @param target
      * @return
      */
+    public static void main(String[] args) {
+        int[] input = {-1, 2, 1, -4};
+        int target = 1;
+        System.out.println("threeSumClosest ");
+        int res = threeSumClosest(input, target);
+        System.out.println("res = " + res);
+    }
+
     // Tips1: 一定要3個數字相加
     // Tips2: two loop
     //  A:   for loop --- scanning num[i]
@@ -45,7 +53,7 @@ public class ThreeSumClosest {
             int R = nums.length - 1;
 
             while (L < R) {
-                int sum = nums[i] + nums[L] + nums[R];
+                int sum = nums[i] + nums[L] + nums[R]; // KEY: 直接算
                 if (sum > target)
                     R--;
                 else
@@ -59,11 +67,5 @@ public class ThreeSumClosest {
         return res;
     }
 
-    public static void main(String[] args) {
-        int[] input = {-1, 2, 1, -4};
-        int target = 1;
-        System.out.println("threeSumClosest ");
-        int res = threeSumClosest(input, target);
-        System.out.println("res = " + res);
-    }
+
 }
